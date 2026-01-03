@@ -1,12 +1,14 @@
 import Footer from "./components/Footer";
-import Login from "./components/login/Login";
 import NavbarPublic from "./components/public/NavbarPublic";
+import RagistrationUser from "./components/registration/RagistrationUser";
+import RegistrationCompany from "./components/registration/RegistrationCompany";
 
 const App = () => {
   return (
     <div>
       <NavbarPublic />
-      <Login />
+      {/* <RagistrationUser /> */}
+      <RegistrationCompany />
       <Footer />
     </div>
   );
