@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// 401 (Unauthorized) চেক করবে
+// 401 (Unauthorized)
 const baseQueryWithLogout = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 

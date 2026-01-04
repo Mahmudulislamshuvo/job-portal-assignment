@@ -4,6 +4,7 @@ import Login from "./components/public/login/Login";
 import PublicRoute from "./routes/PublicRoute";
 import RagistrationUser from "./components/registration/RagistrationUser";
 import Home from "./components/home/Home";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="register-company" element={<RegistrationCompany />} />
           <Route path="register" element={<RagistrationUser />} />
         </Route>
+        <Route element={<PrivateRoutes />}>{/*  */}</Route>
       </Routes>
     </div>
   );
