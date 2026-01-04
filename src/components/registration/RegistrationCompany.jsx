@@ -1,7 +1,7 @@
 import BenefitsEmployee from "./BenefitsEmployee";
 import FormComany from "./FormComany";
-import AccoutTypeButtons from "./AccoutTypeButtons";
 import TitleRegistration from "./TitleRegistration";
+import CompanyAccountTypeBtn from "./CompanyAccountTypeBtn";
 
 const RegistrationCompany = () => {
   return (
@@ -13,7 +13,7 @@ const RegistrationCompany = () => {
             des="Join leading companies in finding top talent"
           />
 
-          <AccoutTypeButtons />
+          <CompanyAccountTypeBtn />
 
           <FormComany />
 

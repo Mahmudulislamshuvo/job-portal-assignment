@@ -1,8 +1,8 @@
-import AccoutTypeButtons from "./AccoutTypeButtons";
 import AdditionalInfo from "./AdditionalInfo";
 import FeatureHighlight from "./FeatureHighlight";
 import FormUser from "./FormUser";
 import TitleRegistration from "./TitleRegistration";
+import UserAccountTypeBtn from "./UserAccountTypeBtn";
 
 const RagistrationUser = () => {
   return (
@@ -15,7 +15,7 @@ const RagistrationUser = () => {
             des="Join thousands of professionals finding their dream jobs"
           />
           {/* <!-- Account Type Toggle --> */}
-          <AccoutTypeButtons />
+          <UserAccountTypeBtn />
 
           {/* <!-- Registration Card --> */}
           <FormUser />
