@@ -5,13 +5,13 @@ import Footer from "../components/Footer";
 
 const PublicRoute = () => {
   return (
-    <>
+    <div className="bg-background text-foreground antialiased">
       <NavbarPublic />
       <div>
         <Outlet />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/public/login/Login";
 import PublicRoute from "./routes/PublicRoute";
 import RagistrationUser from "./components/registration/RagistrationUser";
+import Home from "./components/home/Home";
 
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<PublicRoute />}>
+        <Route element={<PublicRoute />}>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="register-company" element={<RegistrationCompany />} />
           <Route path="register" element={<RagistrationUser />} />
