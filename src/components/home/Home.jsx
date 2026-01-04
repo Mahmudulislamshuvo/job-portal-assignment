@@ -42,139 +42,71 @@ const Home = () => {
               </div>
 
               {/* <!-- Filters --> */}
-              <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-border">
-                <span class="text-sm font-medium text-muted-foreground mr-2">
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200">
+                {/* Label */}
+                <span className="text-sm font-medium text-slate-500 mr-2">
                   Filters:
                 </span>
 
-                {/* <!-- Job Type Dropdown --> */}
-                <div class="dropdown">
-                  <button
-                    class="btn btn-outline text-xs h-8 px-3 flex items-center"
-                    onclick="toggleDropdown('jobTypeDropdown')"
-                  >
+                {/* 1. Job Type Filter */}
+                <select
+                  className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled hidden>
                     Job Type
-                    <i data-lucide="chevron-down" class="ml-2 h-3 w-3"></i>
-                  </button>
-                  <div id="jobTypeDropdown" class="dropdown-content card p-2">
-                    <div class="space-y-1">
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Full-time</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Part-time</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Contract</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Internship</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                  </option>
+                  <option value="all">All Types</option>
+                  <option value="full-time">Full-time</option>
+                  <option value="part-time">Part-time</option>
+                  <option value="contract">Contract</option>
+                  <option value="internship">Internship</option>
+                </select>
 
-                {/* <!-- Experience Level Dropdown --> */}
-                <div class="dropdown">
-                  <button
-                    class="btn btn-outline text-xs h-8 px-3 flex items-center"
-                    onclick="toggleDropdown('experienceDropdown')"
-                  >
+                {/* 2. Experience Level Filter */}
+                <select
+                  className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled hidden>
                     Experience Level
-                    <i data-lucide="chevron-down" class="ml-2 h-3 w-3"></i>
-                  </button>
-                  <div
-                    id="experienceDropdown"
-                    class="dropdown-content card p-2"
-                  >
-                    <div class="space-y-1">
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Entry Level</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Mid Level</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Senior Level</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Lead/Principal</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                  </option>
+                  <option value="entry">Entry Level</option>
+                  <option value="mid">Mid Level</option>
+                  <option value="senior">Senior Level</option>
+                  <option value="lead">Lead/Principal</option>
+                </select>
 
-                {/* <!-- Salary Range Dropdown --> */}
-                <div class="dropdown">
-                  <button
-                    class="btn btn-outline text-xs h-8 px-3 flex items-center"
-                    onclick="toggleDropdown('salaryDropdown')"
-                  >
+                {/* 3. Salary Range Filter */}
+                <select
+                  className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled hidden>
                     Salary Range
-                    <i data-lucide="chevron-down" class="ml-2 h-3 w-3"></i>
-                  </button>
-                  <div id="salaryDropdown" class="dropdown-content card p-2">
-                    <div class="space-y-1">
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">$0 - $50k</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">$50k - $100k</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">$100k - $150k</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">$150k+</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                  </option>
+                  <option value="0-50k">$0 - $50k</option>
+                  <option value="50k-100k">$50k - $100k</option>
+                  <option value="100k-150k">$100k - $150k</option>
+                  <option value="150k+">$150k+</option>
+                </select>
 
-                {/* <!-- Skills Dropdown --> */}
-                <div class="dropdown">
-                  <button
-                    class="btn btn-outline text-xs h-8 px-3 flex items-center"
-                    onclick="toggleDropdown('skillsDropdown')"
-                  >
+                {/* 4. Skills Filter */}
+                <select
+                  className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 bg-white cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled hidden>
                     Skills
-                    <i data-lucide="chevron-down" class="ml-2 h-3 w-3"></i>
-                  </button>
-                  <div id="skillsDropdown" class="dropdown-content card p-2">
-                    <div class="space-y-1">
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">React</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Node.js</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">Python</span>
-                      </label>
-                      <label class="flex items-center gap-2 p-2 hover:bg-accent rounded cursor-pointer">
-                        <input type="checkbox" class="rounded border-input" />
-                        <span class="text-sm">TypeScript</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                  </option>
+                  <option value="react">React</option>
+                  <option value="node">Node.js</option>
+                  <option value="python">Python</option>
+                  <option value="typescript">TypeScript</option>
+                </select>
 
-                <button class="btn btn-ghost text-xs h-8 px-3 text-muted-foreground hover:text-foreground">
+                {/* Clear Button */}
+                <button className="px-3 py-2 text-sm text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors">
                   Clear All
                 </button>
               </div>
