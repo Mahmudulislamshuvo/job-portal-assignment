@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const UserAccountTypeBtn = () => {
   return (
     <>
@@ -8,13 +10,13 @@ const UserAccountTypeBtn = () => {
               <i data-lucide="user" className="h-4 w-4 mr-2"></i>
               Job Seeker
             </button>
-            <a
-              href="register-company.html"
+            <Link
+              to={"/register-company"}
               className="btn btn-ghost text-center"
             >
               <i data-lucide="building-2" className="h-4 w-4 mr-2"></i>
               Employer
-            </a>
+            </Link>
           </div>
         </div>
       </div>
