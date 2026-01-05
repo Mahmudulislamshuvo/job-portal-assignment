@@ -5,8 +5,8 @@ import SecurityNote from "./SecurityNote";
 const Login = () => {
   return (
     <>
-      <main class="container mx-auto px-4 py-8">
-        <div class="max-w-md mx-auto">
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto">
           {/* <!-- Page Title --> */}
           <PageTitle />
 

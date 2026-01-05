@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
-import NavbarPublic from "../components/public/NavbarPublic";
+import NavbarPublic from "../components/NavbarPublic";
 import AuthProvider from "../provider/AuthContext";
 
 const PrivateRoutes = () => {
   return (
     <div>
       <NavbarPublic />
-      <AuthProvider>
-        <Outlet />
-      </AuthProvider>
+      {/* <AuthProvider> */}
+      <Outlet />
+      {/* </AuthProvider> */}
       <Footer />
     </div>
   );

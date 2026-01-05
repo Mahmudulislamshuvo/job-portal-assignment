@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarPublic from "../components/public/NavbarPublic";
+import NavbarPublic from "../components/NavbarPublic";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 
