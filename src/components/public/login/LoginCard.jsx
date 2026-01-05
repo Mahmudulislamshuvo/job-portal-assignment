@@ -29,7 +29,7 @@ const LoginCard = () => {
         localStorage.setItem("Token", loginResponse.token);
         localStorage.setItem("user", JSON.stringify(loginResponse.data));
         setAuth(loginResponse);
-        navigate("/dashboard");
+        navigate("/");
       }
       console.log("Login Successful:", loginResponse);
     } catch (error) {
