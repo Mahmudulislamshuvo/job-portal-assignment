@@ -3,7 +3,7 @@ import NavbarPublic from "../components/NavbarPublic";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 
-const PublicRoute = () => {
+const PublicLayout = () => {
   return (
     <div className="bg-background text-foreground antialiased">
       <NavbarPublic />
@@ -15,4 +15,4 @@ const PublicRoute = () => {
   );
 };
 
-export default PublicRoute;
+export default PublicLayout;

@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import NavbarPublic from "../components/NavbarPublic";
-import AuthProvider from "../provider/AuthContext";
 
-const PrivateRoutes = () => {
+const PrivateLayout = () => {
   return (
     <div>
       <NavbarPublic />
@@ -15,4 +14,4 @@ const PrivateRoutes = () => {
   );
 };
 
-export default PrivateRoutes;
+export default PrivateLayout;

@@ -5,7 +5,6 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: (headers) => {
     const token = localStorage.getItem("Token");
     if (token) headers.set("authorization", `Bearer ${token}`);
-    console.log(token);
     return headers;
   },
 });
@@ -15,8 +14,6 @@ const baseQueryWithLogout = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    console.log("Token expired! Logging out...");
-
     localStorage.clear();
     window.location.href = "/login";
   }

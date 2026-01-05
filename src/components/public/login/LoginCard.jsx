@@ -1,13 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
 import { useLoginMutation } from "../../../features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../../context";
 
 const LoginCard = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { setAuth, auth } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
@@ -28,7 +26,7 @@ const LoginCard = () => {
       if (loginResponse?.success && loginResponse?.token) {
         localStorage.setItem("Token", loginResponse.token);
         localStorage.setItem("user", JSON.stringify(loginResponse.data));
-        setAuth(loginResponse);
+        // setAuth(loginResponse);
         navigate("/");
       }
       console.log("Login Successful:", loginResponse);
@@ -40,8 +38,6 @@ const LoginCard = () => {
       });
     }
   };
-
-  console.log("auth", auth);
 
   return (
     <>
