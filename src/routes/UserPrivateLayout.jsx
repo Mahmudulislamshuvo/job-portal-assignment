@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
-import NavbarPublic from "../components/NavbarPublic";
 import { useSelector } from "react-redux";
+import UserNavbar from "../components/navbar/UserNavbar";
 
 const UserPrivateLayout = () => {
   const { user } = useSelector((state) => state.auth);
@@ -15,7 +15,7 @@ const UserPrivateLayout = () => {
   }
   return (
     <div>
-      <NavbarPublic />
+      <UserNavbar />
       {/* <AuthProvider> */}
       <Outlet />
       {/* </AuthProvider> */}

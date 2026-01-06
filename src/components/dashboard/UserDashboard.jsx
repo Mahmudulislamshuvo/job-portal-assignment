@@ -1,10 +1,31 @@
-import { useSelector } from "react-redux";
+import DashboardTile from "./DashboardTile";
+import RecentAooliedJobs from "./RecentAooliedJobs";
+import RecomandedJobs from "./RecomandedJobs";
+import Sidebar from "./Sidebar";
 
 const UserDashboard = () => {
-  const { user } = useSelector((state) => state.auth);
-  console.log(user);
+  return (
+    <>
+      <main className="container mx-auto px-4 py-8">
+        {/* <!-- Welcome Section --> */}
+        <DashboardTile />
 
-  return <div>UserDashboard</div>;
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* <!-- Main Content Column --> */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* <!-- Recent Applications --> */}
+            <RecentAooliedJobs />
+
+            {/* <!-- Recommended Jobs --> */}
+            <RecomandedJobs />
+          </div>
+
+          {/* <!-- Sidebar Column --> */}
+          <Sidebar />
+        </div>
+      </main>
+    </>
+  );
 };
 
 export default UserDashboard;
