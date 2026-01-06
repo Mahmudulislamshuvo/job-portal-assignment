@@ -18,24 +18,52 @@ const LoginCard = () => {
   } = useForm();
 
   const handleLogin = async (data) => {
-    const loginData = { ...data, role: "USER" };
-
     try {
-      const loginResponse = await login(loginData).unwrap();
+      // 1️⃣ First try: USER
+      const userResponse = await login({
+        ...data,
+        role: "USER",
+      }).unwrap();
 
-      if (loginResponse?.success && loginResponse?.token) {
-        localStorage.setItem("Token", loginResponse.token);
-        localStorage.setItem("user", JSON.stringify(loginResponse.data));
-        // setAuth(loginResponse);
-        navigate("/");
+      // ✅ USER login success
+      if (
+        userResponse?.success === true ||
+        userResponse?.data?.role === "USER"
+      ) {
+        localStorage.setItem("token", userResponse?.data?.token);
+        localStorage.setItem("user", JSON.stringify(userResponse?.data));
+        return navigate("/user-dashboard");
       }
-      console.log("Login Successful:", loginResponse);
-    } catch (error) {
-      console.error(error);
-      setError("root", {
-        type: "manual",
-        message: error?.data?.message || "Login failed. Please try again.",
-      });
+    } catch (userError) {
+      console.warn("USER login failed, trying COMPANY...");
+
+      try {
+        // 2️⃣ Second try: COMPANY
+        const companyResponse = await login({
+          ...data,
+          role: "COMPANY",
+        }).unwrap();
+        // ✅ COMPANY login success
+        if (
+          companyResponse?.success === true ||
+          companyResponse?.data?.role === "COMPANY"
+        ) {
+          localStorage.setItem("token", companyResponse?.token);
+          localStorage.setItem("user", JSON.stringify(companyResponse?.data));
+          return navigate("/company-dashboard");
+        }
+      } catch (companyError) {
+        // 3️⃣ BOTH failed → real error
+        console.error("Both login attempts failed");
+
+        setError("root", {
+          type: "manual",
+          message:
+            companyError?.data?.message ||
+            userError?.data?.message ||
+            "Invalid credentials. Please try again.",
+        });
+      }
     }
   };
 
