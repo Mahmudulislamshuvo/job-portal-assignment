@@ -4,7 +4,7 @@ import RagistrationUser from "./components/registration/RagistrationUser";
 import Home from "./components/home/Home";
 import PublicLayout from "./routes/PublicLayout";
 import PrivateLayout from "./routes/PrivateLayout";
-import Login from "./components/public/login/UserLogin";
+import Login from "./components/public/login/Login";
 
 const App = () => {
   return (
