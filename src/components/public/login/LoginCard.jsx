@@ -3,11 +3,14 @@ import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
 import { useLoginMutation } from "../../../features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "../../../features/auth/authSlice";
 
 const LoginCard = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
 
   const {
@@ -30,8 +33,12 @@ const LoginCard = () => {
         userResponse?.success === true ||
         userResponse?.data?.role === "USER"
       ) {
-        localStorage.setItem("token", userResponse?.data?.token);
-        localStorage.setItem("user", JSON.stringify(userResponse?.data));
+        dispatch(
+          userLoggedIn({
+            token: userResponse?.token,
+            data: userResponse?.data,
+          })
+        );
         return navigate("/user-dashboard");
       }
     } catch (userError) {
@@ -48,8 +55,12 @@ const LoginCard = () => {
           companyResponse?.success === true ||
           companyResponse?.data?.role === "COMPANY"
         ) {
-          localStorage.setItem("token", companyResponse?.token);
-          localStorage.setItem("user", JSON.stringify(companyResponse?.data));
+          dispatch(
+            userLoggedIn({
+              token: companyResponse?.token,
+              data: companyResponse?.data,
+            })
+          );
           return navigate("/company-dashboard");
         }
       } catch (companyError) {
