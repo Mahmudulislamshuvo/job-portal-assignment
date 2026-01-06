@@ -24,7 +24,6 @@ const App = () => {
 
         <Route element={<PrivateLayout />}>
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/jobs" element={<Home />} />
         </Route>
       </Routes>
     </div>

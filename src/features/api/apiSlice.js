@@ -37,6 +37,20 @@ export const apiSlice = createApi({
       }),
     }),
 
+    GetAllJobs: builder.query({
+      query: (params) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+        );
+
+        return {
+          url: "/jobs",
+          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+        };
+      },
+    }),
+
     // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
     // updateProfile: builder.mutation({
     //   query: (data) => ({
@@ -49,4 +63,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useLoginMutation } = apiSlice;
+export const { useLoginMutation, useGetAllJobsQuery } = apiSlice;
