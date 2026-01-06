@@ -11,7 +11,6 @@ const SearchFilter = ({ setQuery }) => {
     skills: [],
   });
 
-  // Filter Options Configuration
   const filterOptions = [
     {
       key: "type",
@@ -32,7 +31,7 @@ const SearchFilter = ({ setQuery }) => {
     {
       key: "salary",
       label: "Salary Range",
-      options: ["0-50000", "50000-100000", "100000-150000", "150000+"],
+      options: ["$0-$50k", "$50k-$100k", "$100k-$150k", "$150k+"],
     },
     {
       key: "skills",
@@ -41,43 +40,31 @@ const SearchFilter = ({ setQuery }) => {
     },
   ];
 
-  // 1. Close dropdown when clicking outside
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
         setOpenDropdown(null);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // 4. Update parent query state whenever selectedFilters change
+  // Toggle selection of filter options
   const toggleOption = (key, value) => {
     setSelectedFilters((prev) => {
       const currentList = prev[key];
       const isSelected = currentList.includes(value);
-
-      if (isSelected) {
-        // Remove if already selected
-        return {
-          ...prev,
-          [key]: currentList.filter((item) => item !== value),
-        };
-      } else {
-        // Add if not selected
-        return {
-          ...prev,
-          [key]: [...currentList, value],
-        };
-      }
+      return {
+        ...prev,
+        [key]: isSelected
+          ? currentList.filter((item) => item !== value)
+          : [...currentList, value],
+      };
     });
   };
 
-  // 3. Clear all filters
   const clearAll = () => {
     setSelectedFilters({
       type: [],
@@ -87,11 +74,11 @@ const SearchFilter = ({ setQuery }) => {
     });
   };
 
-  // 4. Update parent query state whenever selectedFilters change
+  // Update query whenever selectedFilters change
   useEffect(() => {
     if (setQuery) {
-      let minSalary;
-      let maxSalary;
+      let minSalary = "";
+      let maxSalary = "";
 
       if (selectedFilters.salary.length > 0) {
         let calculatedMin = Infinity;
@@ -99,41 +86,31 @@ const SearchFilter = ({ setQuery }) => {
 
         selectedFilters.salary.forEach((range) => {
           let min, max;
-
-          // if range ends with "+", e.g., "150000+"
-          if (range.includes("+")) {
-            min = parseInt(range.replace("+", ""));
-            max = 10000000;
+          if (range === "$150k+") {
+            min = 150000;
+            max = 1000000;
           } else {
-            // if range is like "50000-100000", split by "-"
-            const parts = range.split("-");
-            min = parseInt(parts[0]);
-            max = parseInt(parts[1]);
+            const matches = range.match(/\$(\d+)k-\$(\d+)k/);
+            if (matches) {
+              min = parseInt(matches[1]) * 1000;
+              max = parseInt(matches[2]) * 1000;
+            }
           }
-
-          // If multiple options are selected, find the smallest min and largest max among them
           if (min < calculatedMin) calculatedMin = min;
           if (max > calculatedMax) calculatedMax = max;
         });
 
-        minSalary = calculatedMin;
-        maxSalary = calculatedMax;
+        minSalary = calculatedMin === Infinity ? "" : calculatedMin;
+        maxSalary = calculatedMax === -Infinity ? "" : calculatedMax;
       }
-
-      // Preparing parameters to send to the API
-      const apiParams = {
-        type: selectedFilters.type.join(","),
-        experienceLevel: selectedFilters.experienceLevel.join(","),
-        skills: selectedFilters.skills.join(","),
-
-        // Sending minSalary and maxSalary directly here
-        minSalary: minSalary,
-        maxSalary: maxSalary,
-      };
 
       setQuery((prev) => ({
         ...prev,
-        ...apiParams,
+        type: selectedFilters.type.join(","),
+        experienceLevel: selectedFilters.experienceLevel.join(","),
+        skills: selectedFilters.skills.join(","),
+        minSalary: minSalary,
+        maxSalary: maxSalary,
       }));
     }
   }, [selectedFilters, setQuery]);
@@ -143,7 +120,6 @@ const SearchFilter = ({ setQuery }) => {
       className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200"
       ref={filterRef}
     >
-      {/* Label */}
       <span className="text-sm font-medium text-slate-500 mr-2">Filters:</span>
 
       {filterOptions.map((filter) => {
@@ -152,7 +128,6 @@ const SearchFilter = ({ setQuery }) => {
 
         return (
           <div key={filter.key} className="relative">
-            {/* Dropdown Button */}
             <button
               onClick={() => setOpenDropdown(isOpen ? null : filter.key)}
               className={`px-3 py-2 border rounded-lg text-sm flex items-center gap-2 transition-all duration-200 ${
@@ -164,13 +139,11 @@ const SearchFilter = ({ setQuery }) => {
               }`}
             >
               {filter.label}
-              {/* Badge Counter */}
               {hasSelection && (
                 <span className="bg-white/20 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
                   {selectedFilters[filter.key].length}
                 </span>
               )}
-              {/* Arrow Icon */}
               <svg
                 className={`w-4 h-4 transition-transform ${
                   isOpen ? "rotate-180" : ""
@@ -188,7 +161,6 @@ const SearchFilter = ({ setQuery }) => {
               </svg>
             </button>
 
-            {/* Dropdown Content */}
             {isOpen && (
               <div className="absolute top-full mt-2 left-0 z-50 w-52 bg-white border border-slate-200 rounded-xl shadow-xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="max-h-60 overflow-y-auto custom-scrollbar space-y-0.5">
@@ -215,7 +187,6 @@ const SearchFilter = ({ setQuery }) => {
         );
       })}
 
-      {/* Clear Button */}
       <button
         onClick={clearAll}
         className="px-3 py-2 text-sm text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors ml-auto md:ml-0"
