@@ -32,7 +32,7 @@ const SearchFilter = ({ setQuery }) => {
     {
       key: "salary",
       label: "Salary Range",
-      options: ["$0-$50k", "$50k-$100k", "$100k-$150k", "$150k+"],
+      options: ["0-50000", "50000-100000", "100000-150000", "150000+"],
     },
     {
       key: "skills",
@@ -55,7 +55,7 @@ const SearchFilter = ({ setQuery }) => {
     };
   }, []);
 
-  // 2. Handle toggling a filter option (Multi-select logic)
+  // 4. Update parent query state whenever selectedFilters change
   const toggleOption = (key, value) => {
     setSelectedFilters((prev) => {
       const currentList = prev[key];
@@ -90,14 +90,51 @@ const SearchFilter = ({ setQuery }) => {
   // 4. Update parent query state whenever selectedFilters change
   useEffect(() => {
     if (setQuery) {
+      let minSalary;
+      let maxSalary;
+
+      if (selectedFilters.salary.length > 0) {
+        let calculatedMin = Infinity;
+        let calculatedMax = -Infinity;
+
+        selectedFilters.salary.forEach((range) => {
+          let min, max;
+
+          // if range ends with "+", e.g., "150000+"
+          if (range.includes("+")) {
+            min = parseInt(range.replace("+", ""));
+            max = 10000000;
+          } else {
+            // if range is like "50000-100000", split by "-"
+            const parts = range.split("-");
+            min = parseInt(parts[0]);
+            max = parseInt(parts[1]);
+          }
+
+          // If multiple options are selected, find the smallest min and largest max among them
+          if (min < calculatedMin) calculatedMin = min;
+          if (max > calculatedMax) calculatedMax = max;
+        });
+
+        minSalary = calculatedMin;
+        maxSalary = calculatedMax;
+      }
+
+      // Preparing parameters to send to the API
       const apiParams = {
         type: selectedFilters.type.join(","),
         experienceLevel: selectedFilters.experienceLevel.join(","),
         skills: selectedFilters.skills.join(","),
-        // Note: Salary string parsing logic would go here if needed
-        salary: selectedFilters.salary.join(","),
+
+        // Sending minSalary and maxSalary directly here
+        minSalary: minSalary,
+        maxSalary: maxSalary,
       };
-      setQuery((prev) => ({ ...prev, ...apiParams }));
+
+      setQuery((prev) => ({
+        ...prev,
+        ...apiParams,
+      }));
     }
   }, [selectedFilters, setQuery]);
 

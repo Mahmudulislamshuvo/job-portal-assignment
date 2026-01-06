@@ -23,7 +23,8 @@ const Home = () => {
 
   const { data, error, isLoading } = useGetAllJobsQuery(query);
 
-  console.log(query);
+  console.log("query", query);
+  console.log("data", data);
 
   return (
     <>
