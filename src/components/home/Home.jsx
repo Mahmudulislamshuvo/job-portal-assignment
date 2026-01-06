@@ -23,8 +23,6 @@ const Home = () => {
 
   const { data, error, isLoading } = useGetAllJobsQuery(query);
 
-  const [jobsData, setJobsData] = useState(data);
-
   console.log(query);
 
   return (
