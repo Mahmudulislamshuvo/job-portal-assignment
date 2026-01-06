@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { BiSearch } from "react-icons/bi";
 
 const SearchFilter = ({ setQuery }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -9,6 +10,7 @@ const SearchFilter = ({ setQuery }) => {
     experienceLevel: [],
     salary: [],
     skills: [],
+    search: "",
   });
 
   const filterOptions = [
@@ -71,6 +73,7 @@ const SearchFilter = ({ setQuery }) => {
       experienceLevel: [],
       salary: [],
       skills: [],
+      search: "",
     });
   };
 
@@ -111,89 +114,137 @@ const SearchFilter = ({ setQuery }) => {
         skills: selectedFilters.skills.join(","),
         minSalary: minSalary,
         maxSalary: maxSalary,
+        search: selectedFilters.search,
       }));
     }
   }, [selectedFilters, setQuery]);
 
+  console.log(selectedFilters);
+
   return (
-    <div
-      className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200"
-      ref={filterRef}
-    >
-      <span className="text-sm font-medium text-slate-500 mr-2">Filters:</span>
-
-      {filterOptions.map((filter) => {
-        const hasSelection = selectedFilters[filter.key].length > 0;
-        const isOpen = openDropdown === filter.key;
-
-        return (
-          <div key={filter.key} className="relative">
-            <button
-              onClick={() => setOpenDropdown(isOpen ? null : filter.key)}
-              className={`px-3 py-2 border rounded-lg text-sm flex items-center gap-2 transition-all duration-200 ${
-                hasSelection
-                  ? "bg-slate-900 text-white border-slate-900"
-                  : isOpen
-                  ? "border-slate-900 ring-2 ring-slate-100 bg-white text-slate-900"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
-              }`}
-            >
-              {filter.label}
-              {hasSelection && (
-                <span className="bg-white/20 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                  {selectedFilters[filter.key].length}
-                </span>
-              )}
-              <svg
-                className={`w-4 h-4 transition-transform ${
-                  isOpen ? "rotate-180" : ""
-                } ${hasSelection ? "text-white/70" : "text-slate-400"}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-
-            {isOpen && (
-              <div className="absolute top-full mt-2 left-0 z-50 w-52 bg-white border border-slate-200 rounded-xl shadow-xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="max-h-60 overflow-y-auto custom-scrollbar space-y-0.5">
-                  {filter.options.map((option) => (
-                    <label
-                      key={option}
-                      className="flex items-center gap-3 px-3 py-2 hover:bg-slate-50 rounded-lg cursor-pointer group transition-colors"
-                    >
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900 cursor-pointer transition-colors"
-                        checked={selectedFilters[filter.key].includes(option)}
-                        onChange={() => toggleOption(filter.key, option)}
-                      />
-                      <span className="text-sm text-slate-600 group-hover:text-slate-900 font-medium">
-                        {option}
-                      </span>
-                    </label>
-                  ))}
+    <>
+      <section class="mb-8">
+        <div class="card p-6">
+          <div class="space-y-4">
+            {/* Search */}
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1 ring ring-transparent focus-within:ring-primary rounded-md place-content-center transition-all">
+                <div className="relative">
+                  <i
+                    data-lucide="search"
+                    className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                  ></i>
+                  <input
+                    type="text"
+                    placeholder="Search jobs by title, skill..."
+                    className="input pl-10 w-full outline-none border-none"
+                    value={selectedFilters.search}
+                    onChange={(e) =>
+                      setSelectedFilters((prev) => ({
+                        ...prev,
+                        search: e.target.value,
+                      }))
+                    }
+                  />
                 </div>
               </div>
-            )}
-          </div>
-        );
-      })}
 
-      <button
-        onClick={clearAll}
-        className="px-3 py-2 text-sm text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors ml-auto md:ml-0"
-      >
-        Clear All
-      </button>
-    </div>
+              <button className="btn btn-primary flex gap-2">
+                <BiSearch className="h-4 w-4 mr-2" />
+                Search Jobs
+              </button>
+            </div>
+            {/* Filter */}
+            <div
+              className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200"
+              ref={filterRef}
+            >
+              <span className="text-sm font-medium text-slate-500 mr-2">
+                Filters:
+              </span>
+
+              {filterOptions.map((filter) => {
+                const hasSelection = selectedFilters[filter.key].length > 0;
+                const isOpen = openDropdown === filter.key;
+
+                return (
+                  <div key={filter.key} className="relative">
+                    <button
+                      onClick={() =>
+                        setOpenDropdown(isOpen ? null : filter.key)
+                      }
+                      className={`px-3 py-2 border rounded-lg text-sm flex items-center gap-2 transition-all duration-200 ${
+                        hasSelection
+                          ? "bg-slate-900 text-white border-slate-900"
+                          : isOpen
+                          ? "border-slate-900 ring-2 ring-slate-100 bg-white text-slate-900"
+                          : "border-slate-200 bg-white text-slate-600 hover:border-slate-300"
+                      }`}
+                    >
+                      {filter.label}
+                      {hasSelection && (
+                        <span className="bg-white/20 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                          {selectedFilters[filter.key].length}
+                        </span>
+                      )}
+                      <svg
+                        className={`w-4 h-4 transition-transform ${
+                          isOpen ? "rotate-180" : ""
+                        } ${hasSelection ? "text-white/70" : "text-slate-400"}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+
+                    {isOpen && (
+                      <div className="absolute top-full mt-2 left-0 z-50 w-52 bg-white border border-slate-200 rounded-xl shadow-xl p-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="max-h-60 overflow-y-auto custom-scrollbar space-y-0.5">
+                          {filter.options.map((option) => (
+                            <label
+                              key={option}
+                              className="flex items-center gap-3 px-3 py-2 hover:bg-slate-50 rounded-lg cursor-pointer group transition-colors"
+                            >
+                              <input
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900 cursor-pointer transition-colors"
+                                checked={selectedFilters[filter.key].includes(
+                                  option
+                                )}
+                                onChange={() =>
+                                  toggleOption(filter.key, option)
+                                }
+                              />
+                              <span className="text-sm text-slate-600 group-hover:text-slate-900 font-medium">
+                                {option}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+
+              <button
+                onClick={clearAll}
+                className="px-3 py-2 text-sm text-slate-500 hover:text-rose-500 hover:bg-rose-50 rounded-lg transition-colors ml-auto md:ml-0"
+              >
+                Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

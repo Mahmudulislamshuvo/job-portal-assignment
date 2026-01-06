@@ -23,9 +23,6 @@ const Home = () => {
 
   const { data, error, isLoading } = useGetAllJobsQuery(query);
 
-  console.log("query", query);
-  console.log("data", data);
-
   return (
     <>
       <main className="container mx-auto px-4 py-8">
@@ -33,23 +30,22 @@ const Home = () => {
         <TitleAndDes />
 
         {/* <!-- Search and Filters --> */}
-
         <SearchFilter query={query} setQuery={setQuery} />
 
         {/* <!-- Results Header --> */}
         <ResultHeader jobsData={data} />
 
         {/* <!-- Job Cards Grid --> */}
-        <JobCardGrid data={data} isLoading={isLoading} error={error} />
+        {error ? (
+          <ErrorGettingMore />
+        ) : !isLoading && data?.data?.length === 0 ? (
+          <NotFound />
+        ) : (
+          <JobCardGrid data={data} isLoading={isLoading} />
+        )}
 
-        {/* <!-- Load More / Pagination --> */}
-        <LoadMoreButton />
-
-        {/* <!-- Error State Example (Hidden by default, shown on error) --> */}
-        <ErrorGettingMore />
-
-        {/* <!-- Empty State Example (Hidden by default, shown when no results) --> */}
-        <NotFound />
+        {/* Load more button */}
+        <LoadMoreButton query={query} setQuery={setQuery} />
       </main>
     </>
   );
