@@ -119,8 +119,6 @@ const SearchFilter = ({ setQuery }) => {
     }
   }, [selectedFilters, setQuery]);
 
-  console.log(selectedFilters);
-
   return (
     <>
       <section class="mb-8">

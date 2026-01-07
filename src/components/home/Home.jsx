@@ -21,7 +21,10 @@ const Home = () => {
     sort: "",
   });
 
-  const { data, error, isLoading } = useGetAllJobsQuery(query);
+  const { data, error, isLoading, isFetching } = useGetAllJobsQuery(query);
+
+  const totalJobs = data?.count || 0;
+  const currentJobCount = data?.data?.length || 0;
 
   return (
     <>
@@ -33,7 +36,7 @@ const Home = () => {
         <SearchFilter query={query} setQuery={setQuery} />
 
         {/* <!-- Results Header --> */}
-        <ResultHeader jobsData={data} />
+        <ResultHeader totalJobs={totalJobs} />
 
         {/* <!-- Job Cards Grid --> */}
         {error ? (
@@ -45,7 +48,12 @@ const Home = () => {
         )}
 
         {/* Load more button */}
-        <LoadMoreButton query={query} setQuery={setQuery} />
+        <LoadMoreButton
+          setQuery={setQuery}
+          isFetching={isFetching}
+          totalJobs={totalJobs}
+          currentJobCount={currentJobCount}
+        />
       </main>
     </>
   );

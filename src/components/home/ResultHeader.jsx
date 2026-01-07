@@ -1,11 +1,11 @@
-const ResultHeader = () => {
+const ResultHeader = ({ totalJobs }) => {
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-semibold">Available Jobs</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            Showing 1,247 results
+            {totalJobs} job{totalJobs !== 1 ? "s" : ""} found
           </p>
         </div>
         <div className="flex items-center gap-2">
