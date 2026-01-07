@@ -7,6 +7,7 @@ import Login from "./components/public/login/Login";
 import UserDashboard from "./components/dashboard/UserDashboard";
 import Unauthorized from "./components/UnAthorized";
 import PublicLayout from "./routes/PublicLayout";
+import JobDetails from "./components/home/JobDetails/JobDetails";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register-company" element={<RegistrationCompany />} />
           <Route path="/register" element={<RagistrationUser />} />
+          <Route path="/job-details/:id" element={<JobDetails />} />
         </Route>
         {/* Public Routes end */}
         <Route path="/unauthorized" element={<Unauthorized />} />

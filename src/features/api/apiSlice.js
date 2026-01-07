@@ -38,7 +38,7 @@ export const apiSlice = createApi({
     }),
 
     GetAllJobs: builder.query({
-      query: (params) => {
+      query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
           Object.entries(params).filter(([_, v]) => v != null && v !== "")

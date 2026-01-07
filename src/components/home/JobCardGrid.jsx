@@ -1,6 +1,7 @@
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { getTimeFromNow } from "../../utils/getTimeFromNow";
 import JobCardSkeleton from "../skelitons/JobGridSkeliton";
+import { Link } from "react-router-dom";
 
 const JobCardGrid = ({ data, isLoading, error }) => {
   if (isLoading) {
@@ -102,12 +103,12 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    <a
-                      href="job-seeker/job-details.html"
+                    <Link
+                      to={`/job-details/${job.id}`}
                       className="btn btn-outline text-sm"
                     >
                       View Details
-                    </a>
+                    </Link>
                     <button className="btn btn-primary text-sm">
                       Apply Now
                     </button>
