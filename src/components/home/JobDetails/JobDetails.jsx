@@ -2,8 +2,31 @@ import { useParams } from "react-router-dom";
 import BreadCrumbStatic from "./BreadCrumbStatic";
 import { useGetAllJobsQuery } from "../../../features/api/apiSlice";
 import JobDetailsSkeleton from "../../skelitons/JobDetailsSkeliton";
-import { BiUnlink } from "react-icons/bi";
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
+import ApplyNow from "./ApplyNow";
+
+// Icons Imports
+import { BiUnlink, BiBuilding } from "react-icons/bi";
+import {
+  FiMapPin,
+  FiClock,
+  FiBookmark,
+  FiBriefcase,
+  FiDollarSign,
+  FiBarChart2,
+  FiCalendar,
+  FiUsers,
+  FiLinkedin,
+  FiTwitter,
+  FiFacebook,
+  FiLink,
+  FiFlag,
+  FiX,
+  FiUpload,
+  FiFileText,
+  FiTrash2,
+  FiSend,
+} from "react-icons/fi";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -30,7 +53,7 @@ const JobDetails = () => {
 
   return (
     <>
-      {/* <!-- Main Content --> */}
+      {/* */}
       <main className="container mx-auto px-4 py-8">
         {/* */}
         <BreadCrumbStatic />
@@ -64,18 +87,18 @@ const JobDetails = () => {
                         </span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
-                          <i data-lucide="map-pin" className="h-4 w-4"></i>
+                          <FiMapPin className="h-4 w-4" />
                           {job.location}
                         </span>
                         <span>•</span>
                         <span className="flex items-center gap-1">
-                          <i data-lucide="clock" className="h-4 w-4"></i>
-                          {/* Posted {getDaysAgo(job.createdAt)} */} time ago
+                          <FiClock className="h-4 w-4" />
+                          {getTimeFromNow(job.createdAt)}
                         </span>
                       </div>
                     </div>
                     <button className="btn-ghost p-2 shrink-0" title="Save job">
-                      <i data-lucide="bookmark" className="h-6 w-6"></i>
+                      <FiBookmark className="h-6 w-6" />
                     </button>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -94,11 +117,8 @@ const JobDetails = () => {
               <h2 className="text-xl font-semibold mb-4">Job Overview</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="briefcase"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiBriefcase className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -108,11 +128,8 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="map-pin"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiMapPin className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -124,11 +141,8 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="dollar-sign"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiDollarSign className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -140,11 +154,8 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="bar-chart"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiBarChart2 className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -154,11 +165,8 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="calendar"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiCalendar className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -172,11 +180,8 @@ const JobDetails = () => {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
-                    <i
-                      data-lucide="users"
-                      className="h-5 w-5 text-[hsl(var(--color-primary))]"
-                    ></i>
+                  <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
+                    <FiUsers className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
                     <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
@@ -240,51 +245,14 @@ const JobDetails = () => {
           {/* */}
           <div className="lg:col-span-1 space-y-6">
             {/* */}
-            <div className="card p-6 lg:sticky lg:top-24">
-              <div className="space-y-4">
-                <div className="text-center pb-4 border-b border-[hsl(var(--color-border))]">
-                  <p className="text-2xl font-bold text-[hsl(var(--color-primary))] mb-1">
-                    ${job.salaryMin} - ${job.salaryMax}
-                  </p>
-                  <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
-                    Per {job.salaryPeriod}
-                  </p>
-                </div>
-
-                <button
-                  className="btn btn-primary w-full text-base"
-                  // onClick={() => openApplyDialog()} -> ডায়ালগ হ্যান্ডলার পরে বসাবেন
-                >
-                  <i data-lucide="send" className="h-4 w-4 mr-2"></i>
-                  Apply Now
-                </button>
-
-                <div className="pt-4 border-t border-[hsl(var(--color-border))] space-y-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-[hsl(var(--color-muted-foreground))]">
-                      Applicants
-                    </span>
-                    <span className="font-medium">{job.applicants}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-[hsl(var(--color-muted-foreground))]">
-                      Posted
-                    </span>
-                    <span className="font-medium">
-                      {getTimeFromNow(job.createdAt)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ApplyNow job={job} />
 
             {/* */}
             <div className="card p-6">
               <h3 className="text-lg font-semibold mb-4">About Company</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="h-16 w-16 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
+                  <div className="h-16 w-16 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
                     {job.company?.logoUrl ? (
                       <img
                         src={job.company.logoUrl}
@@ -292,10 +260,7 @@ const JobDetails = () => {
                         className="h-full w-full object-contain p-2"
                       />
                     ) : (
-                      <i
-                        data-lucide="building-2"
-                        className="h-8 w-8 text-[hsl(var(--color-primary))]"
-                      ></i>
+                      <BiBuilding className="h-8 w-8 text-[hsl(var(--color-primary))]" />
                     )}
                   </div>
                   <div>
@@ -308,10 +273,7 @@ const JobDetails = () => {
 
                 <div className="space-y-2 pt-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <i
-                      data-lucide="map-pin"
-                      className="h-4 w-4 text-[hsl(var(--color-muted-foreground))]"
-                    ></i>
+                    <FiMapPin className="h-4 w-4 text-[hsl(var(--color-muted-foreground))]" />
                     <span className="text-[hsl(var(--color-muted-foreground))]">
                       {job.company?.location}
                     </span>
@@ -332,123 +294,118 @@ const JobDetails = () => {
                   className="btn btn-outline flex-1"
                   title="Share on LinkedIn"
                 >
-                  <i data-lucide="linkedin" className="h-4 w-4"></i>
+                  <FiLinkedin className="h-4 w-4" />
                 </button>
                 <button
                   className="btn btn-outline flex-1"
                   title="Share on Twitter"
                 >
-                  <i data-lucide="twitter" className="h-4 w-4"></i>
+                  <FiTwitter className="h-4 w-4" />
                 </button>
                 <button
                   className="btn btn-outline flex-1"
                   title="Share on Facebook"
                 >
-                  <i data-lucide="facebook" className="h-4 w-4"></i>
+                  <FiFacebook className="h-4 w-4" />
                 </button>
                 <button className="btn btn-outline flex-1" title="Copy link">
-                  <i data-lucide="link" className="h-4 w-4"></i>
+                  <FiLink className="h-4 w-4" />
                 </button>
               </div>
             </div>
 
             {/* */}
             <button className="w-full text-sm text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] flex items-center justify-center gap-2">
-              <i data-lucide="flag" className="h-4 w-4"></i>
+              <FiFlag className="h-4 w-4" />
               Report this job
             </button>
           </div>
         </div>
       </main>
 
-      {/* <!-- Apply Job Dialog --> */}
+      {/* */}
       <div
         id="applyDialog"
-        class="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center p-4"
+        className="hidden fixed inset-0 bg-black/50 z-50 items-center justify-center p-4"
       >
-        <div class="card max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-          <div class="p-6 space-y-6">
-            {/* <!-- Dialog Header --> */}
-            <div class="flex items-start justify-between">
+        <div className="card max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 space-y-6">
+            {/* */}
+            <div className="flex items-start justify-between">
               <div>
-                <h2 class="text-2xl font-semibold">Apply for Position</h2>
-                <p class="text-sm text-[hsl(var(--color-muted-foreground))] mt-1">
+                <h2 className="text-2xl font-semibold">Apply for Position</h2>
+                <p className="text-sm text-[hsl(var(--color-muted-foreground))] mt-1">
                   Complete the form below to submit your application
                 </p>
               </div>
-              <button onclick="closeApplyDialog()" class="btn-ghost p-2">
-                <i data-lucide="x" class="h-5 w-5"></i>
+              <button className="btn-ghost p-2">
+                <FiX className="h-5 w-5" />
               </button>
             </div>
 
-            {/* <!-- Resume Upload Section --> */}
-            <div class="space-y-3">
-              <label class="text-sm font-medium">
-                Resume <span class="text-red-500">*</span>
+            {/* */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium">
+                Resume <span className="text-red-500">*</span>
               </label>
 
-              {/* <!-- Upload Area (shown when no file) --> */}
+              {/* */}
               <div
                 id="uploadArea"
-                class="border-2 border-dashed border-[hsl(var(--color-border))] rounded-lg p-8 text-center hover:border-[hsl(var(--color-primary))] transition-colors cursor-pointer"
+                className="border-2 border-dashed border-[hsl(var(--color-border))] rounded-lg p-8 text-center hover:border-[hsl(var(--color-primary))] transition-colors cursor-pointer"
               >
                 <input
                   type="file"
                   id="resumeInput"
                   accept=".pdf"
-                  class="hidden"
-                  onchange="handleFileUpload(event)"
+                  className="hidden"
                 />
-                <div class="flex flex-col items-center gap-2">
-                  <div class="h-12 w-12 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center">
-                    <i
-                      data-lucide="upload"
-                      class="h-6 w-6 text-[hsl(var(--color-primary))]"
-                    ></i>
+                <div className="flex flex-col items-center gap-2">
+                  <div className="h-12 w-12 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center">
+                    <FiUpload className="h-6 w-6 text-[hsl(var(--color-primary))]" />
                   </div>
                   <div>
-                    <p class="text-sm font-medium">Click to upload resume</p>
-                    <p class="text-xs text-[hsl(var(--color-muted-foreground))] mt-1">
+                    <p className="text-sm font-medium">
+                      Click to upload resume
+                    </p>
+                    <p className="text-xs text-[hsl(var(--color-muted-foreground))] mt-1">
                       PDF file only (Max 5MB)
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* <!-- File Preview Area (shown when file uploaded) --> */}
+              {/* */}
               <div
                 id="filePreview"
-                class="hidden border border-[hsl(var(--color-border))] rounded-lg p-4"
+                className="hidden border border-[hsl(var(--color-border))] rounded-lg p-4"
               >
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center">
-                      <i
-                        data-lucide="file-text"
-                        class="h-5 w-5 text-[hsl(var(--color-primary))]"
-                      ></i>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center">
+                      <FiFileText className="h-5 w-5 text-[hsl(var(--color-primary))]" />
                     </div>
                     <div>
-                      <p id="fileName" class="text-sm font-medium"></p>
+                      <p id="fileName" className="text-sm font-medium"></p>
                       <p
                         id="fileSize"
-                        class="text-xs text-[hsl(var(--color-muted-foreground))]"
+                        className="text-xs text-[hsl(var(--color-muted-foreground))]"
                       ></p>
                     </div>
                   </div>
-                  <div class="flex gap-2">
+                  <div className="flex gap-2">
                     <button
-                      onclick="reuploadFile()"
-                      class="btn btn-outline text-xs h-8 px-3"
+                      // onClick="reuploadFile()"
+                      className="btn btn-outline text-xs h-8 px-3"
                     >
-                      <i data-lucide="upload" class="h-3 w-3 mr-1"></i>
+                      <FiUpload className="h-3 w-3 mr-1" />
                       Reupload
                     </button>
                     <button
-                      onclick="removeFile()"
-                      class="btn btn-outline text-xs h-8 px-3 text-red-600 hover:bg-red-50"
+                      // onClick="removeFile()"
+                      className="btn btn-outline text-xs h-8 px-3 text-red-600 hover:bg-red-50"
                     >
-                      <i data-lucide="trash-2" class="h-3 w-3 mr-1"></i>
+                      <FiTrash2 className="h-3 w-3 mr-1" />
                       Remove
                     </button>
                   </div>
@@ -456,9 +413,9 @@ const JobDetails = () => {
               </div>
             </div>
 
-            {/* <!-- Cover Message Section --> */}
-            <div class="space-y-3">
-              <label for="coverMessage" class="text-sm font-medium">
+            {/* */}
+            <div className="space-y-3">
+              <label htmlFor="coverMessage" className="text-sm font-medium">
                 Cover Message
                 <span class="text-[hsl(var(--color-muted-foreground))]">
                   (Optional)
@@ -467,27 +424,27 @@ const JobDetails = () => {
               <textarea
                 id="coverMessage"
                 rows="5"
-                class="input resize-none"
+                className="input resize-none"
                 placeholder="Write a brief message about why you're a great fit for this role..."
               ></textarea>
-              <p class="text-xs text-[hsl(var(--color-muted-foreground))]">
+              <p className="text-xs text-[hsl(var(--color-muted-foreground))]">
                 <span id="charCount">0</span>/500 characters
               </p>
             </div>
 
-            {/* <!-- Action Buttons --> */}
-            <div class="flex gap-3 pt-4 border-t border-[hsl(var(--color-border))]">
+            {/* */}
+            <div className="flex gap-3 pt-4 border-t border-[hsl(var(--color-border))]">
               <button
-                onclick="closeApplyDialog()"
-                class="btn btn-outline flex-1"
+                // onClick="closeApplyDialog()"
+                className="btn btn-outline flex-1"
               >
                 Cancel
               </button>
               <button
-                onclick="submitApplication()"
-                class="btn btn-primary flex-1"
+                // onClick="submitApplication()"
+                className="btn btn-primary flex-1"
               >
-                <i data-lucide="send" class="h-4 w-4 mr-2"></i>
+                <FiSend className="h-4 w-4 mr-2" />
                 Submit Application
               </button>
             </div>

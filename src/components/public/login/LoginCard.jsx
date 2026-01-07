@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
 import { useLoginMutation } from "../../../features/api/apiSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 
 const LoginCard = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
@@ -19,6 +19,8 @@ const LoginCard = () => {
     handleSubmit,
     setError,
   } = useForm();
+
+  const from = location.state?.from?.pathname;
 
   const handleLogin = async (data) => {
     try {
@@ -39,7 +41,11 @@ const LoginCard = () => {
             data: userResponse?.data,
           })
         );
-        return navigate("/user-dashboard");
+        if (from) {
+          return navigate(from, { replace: true });
+        } else {
+          return navigate("/user-dashboard");
+        }
       }
     } catch (userError) {
       console.warn("USER login failed, trying COMPANY...");
@@ -61,7 +67,11 @@ const LoginCard = () => {
               data: companyResponse?.data,
             })
           );
-          return navigate("/company-dashboard");
+          if (from) {
+            return navigate(from, { replace: true });
+          } else {
+            return navigate("/company-dashboard");
+          }
         }
       } catch (companyError) {
         // 3️⃣ BOTH failed → real error
