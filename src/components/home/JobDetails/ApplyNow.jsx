@@ -3,11 +3,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FiSend } from "react-icons/fi"; // 1. Import the icon
 
-const ApplyNow = ({ job }) => {
+const ApplyNow = ({ job, onOpenModal }) => {
   const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.auth);
-
-  console.log(user);
 
   const handleApply = () => {
     if (user?.role === "USER" && token) {
@@ -34,7 +32,7 @@ const ApplyNow = ({ job }) => {
           </div>
 
           <button
-            onClick={handleApply}
+            onClick={onOpenModal}
             className="btn btn-primary w-full text-base flex items-center justify-center"
           >
             {/* 2. Use the React Icon Component */}
