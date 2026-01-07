@@ -1,16 +1,16 @@
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { FiSend } from "react-icons/fi"; // 1. Import the icon
+import { useNavigate, useLocation } from "react-router-dom";
+import { FiSend } from "react-icons/fi";
 
 const ApplyNow = ({ job, onOpenModal }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, token } = useSelector((state) => state.auth);
 
   const handleApply = () => {
     if (user?.role === "USER" && token) {
-      console.log("User is logged in. Open Apply Dialog.");
-      // openApplyDialog();
+      onOpenModal();
     } else if (user?.role === "COMPANY" && token) {
       alert("Companies cannot apply for jobs.");
     } else {
@@ -32,10 +32,9 @@ const ApplyNow = ({ job, onOpenModal }) => {
           </div>
 
           <button
-            onClick={onOpenModal}
+            onClick={handleApply}
             className="btn btn-primary w-full text-base flex items-center justify-center"
           >
-            {/* 2. Use the React Icon Component */}
             <FiSend className="h-4 w-4 mr-2" />
             Apply Now
           </button>
