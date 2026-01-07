@@ -1,23 +1,7 @@
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
-import { useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
 import { FiSend } from "react-icons/fi";
 
-const ApplyNow = ({ job, onOpenModal }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { user, token } = useSelector((state) => state.auth);
-
-  const handleApply = () => {
-    if (user?.role === "USER" && token) {
-      onOpenModal();
-    } else if (user?.role === "COMPANY" && token) {
-      alert("Companies cannot apply for jobs.");
-    } else {
-      navigate("/login", { state: { from: location } });
-    }
-  };
-
+const ApplyNow = ({ job, handleApply }) => {
   return (
     <>
       <div className="card p-6 lg:sticky lg:top-24">

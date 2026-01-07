@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_API,
   prepareHeaders: (headers) => {
-    const token = localStorage.getItem("Token");
+    const token = localStorage.getItem("token");
     if (token) headers.set("authorization", `Bearer ${token}`);
     return headers;
   },
@@ -51,6 +51,20 @@ export const apiSlice = createApi({
       },
     }),
 
+    GetJobRecomendation: builder.query({
+      query: () => ({
+        url: "/jobs/recommendations",
+      }),
+    }),
+
+    JobApply: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/applications/jobs/${id}/apply`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
     // updateProfile: builder.mutation({
     //   query: (data) => ({
@@ -63,4 +77,9 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useLoginMutation, useGetAllJobsQuery } = apiSlice;
+export const {
+  useLoginMutation,
+  useGetAllJobsQuery,
+  useJobApplyMutation,
+  useGetJobRecomendationQuery,
+} = apiSlice;

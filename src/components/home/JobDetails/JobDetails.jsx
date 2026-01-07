@@ -1,6 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { useGetAllJobsQuery } from "../../../features/api/apiSlice";
+import {
+  useGetAllJobsQuery,
+  useJobApplyMutation,
+} from "../../../features/api/apiSlice";
 import JobDetailsSkeleton from "../../skelitons/JobDetailsSkeliton";
 import BreadCrumbStatic from "./BreadCrumbStatic";
 import JobHeader from "./JobHeader";
@@ -12,11 +15,17 @@ import CompanyInfo from "./CompanyInfo";
 import ShareJob from "./ShareJob";
 import ApplyModal from "./ApplyModal";
 import { FiFlag } from "react-icons/fi";
+import { useSelector } from "react-redux";
 
 const JobDetails = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetAllJobsQuery();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, token } = useSelector((state) => state.auth);
+  const [applyJob, { isLoading: isApplying, error: applyError }] =
+    useJobApplyMutation();
 
   const job = data?.data?.find((job) => job.id === id);
 
@@ -34,6 +43,37 @@ const JobDetails = () => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
+  // Check Auth and Open Modal
+  const handleCheckAuthAndOpenModal = () => {
+    if (user?.role === "USER") {
+      onOpenModal();
+    } else if (user?.role === "COMPANY" && token) {
+      alert("Companies cannot apply for jobs.");
+    } else {
+      navigate("/login", { state: { from: location } });
+    }
+  };
+
+  // Submit Application Handler //CHECKING PURPOSES ONLY
+  const handleSubmitApplication = async () => {
+    try {
+      const response = await applyJob({
+        id: id,
+        data: {
+          coverLetter: "I love my Job", // This should eventually come from the modal form state. IT WAS CHECKING PURPOSES ONLY
+        },
+      });
+
+      console.log(response);
+      if (response.data?.success) {
+        onCloseModal();
+        // You might want to show a success toast here
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <main className="container mx-auto px-4 py-8">
@@ -48,7 +88,7 @@ const JobDetails = () => {
           </div>
 
           <div className="lg:col-span-1 space-y-6">
-            <ApplyNow onOpenModal={onOpenModal} job={job} />
+            <ApplyNow job={job} handleApply={handleCheckAuthAndOpenModal} />
             <CompanyInfo company={job.company} category={job.category} />
             <ShareJob />
 
@@ -60,7 +100,12 @@ const JobDetails = () => {
         </div>
       </main>
 
-      <ApplyModal open={open} onClose={onCloseModal} />
+      <ApplyModal
+        open={open}
+        onClose={onCloseModal}
+        handleApply={handleSubmitApplication}
+        isApplying={isApplying}
+      />
     </>
   );
 };

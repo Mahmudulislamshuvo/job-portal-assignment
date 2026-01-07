@@ -2,7 +2,7 @@ import { FiX, FiUpload, FiFileText, FiTrash2, FiSend } from "react-icons/fi";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 
-const ApplyModal = ({ open, onClose }) => {
+const ApplyModal = ({ open, onClose, handleApply, isApplying }) => {
   return (
     <Modal
       open={open}
@@ -129,11 +129,12 @@ const ApplyModal = ({ open, onClose }) => {
               Cancel
             </button>
             <button
-              // onClick="submitApplication()"
+              onClick={handleApply}
+              disabled={isApplying}
               className="btn btn-primary flex-1"
             >
               <FiSend className="h-4 w-4 mr-2" />
-              Submit Application
+              {isApplying ? "Sending..." : "Submit Application"}
             </button>
           </div>
         </div>
