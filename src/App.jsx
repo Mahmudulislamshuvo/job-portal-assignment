@@ -1,6 +1,6 @@
-import RegistrationCompany from "./components/registration/RegistrationCompany";
+import RegistrationCompany from "./components/registration/Company/RegistrationCompany";
 import { Route, Routes } from "react-router-dom";
-import RagistrationUser from "./components/registration/RagistrationUser";
+import RagistrationUser from "./components/registration/User/RagistrationUser";
 import Home from "./components/home/Home";
 import PrivateLayout from "./routes/UserPrivateLayout";
 import Login from "./components/public/login/Login";
@@ -8,6 +8,8 @@ import UserDashboard from "./components/dashboard/UserDashboard";
 import Unauthorized from "./components/UnAthorized";
 import PublicLayout from "./routes/PublicLayout";
 import JobDetails from "./components/home/JobDetails/JobDetails";
+import UserProfile from "./components/home/UserProfile/UserProfile";
+import LoggedUserToDeshboard from "./routes/LoggedUserToDeshboard";
 
 const App = () => {
   return (
@@ -16,9 +18,11 @@ const App = () => {
         {/* Public Routes */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register-company" element={<RegistrationCompany />} />
-          <Route path="/register-user" element={<RagistrationUser />} />
+          <Route element={<LoggedUserToDeshboard />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register-company" element={<RegistrationCompany />} />
+            <Route path="/register-user" element={<RagistrationUser />} />
+          </Route>
           <Route path="/job-details/:id" element={<JobDetails />} />
         </Route>
         {/* Public Routes end */}
@@ -26,6 +30,7 @@ const App = () => {
 
         <Route element={<PrivateLayout />}>
           <Route path="/user-dashboard" element={<UserDashboard />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Route>
       </Routes>
     </div>

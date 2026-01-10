@@ -117,7 +117,7 @@ const Navbar = () => {
                 Don't have an account?
               </span>
               <Link
-                to="/register"
+                to="/register-user"
                 className="text-sm font-medium hover:underline"
               >
                 Sign Up
@@ -125,7 +125,7 @@ const Navbar = () => {
               {/* Login Button with style */}
               <Link
                 to="/login"
-                className="text-sm font-medium bg-[hsl(var(--color-primary))] text-white px-4 py-2 rounded-md hover:opacity-90 transition"
+                className="text-sm font-medium bg-[hsl(var(--color-primary))] text-black px-4 py-2 rounded-md hover:opacity-90 transition"
               >
                 Sign In
               </Link>

@@ -1,7 +1,7 @@
-import AdditionalInfo from "./AdditionalInfo";
-import FeatureHighlight from "./FeatureHighlight";
+import AdditionalInfo from "../Shared/AdditionalInfo";
+import FeatureHighlight from "../Shared/FeatureHighlight";
 import FormUser from "./FormUser";
-import TitleRegistration from "./TitleRegistration";
+import TitleRegistration from "../Shared/TitleRegistration";
 import UserAccountTypeBtn from "./UserAccountTypeBtn";
 
 const RagistrationUser = () => {

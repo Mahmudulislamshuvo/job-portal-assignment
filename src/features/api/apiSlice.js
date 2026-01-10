@@ -79,6 +79,12 @@ export const apiSlice = createApi({
       }),
     }),
 
+    GetProfileInfo: builder.query({
+      query: () => ({
+        url: "/users/profile",
+      }),
+    }),
+
     // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
     // updateProfile: builder.mutation({
     //   query: (data) => ({
@@ -98,4 +104,5 @@ export const {
   useGetJobRecomendationQuery,
   useRegisterMutation,
   useGetSimilerJobsQuery,
+  useGetProfileInfoQuery,
 } = apiSlice;

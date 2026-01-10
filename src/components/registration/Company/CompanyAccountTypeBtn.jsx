@@ -6,7 +6,7 @@ const CompanyAccountTypeBtn = () => {
       <div className="w-full text-center">
         <div className="card p-2 mb-8 inline-flex mx-auto w-full max-w-md">
           <div className="grid grid-cols-2 gap-2 w-full">
-            <Link to={"/register"} className="btn btn-ghost text-center">
+            <Link to={"/register-user"} className="btn btn-ghost text-center">
               <i data-lucide="user" className="h-4 w-4 mr-2"></i>
               Job Seeker
             </Link>

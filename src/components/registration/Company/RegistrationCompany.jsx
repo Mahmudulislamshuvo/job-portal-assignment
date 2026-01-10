@@ -1,6 +1,6 @@
 import BenefitsEmployee from "./BenefitsEmployee";
 import FormComany from "./FormComany";
-import TitleRegistration from "./TitleRegistration";
+import TitleRegistration from "../Shared/TitleRegistration";
 import CompanyAccountTypeBtn from "./CompanyAccountTypeBtn";
 
 const RegistrationCompany = () => {
