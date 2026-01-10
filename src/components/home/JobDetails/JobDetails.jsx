@@ -30,8 +30,7 @@ const JobDetails = () => {
   const { data: similarJobsData, isLoading: isSimilarJobsLoading } =
     useGetSimilerJobsQuery(id);
 
-  const [applyJob, { isLoading: isApplying, error: applyError }] =
-    useJobApplyMutation();
+  const [applyJob, { isLoading: isApplying }] = useJobApplyMutation();
 
   const job = data?.data?.find((job) => job.id === id);
 
@@ -79,8 +78,6 @@ const JobDetails = () => {
       console.log(error);
     }
   };
-
-  console.log(similarJobsData);
 
   return (
     <>
