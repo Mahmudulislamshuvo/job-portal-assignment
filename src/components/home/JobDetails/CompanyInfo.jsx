@@ -1,7 +1,10 @@
 import { BiBuilding } from "react-icons/bi";
 import { FiMapPin } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const CompanyInfo = ({ company, category }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="card p-6">
       <h3 className="text-lg font-semibold mb-4">About Company</h3>
@@ -35,7 +38,10 @@ const CompanyInfo = ({ company, category }) => {
           </div>
         </div>
 
-        <button className="btn btn-outline w-full mt-4">
+        <button
+          onClick={() => navigate(`/company/${company?.id}`)}
+          className="btn btn-outline w-full mt-4"
+        >
           View Company Profile
         </button>
       </div>
