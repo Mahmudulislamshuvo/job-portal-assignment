@@ -2,6 +2,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import {
   useGetAllJobsQuery,
+  useGetSimilerJobsQuery,
   useJobApplyMutation,
 } from "../../../features/api/apiSlice";
 import JobDetailsSkeleton from "../../skelitons/JobDetailsSkeliton";
@@ -16,6 +17,8 @@ import ShareJob from "./ShareJob";
 import ApplyModal from "./ApplyModal";
 import { FiFlag } from "react-icons/fi";
 import { useSelector } from "react-redux";
+import SimilerJobs from "./SimilerJobs";
+import SimilerJobsSkeleton from "../../skelitons/SimilerJobsSkeliton";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -24,6 +27,9 @@ const JobDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, token } = useSelector((state) => state.auth);
+  const { data: similarJobsData, isLoading: isSimilarJobsLoading } =
+    useGetSimilerJobsQuery(id);
+
   const [applyJob, { isLoading: isApplying, error: applyError }] =
     useJobApplyMutation();
 
@@ -74,6 +80,8 @@ const JobDetails = () => {
     }
   };
 
+  console.log(similarJobsData);
+
   return (
     <>
       <main className="container mx-auto px-4 py-8">
@@ -85,6 +93,13 @@ const JobDetails = () => {
             <JobOverview job={job} />
             <JobDescription job={job} />
             <JobSkills skills={job.skills} />
+            {isSimilarJobsLoading ? (
+              <SimilerJobsSkeleton />
+            ) : (
+              similarJobsData?.data?.length > 0 && (
+                <SimilerJobs data={similarJobsData?.data} />
+              )
+            )}
           </div>
 
           <div className="lg:col-span-1 space-y-6">

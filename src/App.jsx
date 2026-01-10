@@ -18,7 +18,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register-company" element={<RegistrationCompany />} />
-          <Route path="/register" element={<RagistrationUser />} />
+          <Route path="/register-user" element={<RagistrationUser />} />
           <Route path="/job-details/:id" element={<JobDetails />} />
         </Route>
         {/* Public Routes end */}

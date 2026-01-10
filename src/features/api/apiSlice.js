@@ -37,6 +37,14 @@ export const apiSlice = createApi({
       }),
     }),
 
+    Register: builder.mutation({
+      query: (data) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     GetAllJobs: builder.query({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
@@ -65,6 +73,12 @@ export const apiSlice = createApi({
       }),
     }),
 
+    GetSimilerJobs: builder.query({
+      query: (id) => ({
+        url: `/jobs/${id}/similar`,
+      }),
+    }),
+
     // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
     // updateProfile: builder.mutation({
     //   query: (data) => ({
@@ -82,4 +96,6 @@ export const {
   useGetAllJobsQuery,
   useJobApplyMutation,
   useGetJobRecomendationQuery,
+  useRegisterMutation,
+  useGetSimilerJobsQuery,
 } = apiSlice;
