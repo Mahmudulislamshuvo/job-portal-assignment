@@ -1,4 +1,5 @@
 import { useGetProfileInfoQuery } from "../../../features/api/apiSlice";
+import UserProfileSkeliton from "../../skelitons/UserProfileSkeliton";
 import About from "./profile/About";
 import ContactInfo from "./profile/ContactInfo";
 import Education from "./profile/Education";
@@ -13,7 +14,7 @@ const UserProfile = () => {
   const { data, isLoading, error } = useGetProfileInfoQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <UserProfileSkeliton />;
   }
 
   if (error) {
