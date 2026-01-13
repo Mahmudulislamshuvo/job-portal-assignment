@@ -10,6 +10,7 @@ import PublicLayout from "./routes/PublicLayout";
 import JobDetails from "./components/home/JobDetails/JobDetails";
 import UserProfile from "./components/home/UserProfile/UserProfile";
 import LoggedUserToDeshboard from "./routes/LoggedUserToDeshboard";
+import EditUserProfile from "./components/home/editUserProfile/EditUserProfile";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
         <Route element={<PrivateLayout />}>
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/edit-user-profile" element={<EditUserProfile />} />
         </Route>
       </Routes>
     </div>

@@ -39,10 +39,6 @@ const ProfilePic = ({ userData }) => {
     }
   }
 
-  console.log(imageUrl);
-
-  console.log(userData);
-
   return (
     <div className="relative shrink-0">
       {!imageUrl ? (

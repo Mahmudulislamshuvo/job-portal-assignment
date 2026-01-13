@@ -1,13 +1,9 @@
 import { Calendar, Edit, MapPin } from "lucide-react";
 import { getFormatMonthYear } from "../../../utils/getFormatMonthYear";
+import { useNavigate } from "react-router-dom";
 
 const ProfileInfo = ({ userData }) => {
-  // console.log(userData?.data);
-  const handleEditProfile = () => {
-    // Implement edit profile functionality
-    console.log("Edit Profile Clicked");
-  };
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex-1">
@@ -40,7 +36,10 @@ const ProfileInfo = ({ userData }) => {
               </span>
             </div>
           </div>
-          <button onClick={handleEditProfile} className="btn btn-primary">
+          <button
+            onClick={() => navigate("/edit-user-profile")}
+            className="btn btn-primary"
+          >
             <Edit className="h-4 w-4 mr-2" />
             Edit Profile
           </button>
