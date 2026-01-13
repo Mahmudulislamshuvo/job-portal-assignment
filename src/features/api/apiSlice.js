@@ -85,6 +85,14 @@ export const apiSlice = createApi({
       }),
     }),
 
+    UploadProfilePic: builder.mutation({
+      query: (data) => ({
+        url: "/users/profile-picture",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     UploadResume: builder.mutation({
       query: (data) => ({
         url: "/users/resume",
@@ -114,4 +122,5 @@ export const {
   useGetSimilerJobsQuery,
   useGetProfileInfoQuery,
   useUploadResumeMutation,
+  useUploadProfilePicMutation,
 } = apiSlice;

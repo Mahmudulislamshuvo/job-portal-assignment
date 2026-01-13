@@ -16,7 +16,9 @@ const UserProfile = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(data);
+  if (error) {
+    return <div>Error loading profile information.</div>;
+  }
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -41,7 +43,7 @@ const UserProfile = () => {
 
         <div className="lg:col-span-1 space-y-6">
           <Resume userData={data?.data} />
-          <SocialLinks />
+          <SocialLinks userData={data?.data} />
           <QuickActions />
         </div>
       </div>

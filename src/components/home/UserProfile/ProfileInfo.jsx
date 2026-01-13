@@ -3,6 +3,10 @@ import { getFormatMonthYear } from "../../../utils/getFormatMonthYear";
 
 const ProfileInfo = ({ userData }) => {
   // console.log(userData?.data);
+  const handleEditProfile = () => {
+    // Implement edit profile functionality
+    console.log("Edit Profile Clicked");
+  };
 
   return (
     <>
@@ -36,10 +40,10 @@ const ProfileInfo = ({ userData }) => {
               </span>
             </div>
           </div>
-          <a href="edit-user-profile.html" className="btn btn-primary">
+          <button onClick={handleEditProfile} className="btn btn-primary">
             <Edit className="h-4 w-4 mr-2" />
             Edit Profile
-          </a>
+          </button>
         </div>
         {/* nned to make them  */}
         {/* <!-- Quick Stats --> */}
