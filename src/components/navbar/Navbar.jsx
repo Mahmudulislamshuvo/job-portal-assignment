@@ -30,7 +30,7 @@ const Navbar = () => {
 
               {/* Nav Links */}
               <nav className="hidden md:flex items-center gap-6">
-                <Link to="/jobs" className={navLinkStyle}>
+                <Link to="/" className={navLinkStyle}>
                   Jobs
                 </Link>
                 <Link to="/user-dashboard" className={activeNavLinkStyle}>
