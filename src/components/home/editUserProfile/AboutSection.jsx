@@ -1,4 +1,4 @@
-const AboutSection = () => {
+const AboutSection = ({ register, errors, data }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-6">About</h2>
@@ -8,11 +8,15 @@ const AboutSection = () => {
         </label>
         <textarea
           id="bio"
-          className="textarea"
+          className="textarea w-full"
           rows="5"
           placeholder="Write a brief summary about yourself, your experience, and what you're looking for..."
-          defaultValue="Experienced Full Stack Developer with 5+ years of expertise in building scalable web applications. Passionate about creating clean, efficient code and delivering exceptional user experiences. Strong background in React, Node.js, and cloud technologies."
+          defaultValue={data?.bio}
+          {...register("bio", { required: "Bio is required" })}
         ></textarea>
+        {errors.bio && (
+          <p className="text-red-500 text-sm mt-1">{errors.bio.message}</p>
+        )}
       </div>
     </div>
   );

@@ -25,7 +25,6 @@ export const apiSlice = createApi({
   reducerPath: "api",
   tagTypes: ["User"],
 
-  // ৩. এখানে সরাসরি fetchBaseQuery না দিয়ে আমাদের 'baseQueryWithLogout' দিলাম
   baseQuery: baseQueryWithLogout,
 
   endpoints: (builder) => ({
@@ -83,6 +82,7 @@ export const apiSlice = createApi({
       query: () => ({
         url: "/users/profile",
       }),
+      providesTags: ["User"],
     }),
 
     UploadProfilePic: builder.mutation({
@@ -91,6 +91,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
 
     UploadResume: builder.mutation({
@@ -99,17 +100,17 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
 
-    // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
-    // updateProfile: builder.mutation({
-    //   query: (data) => ({
-    //     url: "/users/profile",
-    //     method: "PUT",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["User"],
-    // }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: "/users/profile",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -123,4 +124,5 @@ export const {
   useGetProfileInfoQuery,
   useUploadResumeMutation,
   useUploadProfilePicMutation,
+  useUpdateProfileMutation,
 } = apiSlice;

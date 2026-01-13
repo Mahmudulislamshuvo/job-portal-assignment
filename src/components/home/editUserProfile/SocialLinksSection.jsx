@@ -1,7 +1,7 @@
 import { Linkedin, Github, Globe } from "lucide-react";
 import CustomInput from "../../commonComponents/CustomInput";
 
-const SocialLinksSection = () => {
+const SocialLinksSection = ({ register, data }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Social Profiles</h2>
@@ -15,7 +15,8 @@ const SocialLinksSection = () => {
             type="url"
             id="linkedin"
             placeholder="https://linkedin.com/in/username"
-            defaultValue="https://linkedin.com/in/johndoe"
+            defaultValue={data?.socialLinks?.linkedin}
+            {...register("socialLinks.linkedin")}
           />
         </div>
         <div>
@@ -27,7 +28,8 @@ const SocialLinksSection = () => {
             type="url"
             id="github"
             placeholder="https://github.com/username"
-            defaultValue="https://github.com/johndoe"
+            defaultValue={data?.socialLinks?.github}
+            {...register("socialLinks.github")}
           />
         </div>
         <div>
@@ -39,7 +41,8 @@ const SocialLinksSection = () => {
             type="url"
             id="portfolio"
             placeholder="https://yourwebsite.com"
-            defaultValue="https://johndoe.dev"
+            defaultValue={data?.socialLinks?.portfolio}
+            {...register("socialLinks.portfolio")}
           />
         </div>
       </div>

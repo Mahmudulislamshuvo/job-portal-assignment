@@ -1,10 +1,11 @@
 import CustomInput from "../../commonComponents/CustomInput";
 
-const BasicInformationSection = () => {
+const BasicInformationSection = ({ register, errors, data }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Basic Information</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* NAME */}
         <div>
           <label htmlFor="name" className="label block mb-2">
             Name *
@@ -12,11 +13,16 @@ const BasicInformationSection = () => {
           <CustomInput
             type="text"
             id="name"
-            placeholder="Enter last name"
-            defaultValue="Doe"
-            required
+            placeholder="Enter full name"
+            defaultValue={data?.name} // From backend
+            {...register("name", { required: "Name is required" })}
           />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
         </div>
+
+        {/* EMAIL */}
         <div>
           <label htmlFor="email" className="label block mb-2">
             Email Address *
@@ -25,10 +31,22 @@ const BasicInformationSection = () => {
             type="email"
             id="email"
             placeholder="Enter email"
-            defaultValue="john.doe@example.com"
-            required
+            value={data?.email}
+            css={"bg-gray-300 cursor-not-allowed focus:ring-0"}
+            // {...register("email", {
+            //   required: "Email is required",
+            //   pattern: {
+            //     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            //     message: "Invalid email address",
+            //   },
+            // })}
           />
+          {/* {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+          )} */}
         </div>
+
+        {/* PHONE */}
         <div>
           <label htmlFor="phone" className="label block mb-2">
             Phone Number *
@@ -37,10 +55,15 @@ const BasicInformationSection = () => {
             type="tel"
             id="phone"
             placeholder="Enter phone number"
-            defaultValue="+1 (415) 555-0123"
-            required
+            defaultValue={data?.phone} // From backend
+            {...register("phone", { required: "Phone number is required" })}
           />
+          {errors.phone && (
+            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+          )}
         </div>
+
+        {/* TITLE */}
         <div>
           <label htmlFor="title" className="label block mb-2">
             Professional Title
@@ -49,8 +72,11 @@ const BasicInformationSection = () => {
             type="text"
             id="title"
             placeholder="e.g. Full Stack Developer"
-            defaultValue="Full Stack Developer"
+            // Handle null value from backend by falling back to empty string
+            defaultValue={data?.title || ""}
+            {...register("title")}
           />
+          {/* Title is usually optional, so no required rule here */}
         </div>
       </div>
     </div>

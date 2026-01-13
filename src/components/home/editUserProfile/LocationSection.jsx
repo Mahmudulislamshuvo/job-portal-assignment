@@ -1,6 +1,6 @@
 import CustomInput from "../../commonComponents/CustomInput";
 
-const LocationSection = () => {
+const LocationSection = ({ register, errors, data }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Location</h2>
@@ -13,9 +13,14 @@ const LocationSection = () => {
             type="text"
             id="city"
             placeholder="Enter city"
-            defaultValue="San Francisco"
-            required
+            defaultValue={data?.location?.city}
+            {...register("location.city", { required: "City is required" })}
           />
+          {errors.location?.city && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.location.city.message}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor="state" className="label block mb-2">
@@ -25,9 +30,16 @@ const LocationSection = () => {
             type="text"
             id="state"
             placeholder="Enter state"
-            defaultValue="California"
-            required
+            defaultValue={data?.location?.state}
+            {...register("location.state", {
+              required: "State/Province is required",
+            })}
           />
+          {errors.location?.state && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.location.state.message}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor="country" className="label block mb-2">
@@ -37,9 +49,16 @@ const LocationSection = () => {
             type="text"
             id="country"
             placeholder="Enter country"
-            defaultValue="United States"
-            required
+            defaultValue={data?.location?.country}
+            {...register("location.country", {
+              required: "Country is required",
+            })}
           />
+          {errors.location?.country && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.location.country.message}
+            </p>
+          )}
         </div>
         <div>
           <label htmlFor="zipcode" className="label block mb-2">
@@ -49,7 +68,8 @@ const LocationSection = () => {
             type="text"
             id="zipcode"
             placeholder="Enter zip code"
-            defaultValue="94102"
+            defaultValue={data?.location?.zipcode}
+            {...register("location.zipcode")}
           />
         </div>
       </div>
