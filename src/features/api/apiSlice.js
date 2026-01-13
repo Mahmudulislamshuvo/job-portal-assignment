@@ -85,6 +85,14 @@ export const apiSlice = createApi({
       }),
     }),
 
+    UploadResume: builder.mutation({
+      query: (data) => ({
+        url: "/users/resume",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     // আপনার কমেন্ট করা কোডগুলো আনকমেন্ট করলে কাজ করবে
     // updateProfile: builder.mutation({
     //   query: (data) => ({
@@ -105,4 +113,5 @@ export const {
   useRegisterMutation,
   useGetSimilerJobsQuery,
   useGetProfileInfoQuery,
+  useUploadResumeMutation,
 } = apiSlice;

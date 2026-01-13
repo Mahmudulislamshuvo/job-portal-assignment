@@ -1,4 +1,4 @@
-const Education = () => {
+const Education = ({ education }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Education</h2>

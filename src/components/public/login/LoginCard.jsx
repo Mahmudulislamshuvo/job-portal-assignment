@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiMail, FiLock, FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
 import { useLoginMutation } from "../../../features/api/apiSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import LoadingSpinner from "../../commonComponents/LoadingSpinner";
@@ -207,13 +207,13 @@ const LoginCard = () => {
         {/* Sign Up Link */}
         <div className="mt-8 text-center text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <a
-            href="register.html"
+          <Link
+            to={"/register-user"}
             className="text-primary hover:underline font-medium"
             id="signupLink"
           >
             Sign up as Job Seeker
-          </a>
+          </Link>
         </div>
       </div>
     </>

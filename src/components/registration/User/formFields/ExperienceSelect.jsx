@@ -7,7 +7,7 @@ const ExperienceSelect = ({ register }) => {
       <label className="label text-sm font-medium">Years of Experience</label>
       <div className="relative">
         <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <select className="input pl-10" {...register("experience")}>
+        <select className="input pl-10" {...register("experienceLevel")}>
           <option value="">Select experience level</option>
           <option value="entry">Entry Level (0-2 years)</option>
           <option value="mid">Mid Level (3-5 years)</option>

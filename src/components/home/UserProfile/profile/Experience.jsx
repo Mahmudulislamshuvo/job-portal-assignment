@@ -1,4 +1,4 @@
-const Experience = () => {
+const Experience = ({ experiences }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Work Experience</h2>
@@ -15,8 +15,8 @@ const Experience = () => {
               Jan 2022 - Present • 2 years
             </p>
             <p className="text-sm text-[hsl(var(--color-foreground))]">
-              Leading development of enterprise web applications using React
-              and Node.js. Architecting scalable solutions and mentoring junior
+              Leading development of enterprise web applications using React and
+              Node.js. Architecting scalable solutions and mentoring junior
               developers.
             </p>
           </div>
@@ -35,8 +35,8 @@ const Experience = () => {
             </p>
             <p className="text-sm text-[hsl(var(--color-foreground))]">
               Developed and maintained multiple client projects using modern
-              JavaScript frameworks. Collaborated with cross-functional teams
-              to deliver high-quality solutions.
+              JavaScript frameworks. Collaborated with cross-functional teams to
+              deliver high-quality solutions.
             </p>
           </div>
         </div>
