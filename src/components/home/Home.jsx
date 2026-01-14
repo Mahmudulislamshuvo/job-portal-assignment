@@ -26,6 +26,8 @@ const Home = () => {
   const totalJobs = data?.count || 0;
   const currentJobCount = data?.data?.length || 0;
 
+  console.log(query);
+
   return (
     <>
       <main className="container mx-auto px-4 py-8">

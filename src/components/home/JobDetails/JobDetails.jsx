@@ -41,7 +41,7 @@ const JobDetails = () => {
 
   const job = data?.data?.find((job) => job.id === id);
 
-  if (isLoading) {
+  if (isLoading || isUserDataLoading || isSimilarJobsLoading) {
     return <JobDetailsSkeleton />;
   }
 
@@ -96,7 +96,7 @@ const JobDetails = () => {
             <JobHeader job={job} />
             <JobOverview job={job} />
             <JobDescription job={job} />
-            <JobSkills skills={job.skills} />
+            <JobSkills skills={job?.skills} />
             {isSimilarJobsLoading ? (
               <SimilerJobsSkeleton />
             ) : (
@@ -108,7 +108,7 @@ const JobDetails = () => {
 
           <div className="lg:col-span-1 space-y-6">
             <ApplyNow job={job} handleApply={handleCheckAuthAndOpenModal} />
-            <CompanyInfo company={job.company} category={job.category} />
+            <CompanyInfo company={job?.company} category={job?.category} />
             <ShareJob />
 
             <button className="w-full text-sm text-[hsl(var(--color-muted-foreground))] hover:text-[hsl(var(--color-foreground))] flex items-center justify-center gap-2">

@@ -8,6 +8,7 @@ import {
   X,
 } from "lucide-react";
 import { getFormatMonthYear } from "../../../../utils/getFormatMonthYear";
+import { Link } from "react-router-dom";
 
 const ApplicationCard = ({ job }) => {
   return (
@@ -95,13 +96,13 @@ const ApplicationCard = ({ job }) => {
 
             {/* Actions */}
             <div className="flex items-center gap-2">
-              <a
-                href="job-details.html"
+              <Link
+                to={`/job-details/${job?.job?.id}`}
                 className="btn btn-outline text-sm h-9"
               >
                 <Eye className="h-4 w-4 mr-2" />
                 View Job
-              </a>
+              </Link>
 
               <button className="btn btn-outline text-sm h-9 text-red-600 hover:bg-red-50">
                 <X className="h-4 w-4 mr-2" />

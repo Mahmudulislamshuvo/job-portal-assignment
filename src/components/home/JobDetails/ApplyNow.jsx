@@ -8,10 +8,10 @@ const ApplyNow = ({ job, handleApply }) => {
         <div className="space-y-4">
           <div className="text-center pb-4 border-b border-[hsl(var(--color-border))]">
             <p className="text-2xl font-bold text-[hsl(var(--color-primary))] mb-1">
-              ${job.salaryMin} - ${job.salaryMax}
+              ${job?.salaryMin} - ${job?.salaryMax}
             </p>
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
-              Per {job.salaryPeriod}
+              Per {job?.salaryPeriod}
             </p>
           </div>
 
@@ -28,7 +28,7 @@ const ApplyNow = ({ job, handleApply }) => {
               <span className="text-[hsl(var(--color-muted-foreground))]">
                 Applicants
               </span>
-              <span className="font-medium">{job.applicants}</span>
+              <span className="font-medium">{job?.applicants}</span>
             </div>
 
             <div className="flex items-center justify-between text-sm">
@@ -36,7 +36,7 @@ const ApplyNow = ({ job, handleApply }) => {
                 Posted
               </span>
               <span className="font-medium">
-                {getTimeFromNow(job.createdAt)}
+                {getTimeFromNow(job?.createdAt)}
               </span>
             </div>
           </div>

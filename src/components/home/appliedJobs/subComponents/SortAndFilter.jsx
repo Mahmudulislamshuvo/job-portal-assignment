@@ -1,31 +1,36 @@
 import { ChevronDown } from "lucide-react";
 
-const SortAndFilter = () => {
+const SortAndFilter = ({ setQuery, query }) => {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
       <div className="flex items-center gap-2">
         <span className="text-sm text-[hsl(var(--color-muted-foreground))]">
           Sort by:
         </span>
-        <div className="relative">
-          <button
-            className="btn btn-outline text-sm h-9"
-            // onClick="toggleDropdown('sortDropdown')"
+        <div className="relative inline-block w-40">
+          <select
+            value={query.sort}
+            onChange={(e) =>
+              setQuery((prev) => ({ ...prev, sort: e.target.value }))
+            }
+            className="appearance-none w-full h-9 pl-3 pr-8 text-sm font-medium transition-colors rounded-md border border-[hsl(var(--color-input))] bg-transparent hover:bg-[hsl(var(--color-accent))] hover:text-[hsl(var(--color-accent-foreground))] focus:outline-none focus:ring-1 focus:ring-[hsl(var(--color-ring))] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
           >
-            <span>Newest First</span>
-
-            <ChevronDown className="h-4 w-4 ml-2" />
-          </button>
-          <div
-            id="sortDropdown"
-            className="hidden absolute top-full left-0 mt-2 w-48 card p-2 shadow-lg z-10"
-          >
-            <button className="w-full text-left px-3 py-2 text-sm rounded hover:bg-[hsl(var(--color-accent))]">
+            <option
+              value="Newest First"
+              className="bg-[hsl(var(--color-card))]"
+            >
               Newest First
-            </button>
-            <button className="w-full text-left px-3 py-2 text-sm rounded hover:bg-[hsl(var(--color-accent))]">
+            </option>
+            <option
+              value="Oldest First"
+              className="bg-[hsl(var(--color-card))]"
+            >
               Oldest First
-            </button>
+            </option>
+          </select>
+
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[hsl(var(--color-foreground))] opacity-50">
+            <ChevronDown className="h-4 w-4" />
           </div>
         </div>
       </div>

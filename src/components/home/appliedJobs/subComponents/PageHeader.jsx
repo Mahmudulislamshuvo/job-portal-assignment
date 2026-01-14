@@ -1,4 +1,4 @@
-const PageHeader = () => {
+const PageHeader = ({ allData }) => {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 text-sm text-[hsl(var(--color-muted-foreground))] mb-2">
@@ -21,8 +21,8 @@ const PageHeader = () => {
           </p>
         </div>
         <div className="text-sm text-[hsl(var(--color-muted-foreground))]">
-          <span className="font-medium text-[hsl(var(--color-foreground))]">
-            12
+          <span className="font-medium text-[hsl(var(--color-foreground))] pr-2">
+            {allData?.count || 0}
           </span>
           applications
         </div>

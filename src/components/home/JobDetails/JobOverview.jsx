@@ -20,7 +20,7 @@ const JobOverview = ({ job }) => {
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Job Type
             </p>
-            <p className="font-medium">{job.type}</p>
+            <p className="font-medium">{job?.type}</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
@@ -32,7 +32,7 @@ const JobOverview = ({ job }) => {
               Location
             </p>
             <p className="font-medium">
-              {job.location} ({job.workMode})
+              {job?.location} ({job?.workMode})
             </p>
           </div>
         </div>
@@ -45,7 +45,7 @@ const JobOverview = ({ job }) => {
               Salary
             </p>
             <p className="font-medium">
-              ${job.salaryMin} - ${job.salaryMax} / {job.salaryPeriod}
+              ${job?.salaryMin} - ${job?.salaryMax} / {job?.salaryPeriod}
             </p>
           </div>
         </div>
@@ -57,7 +57,7 @@ const JobOverview = ({ job }) => {
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Experience
             </p>
-            <p className="font-medium">{job.experienceLevel}</p>
+            <p className="font-medium">{job?.experienceLevel}</p>
           </div>
         </div>
         <div className="flex items-start gap-3">
@@ -69,8 +69,8 @@ const JobOverview = ({ job }) => {
               Application Deadline
             </p>
             <p className="font-medium">
-              {job.deadline
-                ? new Date(job.deadline).toLocaleDateString()
+              {job?.deadline
+                ? new Date(job?.deadline).toLocaleDateString()
                 : "Not Specified"}
             </p>
           </div>
@@ -83,7 +83,7 @@ const JobOverview = ({ job }) => {
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Applicants
             </p>
-            <p className="font-medium">{job.applicants} applications</p>
+            <p className="font-medium">{job?.applicants} applications</p>
           </div>
         </div>
       </div>

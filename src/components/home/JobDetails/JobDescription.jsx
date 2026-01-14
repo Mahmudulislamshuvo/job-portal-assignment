@@ -9,16 +9,16 @@ const JobDescription = ({ job }) => {
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Job Description</h2>
       <div className="prose prose-sm max-w-none space-y-4 text-[hsl(var(--color-foreground))] ">
-        <p>{job.description}</p>
+        <p>{job?.description}</p>
 
         {/* Requirements Section */}
-        {job.requirements && (
+        {job?.requirements && (
           <>
             <h3 className="text-lg font-semibold mt-6 mb-3">
               Required Qualifications
             </h3>
             <ul className="list-disc list-inside space-y-2 text-[hsl(var(--color-muted-foreground))] ">
-              {parseList(job.requirements).map((req, index) => (
+              {parseList(job?.requirements).map((req, index) => (
                 <li key={index}>{req.replace(/^- /, "")}</li>
               ))}
             </ul>
@@ -26,11 +26,11 @@ const JobDescription = ({ job }) => {
         )}
 
         {/* Benefits Section */}
-        {job.benefits && (
+        {job?.benefits && (
           <>
             <h3 className="text-lg font-semibold mt-6 mb-3">What We Offer</h3>
             <ul className="list-disc list-inside space-y-2 text-[hsl(var(--color-muted-foreground))] ">
-              {parseList(job.benefits).map((benefit, index) => (
+              {parseList(job?.benefits).map((benefit, index) => (
                 <li key={index}>{benefit.replace(/^- /, "")}</li>
               ))}
             </ul>
