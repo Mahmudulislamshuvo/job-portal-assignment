@@ -23,7 +23,7 @@ const baseQueryWithLogout = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  tagTypes: ["User"],
+  tagTypes: ["User", "application"],
 
   baseQuery: baseQueryWithLogout,
 
@@ -124,12 +124,21 @@ export const apiSlice = createApi({
           params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
         };
       },
+      providesTags: ["application"],
     }),
 
     GetUserById: builder.query({
       query: (id) => ({
         url: `/users/${id}`,
       }),
+    }),
+
+    DeleteMyJobApplication: builder.mutation({
+      query: (id) => ({
+        url: `/applications/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["application"],
     }),
   }),
 });
@@ -147,4 +156,5 @@ export const {
   useUpdateProfileMutation,
   useAppliedJobsQuery,
   useGetUserByIdQuery,
+  useDeleteMyJobApplicationMutation,
 } = apiSlice;

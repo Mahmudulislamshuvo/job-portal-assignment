@@ -9,8 +9,28 @@ import {
 } from "lucide-react";
 import { getFormatMonthYear } from "../../../../utils/getFormatMonthYear";
 import { Link } from "react-router-dom";
+import { useDeleteMyJobApplicationMutation } from "../../../../features/api/apiSlice";
 
 const ApplicationCard = ({ job }) => {
+  const [deleteMyJobApplication, { isLoading }] =
+    useDeleteMyJobApplicationMutation();
+
+  const handleDeleteApplication = async (id) => {
+    console.log(id);
+
+    if (window.confirm("Are you sure you want to withdraw your application?")) {
+      try {
+        await deleteMyJobApplication(id).unwrap();
+        // Optionally, show a success message or perform additional actions
+      } catch (error) {
+        console.error("Failed to withdraw application: ", error);
+        // Optionally, show an error message to the user
+      }
+    }
+  };
+
+  console.log(job);
+
   return (
     <div className="card p-6 hover:shadow-md transition-shadow">
       <div className="flex flex-col md:flex-row gap-6">
@@ -97,17 +117,21 @@ const ApplicationCard = ({ job }) => {
             {/* Actions */}
             <div className="flex items-center gap-2">
               <Link
-                to={`/job-details/${job?.job?.id}`}
+                to={`/job-details/${job?.jobId}`}
                 className="btn btn-outline text-sm h-9"
               >
                 <Eye className="h-4 w-4 mr-2" />
                 View Job
               </Link>
-
-              <button className="btn btn-outline text-sm h-9 text-red-600 hover:bg-red-50">
-                <X className="h-4 w-4 mr-2" />
-                Withdraw
-              </button>
+              {job?.status === "New" && (
+                <button
+                  onClick={() => handleDeleteApplication(job?.id)}
+                  className="btn btn-outline text-sm h-9 text-red-600 hover:bg-red-50"
+                >
+                  <X className="h-4 w-4 mr-2" />
+                  {isLoading ? "Withdrawing..." : "Withdraw"}
+                </button>
+              )}
             </div>
           </div>
         </div>
