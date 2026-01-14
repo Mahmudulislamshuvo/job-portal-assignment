@@ -3,6 +3,7 @@ import { useState } from "react";
 import {
   useGetAllJobsQuery,
   useGetSimilerJobsQuery,
+  useGetUserByIdQuery,
   useJobApplyMutation,
 } from "../../../features/api/apiSlice";
 import JobDetailsSkeleton from "../../skelitons/JobDetailsSkeliton";
@@ -23,13 +24,19 @@ import SimilerJobsSkeleton from "../../skelitons/SimilerJobsSkeliton";
 const JobDetails = () => {
   const { id } = useParams();
   const { data, isLoading, error } = useGetAllJobsQuery();
+  const [coverLetter, setCoverLetter] = useState("");
+
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { user, token } = useSelector((state) => state.auth);
   const { data: similarJobsData, isLoading: isSimilarJobsLoading } =
     useGetSimilerJobsQuery(id);
-
+  const {
+    data: loggedInUserData,
+    isLoading: isUserDataLoading,
+    refetch,
+  } = useGetUserByIdQuery(user?.id);
   const [applyJob, { isLoading: isApplying }] = useJobApplyMutation();
 
   const job = data?.data?.find((job) => job.id === id);
@@ -65,14 +72,14 @@ const JobDetails = () => {
       const response = await applyJob({
         id: id,
         data: {
-          coverLetter: "I love my Job", // This should eventually come from the modal form state. IT WAS CHECKING PURPOSES ONLY
+          coverLetter,
         },
       });
-
       console.log(response);
       if (response.data?.success) {
         onCloseModal();
-        // You might want to show a success toast here
+        setCoverLetter("");
+        console.log("Application successsfull");
       }
     } catch (error) {
       console.log(error);
@@ -117,6 +124,11 @@ const JobDetails = () => {
         onClose={onCloseModal}
         handleApply={handleSubmitApplication}
         isApplying={isApplying}
+        setCoverLetter={setCoverLetter}
+        coverLetter={coverLetter}
+        userData={loggedInUserData}
+        isUserDataLoading={isUserDataLoading}
+        refetch={refetch}
       />
     </>
   );

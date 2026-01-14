@@ -1,7 +1,7 @@
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { getTimeFromNow } from "../../utils/getTimeFromNow";
 import JobCardSkeleton from "../skelitons/JobGridSkeliton";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   useGetUserByIdQuery,
   useJobApplyMutation,
@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 const JobCardGrid = ({ data, isLoading, error }) => {
   const { user } = useSelector((state) => state.auth);
   const [jobApply, { isLoading: isApplying }] = useJobApplyMutation();
-  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [coverLetter, setCoverLetter] = useState("");
   const {
@@ -21,6 +20,7 @@ const JobCardGrid = ({ data, isLoading, error }) => {
     isLoading: isUserDataLoading,
     refetch,
   } = useGetUserByIdQuery(user?.id);
+  const [jobId, setJobbId] = useState("");
 
   if (isLoading) {
     return (
@@ -43,35 +43,27 @@ const JobCardGrid = ({ data, isLoading, error }) => {
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
 
-  const handleApplyJob = async (jobId) => {
-    console.log(jobId);
-    handleSubmitApplication();
-  };
-
   // Submit Application Handler //CHECKING PURPOSES ONLY
   const handleSubmitApplication = async () => {
-    console.log();
-    onOpenModal();
+    try {
+      const response = await jobApply({
+        id: jobId,
+        data: {
+          coverLetter,
+        },
+      });
 
-    // try {
-    //   const response = await jobApply({
-    //     id: id,
-    //     data: {
-    //       coverLetter: "I love my Job", // This should eventually come from the modal form state. IT WAS CHECKING PURPOSES ONLY
-    //     },
-    //   });
-
-    //   console.log(response);
-    //   if (response.data?.success) {
-    //     onCloseModal();
-    //     // You might want to show a success toast here
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      console.log(response);
+      if (response.data?.success) {
+        onCloseModal();
+        setCoverLetter("");
+        setJobbId("");
+        console.log("Application successsfull");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // console.log(loggedInUserData);
 
   return (
     <>
@@ -161,7 +153,9 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                       View Details
                     </Link>
                     <button
-                      onClick={() => handleApplyJob(job.id)}
+                      onClick={() => {
+                        onOpenModal(), setJobbId(job.id);
+                      }}
                       className="btn btn-primary text-sm"
                     >
                       Apply Now

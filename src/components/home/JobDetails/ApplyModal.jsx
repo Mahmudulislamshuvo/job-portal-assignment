@@ -4,7 +4,6 @@ import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import { useUploadResumeMutation } from "../../../features/api/apiSlice";
 import LoadingSpinner from "../../commonComponents/LoadingSpinner";
-import { Await } from "react-router-dom";
 
 const ApplyModal = ({
   open,
@@ -203,7 +202,7 @@ const ApplyModal = ({
 
             <textarea
               id="coverMessage"
-              className="textarea textarea-bordered w-full h-40 resize-none"
+              className="textarea textarea-bordered w-full h-40 resize-none px-2"
               placeholder="Write a brief message about why you're a great fit for this role..."
               value={coverLetter}
               onChange={(e) => setCoverLetter(e.target.value)}
