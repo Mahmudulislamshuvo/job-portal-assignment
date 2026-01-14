@@ -1,14 +1,15 @@
 import { Save, X } from "lucide-react";
 import LoadingSpinner from "../../commonComponents/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const FormActions = ({ isSubmitting }) => {
   return (
     <div className="card p-6">
       <div className="flex flex-col sm:flex-row gap-3 justify-end">
-        <a href="user-profile.html" className="btn btn-outline">
+        <Link to={"/user-profile"} className="btn btn-outline">
           <X className="h-4 w-4 mr-2" />
           Cancel
-        </a>
+        </Link>
         <button
           type="submit"
           className="btn btn-primary"

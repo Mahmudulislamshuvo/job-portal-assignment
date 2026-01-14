@@ -1,5 +1,7 @@
-import { Linkedin, Github, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 import CustomInput from "../../commonComponents/CustomInput";
+import { LiaLinkedin } from "react-icons/lia";
+import { GiThunderBlade } from "react-icons/gi";
 
 const SocialLinksSection = ({ register, data }) => {
   return (
@@ -8,28 +10,28 @@ const SocialLinksSection = ({ register, data }) => {
       <div className="space-y-4">
         <div>
           <label htmlFor="linkedin" className="label block mb-2">
-            <Linkedin className="h-4 w-4 inline mr-1" />
+            <LiaLinkedin className="h-4 w-4 inline mr-1" />
             LinkedIn
           </label>
           <CustomInput
             type="url"
             id="linkedin"
             placeholder="https://linkedin.com/in/username"
-            defaultValue={data?.socialLinks?.linkedin}
-            {...register("socialLinks.linkedin")}
+            defaultValue={data?.linkedinUrl}
+            {...register("linkedinUrl")}
           />
         </div>
         <div>
           <label htmlFor="github" className="label block mb-2">
-            <Github className="h-4 w-4 inline mr-1" />
+            <GiThunderBlade className="h-4 w-4 inline mr-1" />
             GitHub
           </label>
           <CustomInput
             type="url"
             id="github"
             placeholder="https://github.com/username"
-            defaultValue={data?.socialLinks?.github}
-            {...register("socialLinks.github")}
+            defaultValue={data?.githubUrl}
+            {...register("githubUrl")}
           />
         </div>
         <div>
@@ -41,8 +43,8 @@ const SocialLinksSection = ({ register, data }) => {
             type="url"
             id="portfolio"
             placeholder="https://yourwebsite.com"
-            defaultValue={data?.socialLinks?.portfolio}
-            {...register("socialLinks.portfolio")}
+            defaultValue={data?.portfolioUrl}
+            {...register("portfolioUrl")}
           />
         </div>
       </div>
