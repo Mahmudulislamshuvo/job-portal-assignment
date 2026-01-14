@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useAppliedJobsQuery } from "../../features/api/apiSlice";
 
 const RecentAooliedJobs = () => {
-  const [queries, setQueries] = useState({
+  const [queries] = useState({
     status: "",
     date: "",
     sort: "",
   });
 
-  const { data, isLoading, error } = useAppliedJobsQuery(queries);
+  const { data } = useAppliedJobsQuery(queries);
 
   console.log(data);
 
@@ -48,11 +48,11 @@ const RecentAooliedJobs = () => {
                   </div>
                   <span className="badge badge-success">Under Review</span>
 
-                  {/* <span class="badge badge-success">Under Review</span>
+                  {/* <span className="badge badge-success">Under Review</span>
 
-                  <span class="badge badge-info">Interview Scheduled</span>
+                  <span className="badge badge-info">Interview Scheduled</span>
 
-                  <span class="badge badge-warning">Pending</span> */}
+                  <span className="badge badge-warning">Pending</span> */}
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[hsl(var(--color-muted-foreground))] mb-3">
                   <span className="flex items-center gap-1">

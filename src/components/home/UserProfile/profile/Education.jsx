@@ -1,10 +1,10 @@
-const Education = ({ education }) => {
+const Education = () => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Education</h2>
       <div className="space-y-4">
         <div className="flex gap-4">
-          <div className="h-12 w-12 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center flex-shrink-0">
+          <div className="h-12 w-12 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center shrink-0">
             <i
               data-lucide="graduation-cap"
               className="h-6 w-6 text-[hsl(var(--color-primary))]"

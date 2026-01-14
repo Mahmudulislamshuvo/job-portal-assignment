@@ -1,4 +1,4 @@
-const Experience = ({ experiences }) => {
+const Experience = () => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Work Experience</h2>

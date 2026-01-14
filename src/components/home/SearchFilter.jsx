@@ -121,9 +121,9 @@ const SearchFilter = ({ setQuery }) => {
 
   return (
     <>
-      <section class="mb-8">
-        <div class="card p-6">
-          <div class="space-y-4">
+      <section className="mb-8">
+        <div className="card p-6">
+          <div className="space-y-4">
             {/* Search */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 ring ring-transparent focus-within:ring-primary rounded-md place-content-center transition-all">

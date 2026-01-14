@@ -11,6 +11,7 @@ import JobDetails from "./components/home/JobDetails/JobDetails";
 import UserProfile from "./components/home/UserProfile/UserProfile";
 import LoggedUserToDeshboard from "./routes/LoggedUserToDeshboard";
 import EditUserProfile from "./components/home/editUserProfile/EditUserProfile";
+import AppliedJobs from "./components/home/appliedJobs/AppliedJobs";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/edit-user-profile" element={<EditUserProfile />} />
+          <Route path="/applied-jobs" element={<AppliedJobs />} />
         </Route>
       </Routes>
     </div>
