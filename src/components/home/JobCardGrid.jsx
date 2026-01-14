@@ -1,9 +1,24 @@
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { getTimeFromNow } from "../../utils/getTimeFromNow";
 import JobCardSkeleton from "../skelitons/JobGridSkeliton";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import {
+  useGetUserByIdQuery,
+  useJobApplyMutation,
+} from "../../features/api/apiSlice";
+import { useState } from "react";
+import ApplyModal from "./JobDetails/ApplyModal";
+import { useSelector } from "react-redux";
 
 const JobCardGrid = ({ data, isLoading, error }) => {
+  const { user } = useSelector((state) => state.auth);
+  const [jobApply, { isLoading: isApplying }] = useJobApplyMutation();
+  const { id } = useParams();
+  const [open, setOpen] = useState(false);
+  const [coverLetter, setCoverLetter] = useState("");
+  const { data: loggedInUserData, isLoading: isUserDataLoading } =
+    useGetUserByIdQuery(user?.id);
+
   if (isLoading) {
     return (
       <div className="grid gap-4 md:gap-6">
@@ -21,6 +36,39 @@ const JobCardGrid = ({ data, isLoading, error }) => {
       <div className="text-red-500 text-center">Something went wrong!</div>
     );
   }
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  const handleApplyJob = async (jobId) => {
+    console.log(jobId);
+    handleSubmitApplication();
+  };
+
+  // Submit Application Handler //CHECKING PURPOSES ONLY
+  const handleSubmitApplication = async () => {
+    console.log();
+    onOpenModal();
+
+    // try {
+    //   const response = await jobApply({
+    //     id: id,
+    //     data: {
+    //       coverLetter: "I love my Job", // This should eventually come from the modal form state. IT WAS CHECKING PURPOSES ONLY
+    //     },
+    //   });
+
+    //   console.log(response);
+    //   if (response.data?.success) {
+    //     onCloseModal();
+    //     // You might want to show a success toast here
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+
+  console.log(loggedInUserData);
 
   return (
     <>
@@ -109,7 +157,10 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                     >
                       View Details
                     </Link>
-                    <button className="btn btn-primary text-sm">
+                    <button
+                      onClick={() => handleApplyJob(job.id)}
+                      className="btn btn-primary text-sm"
+                    >
                       Apply Now
                     </button>
                   </div>
@@ -119,6 +170,14 @@ const JobCardGrid = ({ data, isLoading, error }) => {
           </article>
         ))}
       </div>
+      <ApplyModal
+        open={open}
+        onClose={onCloseModal}
+        handleApply={handleSubmitApplication}
+        isApplying={isApplying}
+        setCoverLetter={setCoverLetter}
+        coverLetter={coverLetter}
+      />
     </>
   );
 };

@@ -111,6 +111,26 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["User"],
     }),
+
+    AppliedJobs: builder.query({
+      query: (params = {}) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+        );
+
+        return {
+          url: "/applications/my-applications",
+          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+        };
+      },
+    }),
+
+    GetUserById: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
+    }),
   }),
 });
 
@@ -125,4 +145,6 @@ export const {
   useUploadResumeMutation,
   useUploadProfilePicMutation,
   useUpdateProfileMutation,
+  useAppliedJobsQuery,
+  useGetUserByIdQuery,
 } = apiSlice;

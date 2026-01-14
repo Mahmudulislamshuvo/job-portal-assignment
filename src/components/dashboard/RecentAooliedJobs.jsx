@@ -1,4 +1,18 @@
+import { Building, Calculator, DollarSign, MapPin } from "lucide-react";
+import { useState } from "react";
+import { useAppliedJobsQuery } from "../../features/api/apiSlice";
+
 const RecentAooliedJobs = () => {
+  const [queries, setQueries] = useState({
+    status: "",
+    date: "",
+    sort: "",
+  });
+
+  const { data, isLoading, error } = useAppliedJobsQuery(queries);
+
+  console.log(data);
+
   return (
     <>
       <div className="card p-6">
@@ -17,10 +31,7 @@ const RecentAooliedJobs = () => {
             <div className="flex items-start gap-4">
               <div className="shrink-0">
                 <div className="h-12 w-12 rounded-lg bg-[hsl(var(--color-secondary))] flex items-center justify-center">
-                  <i
-                    data-lucide="building-2"
-                    className="h-6 w-6 text-[hsl(var(--color-primary))]"
-                  ></i>
+                  <Building className="h-6 w-6 text-[hsl(var(--color-primary))]" />
                 </div>
               </div>
               <div className="flex-1 min-w-0">
@@ -36,20 +47,26 @@ const RecentAooliedJobs = () => {
                     </p>
                   </div>
                   <span className="badge badge-success">Under Review</span>
+
+                  {/* <span class="badge badge-success">Under Review</span>
+
+                  <span class="badge badge-info">Interview Scheduled</span>
+
+                  <span class="badge badge-warning">Pending</span> */}
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs text-[hsl(var(--color-muted-foreground))] mb-3">
                   <span className="flex items-center gap-1">
-                    <i data-lucide="map-pin" className="h-3 w-3"></i>
+                    <MapPin className="h-3 w-3" />
                     San Francisco, CA
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
-                    <i data-lucide="calendar" className="h-3 w-3"></i>
+                    <Calculator className="h-3 w-3" />
                     Applied on Nov 28, 2025
                   </span>
                   <span>•</span>
                   <span className="flex items-center gap-1">
-                    <i data-lucide="dollar-sign" className="h-3 w-3"></i>
+                    <DollarSign className="h-3 w-3" />
                     $120k - $180k
                   </span>
                 </div>

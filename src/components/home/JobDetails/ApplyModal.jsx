@@ -2,7 +2,14 @@ import { FiX, FiUpload, FiFileText, FiTrash2, FiSend } from "react-icons/fi";
 import Modal from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 
-const ApplyModal = ({ open, onClose, handleApply, isApplying }) => {
+const ApplyModal = ({
+  open,
+  onClose,
+  handleApply,
+  isApplying,
+  setCoverLetter = "",
+  coverLetter,
+}) => {
   return (
     <Modal
       open={open}
@@ -116,6 +123,8 @@ const ApplyModal = ({ open, onClose, handleApply, isApplying }) => {
               id="coverMessage"
               className="textarea textarea-bordered w-full h-40 p5 input resize-none"
               placeholder="Write a brief message about why you're a great fit for this role..."
+              onChange={(e) => setCoverLetter(e.target.value)}
+              value={coverLetter}
             ></textarea>
 
             <p className="text-xs text-[hsl(var(--color-muted-foreground))]">
