@@ -16,8 +16,11 @@ const JobCardGrid = ({ data, isLoading, error }) => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [coverLetter, setCoverLetter] = useState("");
-  const { data: loggedInUserData, isLoading: isUserDataLoading } =
-    useGetUserByIdQuery(user?.id);
+  const {
+    data: loggedInUserData,
+    isLoading: isUserDataLoading,
+    refetch,
+  } = useGetUserByIdQuery(user?.id);
 
   if (isLoading) {
     return (
@@ -68,7 +71,7 @@ const JobCardGrid = ({ data, isLoading, error }) => {
     // }
   };
 
-  console.log(loggedInUserData);
+  // console.log(loggedInUserData);
 
   return (
     <>
@@ -177,6 +180,9 @@ const JobCardGrid = ({ data, isLoading, error }) => {
         isApplying={isApplying}
         setCoverLetter={setCoverLetter}
         coverLetter={coverLetter}
+        userData={loggedInUserData}
+        isUserDataLoading={isUserDataLoading}
+        refetch={refetch}
       />
     </>
   );
