@@ -1,5 +1,5 @@
 import DashboardTile from "./DashboardTile";
-import RecentAooliedJobs from "./RecentAooliedJobs";
+import RecentApliedJobs from "./RecentApliedJobs";
 import RecomandedJobs from "./RecomandedJobs";
 import Sidebar from "./Sidebar";
 
@@ -14,7 +14,7 @@ const UserDashboard = () => {
           {/* <!-- Main Content Column --> */}
           <div className="lg:col-span-2 space-y-6">
             {/* <!-- Recent Applications --> */}
-            <RecentAooliedJobs />
+            <RecentApliedJobs />
 
             {/* <!-- Recommended Jobs --> */}
             <RecomandedJobs />

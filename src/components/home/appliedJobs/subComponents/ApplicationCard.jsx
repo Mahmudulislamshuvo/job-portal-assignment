@@ -21,15 +21,11 @@ const ApplicationCard = ({ job }) => {
     if (window.confirm("Are you sure you want to withdraw your application?")) {
       try {
         await deleteMyJobApplication(id).unwrap();
-        // Optionally, show a success message or perform additional actions
       } catch (error) {
         console.error("Failed to withdraw application: ", error);
-        // Optionally, show an error message to the user
       }
     }
   };
-
-  console.log(job);
 
   return (
     <div className="card p-6 hover:shadow-md transition-shadow">

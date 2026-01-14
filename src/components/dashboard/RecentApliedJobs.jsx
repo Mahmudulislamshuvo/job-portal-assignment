@@ -2,14 +2,14 @@ import { Building, Calculator, DollarSign, MapPin } from "lucide-react";
 import { useState } from "react";
 import { useAppliedJobsQuery } from "../../features/api/apiSlice";
 
-const RecentAooliedJobs = () => {
+const RecentApliedJobs = () => {
   const [queries] = useState({
     status: "",
     date: "",
-    sort: "",
+    sort: "Newest First",
   });
 
-  const { data } = useAppliedJobsQuery(queries);
+  const { data } = useAppliedJobsQuery();
 
   console.log(data);
 
@@ -90,4 +90,4 @@ const RecentAooliedJobs = () => {
   );
 };
 
-export default RecentAooliedJobs;
+export default RecentApliedJobs;
