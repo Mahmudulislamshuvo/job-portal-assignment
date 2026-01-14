@@ -1,6 +1,6 @@
 import CustomInput from "../../commonComponents/CustomInput";
 
-const LocationSection = ({ register, errors, data }) => {
+const LocationSection = ({ register, data }) => {
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Location</h2>
@@ -13,14 +13,14 @@ const LocationSection = ({ register, errors, data }) => {
             type="text"
             id="city"
             placeholder="Enter city"
-            defaultValue={data?.location?.city}
-            {...register("location.city", { required: "City is required" })}
+            defaultValue={data?.city}
+            {...register("city")}
           />
-          {errors.location?.city && (
+          {/* {errors.location?.city && (
             <p className="text-red-500 text-sm mt-1">
               {errors.location.city.message}
             </p>
-          )}
+          )} */}
         </div>
         <div>
           <label htmlFor="state" className="label block mb-2">
@@ -30,16 +30,14 @@ const LocationSection = ({ register, errors, data }) => {
             type="text"
             id="state"
             placeholder="Enter state"
-            defaultValue={data?.location?.state}
-            {...register("location.state", {
-              required: "State/Province is required",
-            })}
+            defaultValue={data?.state}
+            {...register("state")}
           />
-          {errors.location?.state && (
+          {/* {errors.location?.state && (
             <p className="text-red-500 text-sm mt-1">
               {errors.location.state.message}
             </p>
-          )}
+          )} */}
         </div>
         <div>
           <label htmlFor="country" className="label block mb-2">
@@ -49,27 +47,25 @@ const LocationSection = ({ register, errors, data }) => {
             type="text"
             id="country"
             placeholder="Enter country"
-            defaultValue={data?.location?.country}
-            {...register("location.country", {
-              required: "Country is required",
-            })}
+            defaultValue={data?.country}
+            {...register("country")}
           />
-          {errors.location?.country && (
+          {/* {errors.location?.country && (
             <p className="text-red-500 text-sm mt-1">
               {errors.location.country.message}
             </p>
-          )}
+          )} */}
         </div>
         <div>
-          <label htmlFor="zipcode" className="label block mb-2">
+          <label htmlFor="zipCode" className="label block mb-2">
             Zip Code
           </label>
           <CustomInput
             type="text"
-            id="zipcode"
+            id="zipCode"
             placeholder="Enter zip code"
             defaultValue={data?.location?.zipcode}
-            {...register("location.zipcode")}
+            {...register("zipCode")}
           />
         </div>
       </div>

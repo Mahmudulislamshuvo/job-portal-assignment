@@ -48,12 +48,15 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
           )}
         </div>
         <div>
-          <label className="label block mb-2">Start Year *</label>
+          <label htmlFor="startDate" className="label block mb-2">
+            Start Year *
+          </label>
           <CustomInput
-            type="number"
+            type="date"
+            id="startDate"
             placeholder="e.g. 2016"
             defaultValue={field.startYear}
-            {...register(`education.${index}.startYear`, {
+            {...register(`education.${index}.startDate`, {
               required: "Start year is required",
             })}
           />
@@ -64,12 +67,15 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
           )}
         </div>
         <div>
-          <label className="label block mb-2">End Year *</label>
+          <label htmlFor="endDate" className="label block mb-2">
+            End Year *
+          </label>
           <CustomInput
-            type="number"
+            type="date"
+            id="endDate"
             placeholder="e.g. 2020"
             defaultValue={field.endYear}
-            {...register(`education.${index}.endYear`, {
+            {...register(`education.${index}.endDate`, {
               required: "End year is required",
             })}
           />

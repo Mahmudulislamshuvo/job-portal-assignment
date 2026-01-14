@@ -14,7 +14,7 @@ const BasicInformationSection = ({ register, errors, data }) => {
             type="text"
             id="name"
             placeholder="Enter full name"
-            defaultValue={data?.name} // From backend
+            defaultValue={data?.name}
             {...register("name", { required: "Name is required" })}
           />
           {errors.name && (
@@ -72,7 +72,6 @@ const BasicInformationSection = ({ register, errors, data }) => {
             type="text"
             id="title"
             placeholder="e.g. Full Stack Developer"
-            // Handle null value from backend by falling back to empty string
             defaultValue={data?.title || ""}
             {...register("title")}
           />

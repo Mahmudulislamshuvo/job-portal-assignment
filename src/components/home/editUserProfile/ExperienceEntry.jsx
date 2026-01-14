@@ -14,7 +14,9 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <Trash2 className="h-4 w-4" />
         </button>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* TITLE */}
         <div>
           <label className="label block mb-2">Title *</label>
           <CustomInput
@@ -31,22 +33,44 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
             </p>
           )}
         </div>
+
         <div>
-          <label className="label block mb-2">Company *</label>
+          <label className="label block mb-2">Company Name *</label>
           <CustomInput
             type="text"
             placeholder="e.g. Google"
-            defaultValue={field.company}
-            {...register(`experience.${index}.company`, {
-              required: "Company is required",
+            defaultValue={field.companyName}
+            {...register(`experience.${index}.companyName`, {
+              // CHANGED KEY
+              required: "Company Name is required",
             })}
           />
-          {errors.experience?.[index]?.company && (
+          {errors.experience?.[index]?.companyName && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.experience[index].company.message}
+              {errors.experience[index].companyName.message}
             </p>
           )}
         </div>
+
+        {/* LOCATION (নতুন ফিল্ড) */}
+        <div>
+          <label className="label block mb-2">Location *</label>
+          <CustomInput
+            type="text"
+            placeholder="e.g. New York, NY"
+            defaultValue={field.location}
+            {...register(`experience.${index}.location`, {
+              required: "Location is required",
+            })}
+          />
+          {errors.experience?.[index]?.location && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.experience[index].location.message}
+            </p>
+          )}
+        </div>
+
+        {/* EMPLOYMENT TYPE */}
         <div>
           <label className="label block mb-2">Employment Type *</label>
           <select
@@ -57,12 +81,11 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
             })}
           >
             <option value="">Select type</option>
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="contract">Contract</option>
-            <option value="freelance">Freelance</option>
-            <option value="internship">Internship</option>
-            <option value="temporary">Temporary</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Contract">Contract</option>
+            <option value="Freelance">Freelance</option>
+            <option value="Internship">Internship</option>
           </select>
           {errors.experience?.[index]?.employmentType && (
             <p className="text-red-500 text-sm mt-1">
@@ -70,10 +93,12 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
             </p>
           )}
         </div>
+
+        {/* START DATE */}
         <div>
           <label className="label block mb-2">Start Date *</label>
           <CustomInput
-            type="month"
+            type="date"
             defaultValue={field.startDate}
             {...register(`experience.${index}.startDate`, {
               required: "Start date is required",
@@ -85,14 +110,37 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
             </p>
           )}
         </div>
+
+        {/* END DATE */}
         <div>
           <label className="label block mb-2">End Date</label>
           <CustomInput
-            type="month"
-            placeholder="Present"
+            type="date"
+            placeholder="Leave empty if current"
             defaultValue={field.endDate}
             {...register(`experience.${index}.endDate`)}
           />
+          <p className="text-xs text-gray-500 mt-1">
+            Leave blank if currently working here
+          </p>
+        </div>
+
+        {/* DESCRIPTION (নতুন ফিল্ড) */}
+        <div className="md:col-span-2">
+          <label className="label block mb-2">Description *</label>
+          <textarea
+            className="input w-full h-24 p-2"
+            placeholder="Describe your responsibilities..."
+            defaultValue={field.description}
+            {...register(`experience.${index}.description`, {
+              required: "Description is required",
+            })}
+          />
+          {errors.experience?.[index]?.description && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.experience[index].description.message}
+            </p>
+          )}
         </div>
       </div>
     </div>

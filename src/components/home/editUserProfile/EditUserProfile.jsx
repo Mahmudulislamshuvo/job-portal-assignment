@@ -58,11 +58,7 @@ const EditUserProfile = () => {
           errors={errors}
           data={data?.data}
         />
-        <LocationSection
-          register={register}
-          errors={errors}
-          data={data?.data}
-        />
+        <LocationSection register={register} data={data?.data} />
         <AboutSection register={register} errors={errors} data={data?.data} />
         <SkillsSection
           register={register}

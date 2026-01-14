@@ -18,10 +18,12 @@ const ExperienceSection = ({ register, errors, data, control }) => {
           onClick={() =>
             append({
               title: "",
-              company: "",
+              companyName: "",
               employmentType: "",
+              location: "",
               startDate: "",
               endDate: "",
+              description: "",
             })
           }
         >
