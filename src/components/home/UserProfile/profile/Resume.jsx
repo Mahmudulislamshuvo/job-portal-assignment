@@ -31,6 +31,12 @@ const Resume = ({ userData }) => {
     }
   };
 
+  const resumeDownloadLink = userData?.resumeUrl
+    ? userData.resumeUrl.startsWith("http")
+      ? userData.resumeUrl
+      : `${import.meta.env.VITE_SERVER_URL}${userData.resumeUrl}`
+    : "";
+
   return (
     <div className="card p-6">
       <h3 className="text-lg font-semibold mb-4">Resume</h3>
@@ -50,10 +56,22 @@ const Resume = ({ userData }) => {
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="btn btn-outline w-full text-xs h-9">
+            {/* <button className="btn btn-outline w-full text-xs h-9">
               <Download className="h-3 w-3 mr-2" />
               Download
-            </button>
+            </button> */}
+            <a
+              href={resumeDownloadLink}
+              download={userData?.resumeOriginalName}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn btn-outline w-full text-xs h-9 flex items-center justify-center ${
+                !userData?.resumeUrl ? "pointer-events-none opacity-50" : ""
+              }`}
+            >
+              <Download className="h-3 w-3 mr-2" />
+              Download
+            </a>
           </div>
         </div>
         <input
