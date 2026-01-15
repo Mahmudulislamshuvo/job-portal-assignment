@@ -2,6 +2,7 @@ import { Calendar, Edit, MapPin } from "lucide-react";
 import { getFormatMonthYear } from "../../../utils/getFormatMonthYear";
 import { useNavigate } from "react-router-dom";
 import { useAppliedJobsQuery } from "../../../features/api/apiSlice";
+import { getSavedJobsFromLocalStorage } from "../../../utils/getLocalStorage";
 
 const ProfileInfo = ({ userData }) => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const ProfileInfo = ({ userData }) => {
     const excludedStatuses = ["Rejected", "Hired"];
     return !excludedStatuses.includes(item.status);
   }).length;
+
+  const savedJobs = getSavedJobsFromLocalStorage();
 
   return (
     <>
@@ -80,7 +83,7 @@ const ProfileInfo = ({ userData }) => {
           </div>
           <div>
             <p className="text-2xl font-bold text-[hsl(var(--color-primary))]">
-              18
+              {savedJobs.length}
             </p>
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Saved Jobs

@@ -3,27 +3,11 @@ import { FiMapPin, FiClock, FiBookmark } from "react-icons/fi";
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
 import { useState, useEffect, useEffectEvent } from "react";
 import { FaBookmark } from "react-icons/fa";
-
-const SAVED_JOBS_KEY = "savedJobs";
-
-// Helper functions for local storage
-const getSavedJobsFromLocalStorage = () => {
-  const savedJobs = localStorage.getItem(SAVED_JOBS_KEY);
-  return savedJobs ? JSON.parse(savedJobs) : [];
-};
-
-const saveJobToLocalStorage = (jobId) => {
-  const savedJobs = getSavedJobsFromLocalStorage();
-  if (!savedJobs.includes(jobId)) {
-    localStorage.setItem(SAVED_JOBS_KEY, JSON.stringify([...savedJobs, jobId]));
-  }
-};
-
-const removeJobFromLocalStorage = (jobId) => {
-  const savedJobs = getSavedJobsFromLocalStorage();
-  const updatedSavedJobs = savedJobs.filter((id) => id !== jobId);
-  localStorage.setItem(SAVED_JOBS_KEY, JSON.stringify(updatedSavedJobs));
-};
+import {
+  getSavedJobsFromLocalStorage,
+  removeJobFromLocalStorage,
+  saveJobToLocalStorage,
+} from "../../../utils/getLocalStorage";
 
 const JobHeader = ({ job }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -49,8 +33,6 @@ const JobHeader = ({ job }) => {
     }
     setIsBookmarked(!isBookmarked);
   };
-
-  console.log("hellow");
 
   return (
     <div className="card p-6">
