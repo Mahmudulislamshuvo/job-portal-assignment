@@ -44,14 +44,14 @@ const Navbar = () => {
 
             {/* Right Side: User Profile */}
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-[hsl(var(--color-secondary))] flex items-center justify-center">
+              <Link to={"/user-profile"} className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center">
                   <BiUser className="h-4 w-4 text-[hsl(var(--color-primary))]" />
                 </div>
                 <span className="text-sm font-medium hidden md:inline">
                   {user?.name || "User"}
                 </span>
-              </div>
+              </Link>
             </div>
           </>
         ) : user?.role === "COMPANY" ? (
