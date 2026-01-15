@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/userComponents/Footer";
 
 const UserPrivateLayout = () => {
   const { user } = useSelector((state) => state.auth);

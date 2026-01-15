@@ -1,17 +1,17 @@
 import RegistrationCompany from "./components/registration/Company/RegistrationCompany";
 import { Route, Routes } from "react-router-dom";
 import RagistrationUser from "./components/registration/User/RagistrationUser";
-import Home from "./components/home/Home";
+import Home from "./components/userComponents/home/Home";
 import PrivateLayout from "./routes/UserPrivateLayout";
 import Login from "./components/public/login/Login";
-import UserDashboard from "./components/dashboard/UserDashboard";
-import Unauthorized from "./components/UnAthorized";
 import PublicLayout from "./routes/PublicLayout";
-import JobDetails from "./components/home/JobDetails/JobDetails";
-import UserProfile from "./components/home/UserProfile/UserProfile";
 import LoggedUserToDeshboard from "./routes/LoggedUserToDeshboard";
-import EditUserProfile from "./components/home/editUserProfile/EditUserProfile";
-import AppliedJobs from "./components/home/appliedJobs/AppliedJobs";
+import UserDashboard from "./components/userComponents/dashboard/UserDashboard";
+import UserProfile from "./components/userComponents/home/UserProfile/UserProfile";
+import EditUserProfile from "./components/userComponents/home/editUserProfile/EditUserProfile";
+import AppliedJobs from "./components/userComponents/home/appliedJobs/AppliedJobs";
+import Unauthorized from "./components/userComponents/UnAthorized";
+import JobDetails from "./components/userComponents/home/JobDetails/JobDetails";
 
 const App = () => {
   return (

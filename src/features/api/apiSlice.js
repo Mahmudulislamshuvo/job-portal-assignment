@@ -53,7 +53,7 @@ export const apiSlice = createApi({
 
         return {
           url: "/jobs",
-          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+          params: cleanParams,
         };
       },
     }),
