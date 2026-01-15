@@ -1,11 +1,56 @@
 import { BiUnlink } from "react-icons/bi";
 import { FiMapPin, FiClock, FiBookmark } from "react-icons/fi";
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
-import { useState } from "react";
+import { useState, useEffect, useEffectEvent } from "react";
 import { FaBookmark } from "react-icons/fa";
 
+const SAVED_JOBS_KEY = "savedJobs";
+
+// Helper functions for local storage
+const getSavedJobsFromLocalStorage = () => {
+  const savedJobs = localStorage.getItem(SAVED_JOBS_KEY);
+  return savedJobs ? JSON.parse(savedJobs) : [];
+};
+
+const saveJobToLocalStorage = (jobId) => {
+  const savedJobs = getSavedJobsFromLocalStorage();
+  if (!savedJobs.includes(jobId)) {
+    localStorage.setItem(SAVED_JOBS_KEY, JSON.stringify([...savedJobs, jobId]));
+  }
+};
+
+const removeJobFromLocalStorage = (jobId) => {
+  const savedJobs = getSavedJobsFromLocalStorage();
+  const updatedSavedJobs = savedJobs.filter((id) => id !== jobId);
+  localStorage.setItem(SAVED_JOBS_KEY, JSON.stringify(updatedSavedJobs));
+};
+
 const JobHeader = ({ job }) => {
-  const [bookmart, setBookmark] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  const updatedData = useEffectEvent(() => {
+    if (job?.id) {
+      const savedJobs = getSavedJobsFromLocalStorage();
+      setIsBookmarked(savedJobs.includes(job.id));
+    }
+  });
+
+  useEffect(() => {
+    updatedData();
+  }, [job?.id]);
+
+  const handleBookmarkToggle = () => {
+    if (!job?.id) return;
+
+    if (isBookmarked) {
+      removeJobFromLocalStorage(job.id);
+    } else {
+      saveJobToLocalStorage(job.id);
+    }
+    setIsBookmarked(!isBookmarked);
+  };
+
+  console.log("hellow");
 
   return (
     <div className="card p-6">
@@ -44,12 +89,12 @@ const JobHeader = ({ job }) => {
               </div>
             </div>
             <button
-              onClick={() => setBookmark(!bookmart)}
+              onClick={handleBookmarkToggle}
               className="btn-ghost p-2 shrink-0"
               title="Save job"
             >
-              {bookmart ? (
-                <FaBookmark className="h-6 w-6" />
+              {isBookmarked ? (
+                <FaBookmark className="h-6 w-6 text-blue-500" />
               ) : (
                 <FiBookmark className="h-6 w-6" />
               )}
