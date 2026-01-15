@@ -1,17 +1,15 @@
 import { Cpu, MapPin } from "lucide-react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  useGetJobRecomendationQuery,
   useGetUserByIdQuery,
   useJobApplyMutation,
 } from "../../features/api/apiSlice";
 import { getFormatSalary } from "../../utils/getFormatSalary";
 import ApplyModal from "../home/JobDetails/ApplyModal";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 
-const RecomandedJobs = () => {
-  const { data, isLoading } = useGetJobRecomendationQuery();
+const RecomandedJobs = ({ recomandedJobs }) => {
   const { user } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
   const [coverLetter, setCoverLetter] = useState("");
@@ -24,12 +22,9 @@ const RecomandedJobs = () => {
     refetch,
   } = useGetUserByIdQuery(user?.id);
 
-  const filteredJobs = data?.data?.slice(0, 3) || [];
+  const filteredJobs = recomandedJobs.slice(0, 3) || [];
   const onOpenModal = () => setOpen(true);
   const onCloseModal = () => setOpen(false);
-
-  if (isLoading)
-    return <div className="card p-6">Loading recommendations...</div>;
 
   const handleSubmitApplication = async () => {
     try {

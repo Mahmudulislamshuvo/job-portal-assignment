@@ -1,5 +1,6 @@
 import { CgCode } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { getFormatSalary } from "../../../utils/getFormatSalary";
 
 const SimilerJobs = ({ data }) => {
   return (
@@ -38,7 +39,9 @@ const SimilerJobs = ({ data }) => {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium text-[hsl(var(--color-primary))]">
-                      {`$${job.salaryMin} - $${job.salaryMax} Yearly`}
+                      {`${getFormatSalary(job?.salaryMin, job?.salaryMax)} / ${
+                        job?.salaryPeriod
+                      }`}
                     </span>
                     <Link
                       to={`/job-details/${job.id}`}

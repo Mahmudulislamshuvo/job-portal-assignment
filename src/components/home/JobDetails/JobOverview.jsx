@@ -6,6 +6,7 @@ import {
   FiCalendar,
   FiUsers,
 } from "react-icons/fi";
+import { getFormatSalary } from "../../../utils/getFormatSalary";
 
 const JobOverview = ({ job }) => {
   return (
@@ -45,7 +46,9 @@ const JobOverview = ({ job }) => {
               Salary
             </p>
             <p className="font-medium">
-              ${job?.salaryMin} - ${job?.salaryMax} / {job?.salaryPeriod}
+              {`${getFormatSalary(job?.salaryMin, job?.salaryMax)} / ${
+                job?.salaryPeriod
+              }`}
             </p>
           </div>
         </div>

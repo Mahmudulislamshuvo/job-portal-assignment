@@ -38,7 +38,7 @@ const Home = () => {
         <SearchFilter query={query} setQuery={setQuery} />
 
         {/* <!-- Results Header --> */}
-        <ResultHeader totalJobs={totalJobs} />
+        <ResultHeader setQuery={setQuery} totalJobs={totalJobs} />
 
         {/* <!-- Job Cards Grid --> */}
         {error ? (

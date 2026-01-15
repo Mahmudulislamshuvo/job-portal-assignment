@@ -1,4 +1,8 @@
-const ResultHeader = ({ totalJobs }) => {
+const ResultHeader = ({ totalJobs, setQuery }) => {
+  const handleSortBySalary = (value) => {
+    setQuery((prev) => ({ ...prev, sort: value }));
+  };
+
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
@@ -13,9 +17,10 @@ const ResultHeader = ({ totalJobs }) => {
 
           <select
             className="px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-slate-200 bg-white cursor-pointer"
-            defaultValue="recent"
+            defaultValue=""
+            onChange={(e) => handleSortBySalary(e.target.value)}
           >
-            <option value="recent">Most Recent</option>
+            <option value="">Most Recent</option>
             <option value="salary_high">Salary (High to Low)</option>
             <option value="salary_low">Salary (Low to High)</option>
           </select>

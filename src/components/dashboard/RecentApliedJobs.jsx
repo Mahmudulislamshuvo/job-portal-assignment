@@ -1,25 +1,15 @@
 import { Building, Calendar, DollarSign, MapPin } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router-dom"; // লিংকের জন্য
-import {
-  useAppliedJobsQuery,
-  useDeleteMyJobApplicationMutation,
-} from "../../features/api/apiSlice";
+import { useDeleteMyJobApplicationMutation } from "../../features/api/apiSlice";
 import { getFormatMonthYear } from "../../utils/getFormatMonthYear";
 import { getFormatSalary } from "../../utils/getFormatSalary";
 
-const RecentApliedJobs = () => {
-  const [queries] = useState({
-    status: "",
-    date: "",
-    sort: "Newest First",
-  });
+const RecentApliedJobs = ({ appliedJobs }) => {
   const [deleteApplication, { isLoading: isDeleting }] =
     useDeleteMyJobApplicationMutation();
-  const { data, isLoading } = useAppliedJobsQuery(queries);
 
   // show 3 jobs only
-  const recentApplications = data?.data?.slice(0, 3) || [];
+  const recentApplications = appliedJobs.slice(0, 3) || [];
 
   const getStatusBadgeClass = (status) => {
     switch (status) {
@@ -37,8 +27,6 @@ const RecentApliedJobs = () => {
         return "badge-secondary";
     }
   };
-
-  if (isLoading) return <div className="card p-6">Loading...</div>;
 
   const handleWithdrewApplication = async (applicationId) => {
     const response = await deleteApplication(applicationId);

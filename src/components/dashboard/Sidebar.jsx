@@ -1,3 +1,6 @@
+import { Bookmark, Edit, FileText, Settings, User } from "lucide-react";
+import { Link } from "react-router-dom";
+
 const Sidebar = () => {
   return (
     <>
@@ -6,56 +9,38 @@ const Sidebar = () => {
         <div className="card p-6">
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
           <div className="space-y-2">
-            <a
-              href="user-profile.html"
+            <Link
+              to={"/user-profile"}
               className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
             >
-              <i
-                data-lucide="user"
-                className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]"
-              ></i>
+              <User className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]" />
               <span className="text-sm font-medium">View Profile</span>
-            </a>
-            <a
-              href="edit-user-profile.html"
+            </Link>
+            <Link
+              to={"/edit-user-profile"}
               className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
             >
-              <i
-                data-lucide="edit"
-                className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]"
-              ></i>
+              <Edit className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]" />
               <span className="text-sm font-medium">Edit Profile</span>
-            </a>
-            <a
-              href="applied-jobs.html"
+            </Link>
+            <Link
+              to={"/applied-jobs"}
               className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
             >
-              <i
-                data-lucide="file-text"
-                className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]"
-              ></i>
+              <FileText className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]" />
               <span className="text-sm font-medium">My Applications</span>
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to={""}
               className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
             >
-              <i
-                data-lucide="bookmark"
-                className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]"
-              ></i>
+              <Bookmark className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]" />
               <span className="text-sm font-medium">Saved Jobs</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
-            >
-              <i
-                data-lucide="settings"
-                className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]"
-              ></i>
+            </Link>
+            <span>
+              <Settings className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors" />
               <span className="text-sm font-medium">Settings</span>
-            </a>
+            </span>
           </div>
         </div>
 

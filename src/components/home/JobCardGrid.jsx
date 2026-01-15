@@ -9,6 +9,8 @@ import {
 import { useState } from "react";
 import ApplyModal from "./JobDetails/ApplyModal";
 import { useSelector } from "react-redux";
+import { Clock, MapPin, User } from "lucide-react";
+import { getFormatSalary } from "../../utils/getFormatSalary";
 
 const JobCardGrid = ({ data, isLoading, error }) => {
   const { user } = useSelector((state) => state.auth);
@@ -94,14 +96,15 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-lg font-semibold mb-1">
-                      <a
-                        href="job-seeker/job-details.html"
+                      <Link
+                        to={`/job-details/${job.id}`}
                         className="hover:underline"
                       >
                         {job.title}
-                      </a>
+                      </Link>
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                      {/* compay profile needed to navbiagte  */}
                       <a
                         href="company-profile.html"
                         className="hover:text-primary font-medium"
@@ -110,12 +113,12 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                       </a>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <i data-lucide="map-pin" className="h-4 w-4"></i>
+                        <MapPin className="h-4 w-4" />
                         {job.company.location}
                       </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
-                        <i data-lucide="clock" className="h-4 w-4"></i>
+                        <Clock className="h-4 w-4" />
                         {getTimeFromNow(job.createdAt)}
                       </span>
                     </div>
@@ -138,10 +141,10 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                 <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
                   <div className="flex items-center gap-4">
                     <span className="text-sm font-semibold text-primary">
-                      {`$${job.salaryMin} - $${job.salaryMax}`}
+                      {getFormatSalary(job.salaryMin, job.salaryMax)}
                     </span>
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
-                      <i data-lucide="users" className="h-4 w-4"></i>
+                      <User className="h-4 w-4" />
                       {job.applicants} applicants
                     </span>
                   </div>
