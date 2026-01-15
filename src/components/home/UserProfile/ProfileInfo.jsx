@@ -1,9 +1,24 @@
 import { Calendar, Edit, MapPin } from "lucide-react";
 import { getFormatMonthYear } from "../../../utils/getFormatMonthYear";
 import { useNavigate } from "react-router-dom";
+import { useAppliedJobsQuery } from "../../../features/api/apiSlice";
 
 const ProfileInfo = ({ userData }) => {
   const navigate = useNavigate();
+  const { data, isLoading } = useAppliedJobsQuery();
+
+  if (isLoading) {
+    <p>Data Loading....</p>;
+  }
+
+  const appliedAlljobs = data?.data;
+
+  // Option 1: Using filter and length (Simple)
+  const otherCount = appliedAlljobs?.filter((item) => {
+    const excludedStatuses = ["Rejected", "Hired"];
+    return !excludedStatuses.includes(item.status);
+  }).length;
+
   return (
     <>
       <div className="flex-1">
@@ -49,7 +64,7 @@ const ProfileInfo = ({ userData }) => {
         <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[hsl(var(--color-border))]">
           <div>
             <p className="text-2xl font-bold text-[hsl(var(--color-primary))]">
-              12
+              {appliedAlljobs?.length}
             </p>
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Applications
@@ -57,7 +72,7 @@ const ProfileInfo = ({ userData }) => {
           </div>
           <div>
             <p className="text-2xl font-bold text-[hsl(var(--color-primary))]">
-              5
+              {otherCount}
             </p>
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               In Review

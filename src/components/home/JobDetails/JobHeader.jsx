@@ -1,8 +1,12 @@
 import { BiUnlink } from "react-icons/bi";
 import { FiMapPin, FiClock, FiBookmark } from "react-icons/fi";
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
+import { useState } from "react";
+import { FaBookmark } from "react-icons/fa";
 
 const JobHeader = ({ job }) => {
+  const [bookmart, setBookmark] = useState(false);
+
   return (
     <div className="card p-6">
       <div className="flex items-start gap-4">
@@ -39,8 +43,16 @@ const JobHeader = ({ job }) => {
                 </span>
               </div>
             </div>
-            <button className="btn-ghost p-2 shrink-0" title="Save job">
-              <FiBookmark className="h-6 w-6" />
+            <button
+              onClick={() => setBookmark(!bookmart)}
+              className="btn-ghost p-2 shrink-0"
+              title="Save job"
+            >
+              {bookmart ? (
+                <FaBookmark className="h-6 w-6" />
+              ) : (
+                <FiBookmark className="h-6 w-6" />
+              )}
             </button>
           </div>
           <div className="flex flex-wrap gap-2">
