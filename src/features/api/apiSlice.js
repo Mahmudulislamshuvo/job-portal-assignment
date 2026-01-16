@@ -183,8 +183,36 @@ export const apiSlice = createApi({
     }),
 
     GetCompanyJob: builder.query({
+      query: (params = {}) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+        );
+
+        return {
+          url: `/companies/jobs`,
+          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+        };
+      },
+    }),
+
+    GetApplicanst: builder.query({
+      query: (params = {}) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+        );
+
+        return {
+          url: "/companies/applicants",
+          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+        };
+      },
+    }),
+
+    GetLoggedInCompanyInfo: builder.query({
       query: () => ({
-        url: `/companies/jobs`,
+        url: "/companies/profile",
       }),
     }),
   }),
@@ -210,4 +238,6 @@ export const {
   useGetJobBySlugQuery,
   useGetDashboardStateQuery,
   useGetCompanyJobQuery,
+  useGetApplicanstQuery,
+  useGetLoggedInCompanyInfoQuery,
 } = apiSlice;

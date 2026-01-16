@@ -1,6 +1,8 @@
 import {
+  useGetApplicanstQuery,
   useGetCompanyJobQuery,
   useGetDashboardStateQuery,
+  useGetLoggedInCompanyInfoQuery,
 } from "../../../features/api/apiSlice";
 import CompanyDashboardHeafer from "./subCompanyDashboard/CompanyDashboardHeafer";
 import CompanyQuickActions from "./subCompanyDashboard/CompanyQuickActions";
@@ -20,11 +22,24 @@ const CompanyDashboard = () => {
   const { data: openJobsData, isLoading: IsJobsDataLoading } =
     useGetCompanyJobQuery();
 
-  if (isStateLoading || IsJobsDataLoading) {
+  const { data: applicantsData, isLoading: isAplicantsLoading } =
+    useGetApplicanstQuery();
+
+  const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
+    useGetLoggedInCompanyInfoQuery();
+
+  if (
+    isStateLoading ||
+    IsJobsDataLoading ||
+    isAplicantsLoading ||
+    isLoadingLoggedCompanyData
+  ) {
     <p>Loading......</p>;
   }
 
-  console.log(openJobsData);
+  const recentApplicantsData = applicantsData?.data?.slice(0, 3);
+
+  console.log(loggedInCompanyData);
 
   return (
     <div>
@@ -94,7 +109,7 @@ const CompanyDashboard = () => {
               </div>
               <div className="divide-y divide-[hsl(var(--color-border))]">
                 {/* <!-- Applicant 1 --> */}
-                <RecentApplication />
+                <RecentApplication applicantsData={recentApplicantsData} />
               </div>
             </div>
           </div>

@@ -44,7 +44,7 @@ const App = () => {
             <Route path="/applied-jobs" element={<AppliedJobs />} />
           </Route>
           {/* Company and user both can access start */}
-          <Route path="/company-profile" element={<CompanyProfle />} />
+          <Route path="/company/profile/:slug" element={<CompanyProfle />} />
           {/* Company and user both can access End */}
           <Route element={<CompanyPrivateLayout />}>
             {/* only for company */}

@@ -2,11 +2,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiBriefcaseAlt, BiPlus, BiUser } from "react-icons/bi";
 import { BsBuildingGear } from "react-icons/bs";
+import { useGetLoggedInCompanyInfoQuery } from "../../features/api/apiSlice";
+import NavbarSkeliton from "../skelitons/NavbarSkeliton";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
-  console.log(user);
+  const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
+    useGetLoggedInCompanyInfoQuery();
 
   // Helper styles for cleaner JSX (Tailwind classes)
   const iconStyle = "h-8 w-8 text-[hsl(var(--color-primary))]"; // আপনার কাস্টম কালার
@@ -15,6 +18,9 @@ const Navbar = () => {
   const activeNavLinkStyle =
     "text-sm font-medium text-[hsl(var(--color-primary))]";
 
+  if (isLoadingLoggedCompanyData) {
+    return <NavbarSkeliton />;
+  }
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -70,7 +76,7 @@ const Navbar = () => {
 
               {/* Nav Links */}
               <nav className="hidden md:flex items-center gap-6">
-                <Link to="/company-dashboard" className={activeNavLinkStyle}>
+                <Link to="/company/dashboard" className={activeNavLinkStyle}>
                   Dashboard
                 </Link>
                 <Link to="/manage-jobs" className={navLinkStyle}>
@@ -92,14 +98,16 @@ const Navbar = () => {
                 Post Job
               </Link>
 
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-[hsl(var(--color-secondary))] flex items-center justify-center">
-                  <BsBuildingGear className="h-4 w-4 text-[hsl(var(--color-primary))]" />
+              <Link to={`/company/profile/${loggedInCompanyData.data.slug}`}>
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-[hsl(var(--color-secondary))] flex items-center justify-center">
+                    <BsBuildingGear className="h-4 w-4 text-[hsl(var(--color-primary))]" />
+                  </div>
+                  <span className="text-sm font-medium hidden md:inline">
+                    {user?.name || "Company"}
+                  </span>
                 </div>
-                <span className="text-sm font-medium hidden md:inline">
-                  {user?.name || "Company"}
-                </span>
-              </div>
+              </Link>
             </div>
           </>
         ) : (
