@@ -32,14 +32,15 @@ const CompanyDashboard = () => {
     isStateLoading ||
     IsJobsDataLoading ||
     isAplicantsLoading ||
-    isLoadingLoggedCompanyData
+    isLoadingLoggedCompanyData ||
+    loggedInCompanyData
   ) {
     <p>Loading......</p>;
   }
 
   const recentApplicantsData = applicantsData?.data?.slice(0, 3);
 
-  console.log(loggedInCompanyData);
+  console.log(recentApplicantsData);
 
   return (
     <div>
