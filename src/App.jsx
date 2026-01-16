@@ -15,6 +15,7 @@ import UserPrivateLayout from "./routes/UserPrivateLayout";
 import PrivateLayout from "./routes/PrivateLayout";
 import CompanyPrivateLayout from "./routes/CompanyPrivateLayout";
 import CompanyProfle from "./components/companyComponents/companyProfile/CompanyProfle";
+import NotFound from "./components/commonComponents/NotFound";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/company-profile" element={<CompanyProfle />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -1,30 +1,41 @@
-const CompanyInfo = () => {
+import { Building, MapPin, Share2, Users } from "lucide-react";
+
+const CompanyInfo = ({ data }) => {
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      console.log("Link copied to clipboard!");
+    } catch (err) {
+      console.error("Failed to copy link: ", err);
+    }
+  };
+
   return (
     <>
-      <div class="flex-1 h-full items-center">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex-1 h-full items-center">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 class="text-3xl font-bold mb-2">TechCorp Solutions</h1>
-            <div class="flex flex-wrap items-center gap-3 text-[hsl(var(--color-muted-foreground))]">
-              <span class="flex items-center gap-1">
-                <i data-lucide="building" class="h-4 w-4"></i>
-                Technology & Software
+            <h1 className="text-3xl font-bold mb-2">TechCorp Solutions</h1>
+            <div className="flex flex-wrap items-center gap-3 text-[hsl(var(--color-muted-foreground))]">
+              <span className="flex items-center gap-1">
+                <Building className="h-4 w-4" />
+                {data?.name}
               </span>
               <span>•</span>
-              <span class="flex items-center gap-1">
-                <i data-lucide="map-pin" class="h-4 w-4"></i>
-                San Francisco, CA
+              <span className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                {data?.location}
               </span>
               <span>•</span>
-              <span class="flex items-center gap-1">
-                <i data-lucide="users" class="h-4 w-4"></i>
-                500-1000 employees
+              <span className="flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                {data?.employeeCount}
               </span>
             </div>
           </div>
-          <div class="flex gap-2">
-            <button class="btn btn-outline">
-              <i data-lucide="share-2" class="h-4 w-4 mr-2"></i>
+          <div className="flex gap-2">
+            <button onClick={handleCopyLink} className="btn btn-outline">
+              <Share2 className="h-4 w-4 mr-2" />
               Share
             </button>
           </div>

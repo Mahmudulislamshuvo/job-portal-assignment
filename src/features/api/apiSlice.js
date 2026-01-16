@@ -140,6 +140,13 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["application"],
     }),
+
+    // Company
+    GetComanyProfile: builder.query({
+      query: () => ({
+        url: "/companies/profile",
+      }),
+    }),
   }),
 });
 
@@ -157,4 +164,5 @@ export const {
   useAppliedJobsQuery,
   useGetUserByIdQuery,
   useDeleteMyJobApplicationMutation,
+  useGetComanyProfileQuery,
 } = apiSlice;
