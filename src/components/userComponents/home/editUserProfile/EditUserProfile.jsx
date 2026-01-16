@@ -16,10 +16,12 @@ import {
   useGetProfileInfoQuery,
   useUpdateProfileMutation,
 } from "../../../../features/api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditUserProfile = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileInfoQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -37,9 +39,16 @@ const EditUserProfile = () => {
   }, [data, reset]);
 
   const handleEditSubmit = async (formData) => {
+    console.log(formData, "Need to navigate or show notification");
+
     try {
       const result = await updateProfile(formData).unwrap();
       console.log("Profile updated successfully:", result);
+      console.log(result?.success);
+
+      if (result?.success === true) {
+        navigate("/user-profile");
+      }
       // Optionally, show a success toast notification
     } catch (error) {
       console.error("Failed to update profile:", error);

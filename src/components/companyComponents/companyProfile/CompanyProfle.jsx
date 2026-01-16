@@ -1,4 +1,5 @@
 import { useGetComanyProfileQuery } from "../../../features/api/apiSlice";
+import CompanyProfileSkeleton from "../../skelitons/CompanyProfileSkeliton";
 import SocialLinks from "../../userComponents/home/UserProfile/profile/SocialLinks";
 import AboutCompany from "./profileSubCompo/AboutCompany";
 import ComapnyLogo from "./profileSubCompo/ComapnyLogo";
@@ -9,6 +10,12 @@ import OpenPositions from "./profileSubCompo/OpenPositions";
 
 const CompanyProfle = () => {
   const { data, isLoading, error } = useGetComanyProfileQuery();
+
+  console.log(data);
+
+  if (isLoading) {
+    return <CompanyProfileSkeleton />;
+  }
 
   // data: {
   //       id: '444cb47d-ddcf-487c-a869-4213afce9455',
@@ -52,10 +59,11 @@ const CompanyProfle = () => {
           {/* <!-- Main Content Column --> */}
           <div class="lg:col-span-2 space-y-6">
             {/* <!-- About Company --> */}
-            <AboutCompany />
+            <AboutCompany data={data?.data} />
 
             {/* <!-- Company Culture & Values --> */}
-            <CompanyCultureAndValues />
+            {/* TODO: No data added in this component  */}
+            <CompanyCultureAndValues data={data?.data} />
 
             {/* <!-- Open Positions --> */}
             <OpenPositions />

@@ -32,6 +32,8 @@ const ProfilePhotoSection = () => {
     formData.append("profilePicture", file);
     const response = await uploadProfilePic(formData);
 
+    console.log(response);
+
     if (response?.data?.success === true) {
       console.log("Profile picture uploaded successfully");
     }
@@ -70,12 +72,12 @@ const ProfilePhotoSection = () => {
               />
             )}
           </div>
-          <button
-            onClick={handleFireFileInput}
+          <span
+            // onClick={handleFireFileInput}
             className="absolute bottom-0 right-0 h-10 w-10 rounded-full bg-primary flex items-center justify-center border-4 border-white cursor-pointer hover:bg-primary/90 transition-colors"
           >
             <Camera className="h-5 w-5 text-white" />
-          </button>
+          </span>
         </div>
         <div className="flex-1">
           <h3 className="font-medium mb-2">Upload Profile Picture</h3>

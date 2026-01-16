@@ -67,6 +67,8 @@ const JobCardGrid = ({ data, isLoading, error }) => {
     }
   };
 
+  console.log(data?.data);
+
   return (
     <>
       <div className="grid gap-4 md:gap-6">
@@ -105,12 +107,9 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                       {/* compay profile needed to navbiagte  */}
-                      <a
-                        href="company-profile.html"
-                        className="hover:text-primary font-medium"
-                      >
+                      <span className="hover:text-primary font-medium">
                         {job.company.name}
-                      </a>
+                      </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
@@ -150,7 +149,7 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                   </div>
                   <div className="flex gap-2">
                     <Link
-                      to={`/job-details/${job.id}`}
+                      to={`/job-details/${job.slug}`}
                       className="btn btn-outline text-sm"
                     >
                       View Details

@@ -20,7 +20,6 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="text"
             placeholder="e.g. Stanford University"
-            defaultValue={field.institution}
             {...register(`education.${index}.institution`, {
               required: "Institution is required",
             })}
@@ -36,7 +35,6 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="text"
             placeholder="e.g. Bachelor of Science"
-            defaultValue={field.degree}
             {...register(`education.${index}.degree`, {
               required: "Degree is required",
             })}
@@ -55,7 +53,6 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
             type="date"
             id="startDate"
             placeholder="e.g. 2016"
-            defaultValue={field.startYear}
             {...register(`education.${index}.startDate`, {
               required: "Start year is required",
             })}
@@ -74,7 +71,6 @@ const EducationEntry = ({ register, errors, index, remove, field }) => {
             type="date"
             id="endDate"
             placeholder="e.g. 2020"
-            defaultValue={field.endYear}
             {...register(`education.${index}.endDate`, {
               required: "End year is required",
             })}

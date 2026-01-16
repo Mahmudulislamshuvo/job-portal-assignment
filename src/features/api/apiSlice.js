@@ -70,6 +70,13 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["application"],
+    }),
+
+    GetJobBySlug: builder.query({
+      query: (slug) => ({
+        url: `/jobs/${slug}`,
+      }),
     }),
 
     GetSimilerJobs: builder.query({
@@ -147,6 +154,27 @@ export const apiSlice = createApi({
         url: "/companies/profile",
       }),
     }),
+
+    GetOpenJobs: builder.query({
+      query: (params = {}) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+        );
+
+        return {
+          url: "/companies/jobs",
+          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+        };
+      },
+      // providesTags: ["application"],
+    }),
+
+    GetCompanyBySlug: builder.query({
+      query: (slug) => ({
+        url: `/companies/${slug}`,
+      }),
+    }),
   }),
 });
 
@@ -165,4 +193,7 @@ export const {
   useGetUserByIdQuery,
   useDeleteMyJobApplicationMutation,
   useGetComanyProfileQuery,
+  useGetOpenJobsQuery,
+  useGetCompanyBySlugQuery,
+  useGetJobBySlugQuery,
 } = apiSlice;

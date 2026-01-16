@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import SimilerJobs from "./SimilerJobs";
 import SimilerJobsSkeleton from "../../../skelitons/SimilerJobsSkeliton";
 import {
-  useGetAllJobsQuery,
+  useGetJobBySlugQuery,
   useGetSimilerJobsQuery,
   useGetUserByIdQuery,
   useJobApplyMutation,
@@ -23,7 +23,7 @@ import {
 
 const JobDetails = () => {
   const { id } = useParams();
-  const { data, isLoading, error } = useGetAllJobsQuery();
+  const { data, isLoading, error } = useGetJobBySlugQuery(id);
   const [coverLetter, setCoverLetter] = useState("");
 
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ const JobDetails = () => {
   } = useGetUserByIdQuery(user?.id);
   const [applyJob, { isLoading: isApplying }] = useJobApplyMutation();
 
-  const job = data?.data?.find((job) => job.id === id);
+  const job = data?.data;
 
   if (isLoading || isUserDataLoading || isSimilarJobsLoading) {
     return <JobDetailsSkeleton />;

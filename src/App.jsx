@@ -36,13 +36,17 @@ const App = () => {
 
         <Route element={<PrivateLayout />}>
           <Route element={<UserPrivateLayout />}>
+            {/* Only for users */}
             <Route path="/user-dashboard" element={<UserDashboard />} />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/edit-user-profile" element={<EditUserProfile />} />
             <Route path="/applied-jobs" element={<AppliedJobs />} />
           </Route>
+          {/* Company and user both can access start */}
+          <Route path="/company-profile" element={<CompanyProfle />} />
+          {/* Company and user both can access End */}
           <Route element={<CompanyPrivateLayout />}>
-            <Route path="/company-profile" element={<CompanyProfle />} />
+            {/* only for company */}
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

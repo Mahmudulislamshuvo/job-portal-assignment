@@ -9,6 +9,7 @@ import {
   removeJobFromLocalStorage,
   saveJobToLocalStorage,
 } from "../../../../utils/getLocalStorage";
+import { Link } from "react-router-dom";
 
 const JobHeader = ({ job }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -56,9 +57,12 @@ const JobHeader = ({ job }) => {
             <div>
               <h1 className="text-3xl font-bold mb-2">{job?.title}</h1>
               <div className="flex flex-wrap items-center gap-3 text-[hsl(var(--color-muted-foreground))]">
-                <span className="text-lg font-medium hover:text-[hsl(var(--color-primary))] cursor-pointer">
+                <Link
+                  // to={""}
+                  className="text-lg font-medium hover:text-[hsl(var(--color-primary))] cursor-pointer"
+                >
                   {job?.company?.name}
-                </span>
+                </Link>
                 <span>•</span>
                 <span className="flex items-center gap-1">
                   <FiMapPin className="h-4 w-4" />

@@ -33,6 +33,7 @@ const BasicInformationSection = ({ register, errors, data }) => {
             placeholder="Enter email"
             value={data?.email}
             css={"bg-gray-300 cursor-not-allowed focus:ring-0"}
+            readOnly
             // {...register("email", {
             //   required: "Email is required",
             //   pattern: {

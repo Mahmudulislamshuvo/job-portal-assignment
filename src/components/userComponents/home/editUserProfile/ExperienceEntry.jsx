@@ -22,7 +22,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="text"
             placeholder="e.g. Full Stack Developer"
-            defaultValue={field.title}
             {...register(`experience.${index}.title`, {
               required: "Title is required",
             })}
@@ -39,7 +38,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="text"
             placeholder="e.g. Google"
-            defaultValue={field.companyName}
             {...register(`experience.${index}.companyName`, {
               // CHANGED KEY
               required: "Company Name is required",
@@ -58,7 +56,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="text"
             placeholder="e.g. New York, NY"
-            defaultValue={field.location}
             {...register(`experience.${index}.location`, {
               required: "Location is required",
             })}
@@ -75,7 +72,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <label className="label block mb-2">Employment Type *</label>
           <select
             className="input"
-            defaultValue={field.employmentType}
             {...register(`experience.${index}.employmentType`, {
               required: "Employment type is required",
             })}
@@ -99,7 +95,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <label className="label block mb-2">Start Date *</label>
           <CustomInput
             type="date"
-            defaultValue={field.startDate}
             {...register(`experience.${index}.startDate`, {
               required: "Start date is required",
             })}
@@ -117,7 +112,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <CustomInput
             type="date"
             placeholder="Leave empty if current"
-            defaultValue={field.endDate}
             {...register(`experience.${index}.endDate`)}
           />
           <p className="text-xs text-gray-500 mt-1">
@@ -131,7 +125,6 @@ const ExperienceEntry = ({ register, errors, index, remove, field }) => {
           <textarea
             className="input w-full h-24 p-2"
             placeholder="Describe your responsibilities..."
-            defaultValue={field.description}
             {...register(`experience.${index}.description`, {
               required: "Description is required",
             })}

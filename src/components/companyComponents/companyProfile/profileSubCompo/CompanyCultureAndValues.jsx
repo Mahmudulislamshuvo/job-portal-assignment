@@ -1,6 +1,8 @@
 import { Lightbulb, Users, Target, Heart } from "lucide-react";
 
-const CompanyCultureAndValues = () => {
+const CompanyCultureAndValues = ({ data }) => {
+  console.log(data);
+
   return (
     <>
       <div className="card p-6">

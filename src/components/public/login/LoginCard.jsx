@@ -57,6 +57,7 @@ const LoginCard = () => {
           ...data,
           role: "COMPANY",
         }).unwrap();
+
         // ✅ COMPANY login success
         if (
           companyResponse?.success === true ||

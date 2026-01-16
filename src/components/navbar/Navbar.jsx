@@ -6,6 +6,8 @@ import { BsBuildingGear } from "react-icons/bs";
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
+  console.log(user);
+
   // Helper styles for cleaner JSX (Tailwind classes)
   const iconStyle = "h-8 w-8 text-[hsl(var(--color-primary))]"; // আপনার কাস্টম কালার
   const navLinkStyle =
