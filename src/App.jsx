@@ -16,6 +16,7 @@ import PrivateLayout from "./routes/PrivateLayout";
 import CompanyPrivateLayout from "./routes/CompanyPrivateLayout";
 import CompanyProfle from "./components/companyComponents/companyProfile/CompanyProfle";
 import NotFound from "./components/commonComponents/NotFound";
+import CompanyDashboard from "./components/companyComponents/conpanyDashboard/CompanyDashboard";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
           {/* Company and user both can access End */}
           <Route element={<CompanyPrivateLayout />}>
             {/* only for company */}
+            <Route path="/company/dashboard" element={<CompanyDashboard />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

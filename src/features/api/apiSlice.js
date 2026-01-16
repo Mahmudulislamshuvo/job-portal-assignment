@@ -175,6 +175,18 @@ export const apiSlice = createApi({
         url: `/companies/${slug}`,
       }),
     }),
+
+    GetDashboardState: builder.query({
+      query: () => ({
+        url: "/companies/dashboard/stats",
+      }),
+    }),
+
+    GetCompanyJob: builder.query({
+      query: () => ({
+        url: `/companies/jobs`,
+      }),
+    }),
   }),
 });
 
@@ -196,4 +208,6 @@ export const {
   useGetOpenJobsQuery,
   useGetCompanyBySlugQuery,
   useGetJobBySlugQuery,
+  useGetDashboardStateQuery,
+  useGetCompanyJobQuery,
 } = apiSlice;
