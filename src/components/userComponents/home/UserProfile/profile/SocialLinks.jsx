@@ -1,26 +1,32 @@
-import { Github, Linkedin, Globe } from "lucide-react";
+import { Globe } from "lucide-react";
 import { GiThunderBlade } from "react-icons/gi";
 import { LiaLinkedin } from "react-icons/lia";
+import { BsInstagram, BsTwitter } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
 
-const SocialLinks = ({ userData }) => {
-  const linkedin = userData?.linkedinUrl;
-  const github = userData?.githubUrl;
-  const portfolio = userData?.portfolioUrl;
+const SocialLinks = ({ data, title = "Social Profiles" }) => {
+  const linkedin = data?.linkedinUrl;
+  const github = data?.githubUrl;
+  const portfolio = data?.portfolioUrl;
+  const twitter = data?.twitterUrl;
+  const facebook = data?.facebookUrl;
+  const instagram = data?.instagramUrl;
 
-  const hasSocials = linkedin || github || portfolio;
+  const hasSocials =
+    linkedin || github || portfolio || twitter || facebook || instagram;
 
   return (
     <div className="card p-6">
-      <h3 className="text-lg font-semibold mb-4">Social Profiles</h3>
+      <h3 className="text-lg font-semibold mb-4">{title}</h3>
 
       {!hasSocials ? (
-        // FALLBACK: Show this if no social links exist
+        // FALLBACK
         <div className="text-sm text-muted-foreground italic">
           No social profiles available.
         </div>
       ) : (
-        // SHOW LINKS: Only render the ones that exist
         <div className="space-y-2">
+          {/* LinkedIn */}
           {linkedin && (
             <a
               href={linkedin}
@@ -33,6 +39,46 @@ const SocialLinks = ({ userData }) => {
             </a>
           )}
 
+          {/* Twitter */}
+          {twitter && (
+            <a
+              href={twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-2 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors group"
+            >
+              <BsTwitter className="h-5 w-5 text-[hsl(var(--color-muted-foreground))] group-hover:text-[#1DA1F2]" />
+              <span className="text-sm font-medium">Twitter</span>
+            </a>
+          )}
+
+          {/* Facebook  */}
+          {facebook && (
+            <a
+              href={facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-2 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors group"
+            >
+              <FaFacebook className="h-5 w-5 text-[hsl(var(--color-muted-foreground))] group-hover:text-[#1877F2]" />
+              <span className="text-sm font-medium">Facebook</span>
+            </a>
+          )}
+
+          {/* Instagram  */}
+          {instagram && (
+            <a
+              href={instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-2 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors group"
+            >
+              <BsInstagram className="h-5 w-5 text-[hsl(var(--color-muted-foreground))] group-hover:text-[#E4405F]" />
+              <span className="text-sm font-medium">Instagram</span>
+            </a>
+          )}
+
+          {/* GitHub */}
           {github && (
             <a
               href={github}
@@ -45,6 +91,7 @@ const SocialLinks = ({ userData }) => {
             </a>
           )}
 
+          {/* Portfolio */}
           {portfolio && (
             <a
               href={portfolio}

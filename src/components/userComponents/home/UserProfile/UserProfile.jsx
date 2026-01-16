@@ -44,7 +44,7 @@ const UserProfile = () => {
 
         <div className="lg:col-span-1 space-y-6">
           <Resume userData={data?.data} />
-          <SocialLinks userData={data?.data} />
+          <SocialLinks data={data?.data} title={"Social Profiles"} />
           <QuickActions />
         </div>
       </div>

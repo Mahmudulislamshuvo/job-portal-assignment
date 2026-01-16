@@ -2,7 +2,6 @@ import RegistrationCompany from "./components/registration/Company/RegistrationC
 import { Route, Routes } from "react-router-dom";
 import RagistrationUser from "./components/registration/User/RagistrationUser";
 import Home from "./components/userComponents/home/Home";
-import PrivateLayout from "./routes/UserPrivateLayout";
 import Login from "./components/public/login/Login";
 import PublicLayout from "./routes/PublicLayout";
 import LoggedUserToDeshboard from "./routes/LoggedUserToDeshboard";
@@ -12,6 +11,10 @@ import EditUserProfile from "./components/userComponents/home/editUserProfile/Ed
 import AppliedJobs from "./components/userComponents/home/appliedJobs/AppliedJobs";
 import Unauthorized from "./components/userComponents/UnAthorized";
 import JobDetails from "./components/userComponents/home/JobDetails/JobDetails";
+import UserPrivateLayout from "./routes/UserPrivateLayout";
+import PrivateLayout from "./routes/PrivateLayout";
+import CompanyPrivateLayout from "./routes/CompanyPrivateLayout";
+import CompanyProfle from "./components/companyComponents/companyProfile/CompanyProfle";
 
 const App = () => {
   return (
@@ -31,10 +34,15 @@ const App = () => {
         <Route path="/unauthorized" element={<Unauthorized />} />
 
         <Route element={<PrivateLayout />}>
-          <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/edit-user-profile" element={<EditUserProfile />} />
-          <Route path="/applied-jobs" element={<AppliedJobs />} />
+          <Route element={<UserPrivateLayout />}>
+            <Route path="/user-dashboard" element={<UserDashboard />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/edit-user-profile" element={<EditUserProfile />} />
+            <Route path="/applied-jobs" element={<AppliedJobs />} />
+          </Route>
+          <Route element={<CompanyPrivateLayout />}>
+            <Route path="/company-profile" element={<CompanyProfle />} />
+          </Route>
         </Route>
       </Routes>
     </div>
