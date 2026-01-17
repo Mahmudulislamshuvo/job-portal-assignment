@@ -37,7 +37,7 @@ const ApplicantCard = ({ applicant }) => {
     }
   };
 
-  console.log(applicant);
+  // console.log(applicant);
 
   return (
     <>

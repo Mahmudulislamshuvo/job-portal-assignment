@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGetApplicanstQuery } from "../../../features/api/apiSlice";
-import FilterSidebar from "./subApplicants/CompanyFilterSidebar";
 import ApplicantCard from "./subApplicants/ApplicantCard";
+import CompanyFilterSidebar from "./subApplicants/CompanyFilterSidebar";
 
 const AllApplicants = () => {
   const [query, setQuery] = useState({
@@ -13,6 +13,13 @@ const AllApplicants = () => {
     experienceLevel: "",
   });
   const { data, isLoading, error } = useGetApplicanstQuery(query);
+
+  const { data: allApplicantsData, isLoading: isallApplicantsDataLoading } =
+    useGetApplicanstQuery();
+
+  if (isLoading) return <p>Loading......</p>;
+
+  if (error) return <p>Something Error......</p>;
 
   // console.log(data);
 
@@ -45,7 +52,11 @@ const AllApplicants = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* <!-- Filters Sidebar --> */}
-          <FilterSidebar />
+          <CompanyFilterSidebar
+            query={query}
+            setQuery={setQuery}
+            allApplicantsData={allApplicantsData}
+          />
 
           {/* <!-- Applicants List --> */}
           <div className="lg:col-span-3">
