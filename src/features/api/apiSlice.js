@@ -23,7 +23,7 @@ const baseQueryWithLogout = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  tagTypes: ["User", "application"],
+  tagTypes: ["User", "application", "applicants"],
 
   baseQuery: baseQueryWithLogout,
 
@@ -48,7 +48,7 @@ export const apiSlice = createApi({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
 
         return {
@@ -123,7 +123,7 @@ export const apiSlice = createApi({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
 
         return {
@@ -159,7 +159,7 @@ export const apiSlice = createApi({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
 
         return {
@@ -186,7 +186,7 @@ export const apiSlice = createApi({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
 
         return {
@@ -200,7 +200,7 @@ export const apiSlice = createApi({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== "")
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
 
         return {
@@ -208,12 +208,22 @@ export const apiSlice = createApi({
           params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
         };
       },
+      providesTags: ["applicants"],
     }),
 
     GetLoggedInCompanyInfo: builder.query({
       query: () => ({
         url: "/companies/profile",
       }),
+    }),
+
+    UpdateJobStatus: builder.mutation({
+      query: ({ jobId, data }) => ({
+        url: `/applications/${jobId}/status`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["applicants"],
     }),
   }),
 });
@@ -240,4 +250,5 @@ export const {
   useGetCompanyJobQuery,
   useGetApplicanstQuery,
   useGetLoggedInCompanyInfoQuery,
+  useUpdateJobStatusMutation,
 } = apiSlice;

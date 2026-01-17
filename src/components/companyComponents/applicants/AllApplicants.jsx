@@ -14,7 +14,7 @@ const AllApplicants = () => {
   });
   const { data, isLoading, error } = useGetApplicanstQuery(query);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

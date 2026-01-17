@@ -10,8 +10,33 @@ import {
 import ApplicantsImage from "./ApplicantsImage";
 import { getExperienceYear } from "../../../../utils/getExperienceYear";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
+import { useUpdateJobStatusMutation } from "../../../../features/api/apiSlice";
+import { useState } from "react";
+import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 
 const ApplicantCard = ({ applicant }) => {
+  const [upadateJobStatus, { isLoading }] = useUpdateJobStatusMutation();
+  const [actionType, setActionType] = useState(null);
+
+  const handleActionsApplicanStatus = async (jobId, status) => {
+    if (applicant.status === status) return;
+    setActionType(status);
+
+    try {
+      const response = await upadateJobStatus({
+        jobId,
+        data: { status },
+      }).unwrap();
+      if (response?.success === true) {
+        console.log("Status updated", response);
+      }
+    } catch (error) {
+      console.log("ApplicantCard", error);
+    } finally {
+      setActionType(null);
+    }
+  };
+
   console.log(applicant);
 
   return (
@@ -27,7 +52,6 @@ const ApplicantCard = ({ applicant }) => {
                 </h3>
                 <div className="flex flex-wrap items-center gap-3 text-sm text-[hsl(var(--color-muted-foreground))]">
                   <span className="flex items-center gap-1">
-                    <i data-lucide="mail"></i>
                     <Mail className="h-3 w-3" />
                     {applicant?.user?.email}
                   </span>
@@ -59,7 +83,7 @@ const ApplicantCard = ({ applicant }) => {
                               : "badge badge-info"
                 }`}
               >
-                New
+                {applicant?.status}
               </span>
             </div>
             <div className="flex flex-wrap gap-2 mb-4">
@@ -75,17 +99,43 @@ const ApplicantCard = ({ applicant }) => {
                 <Eye className="h-3 w-3 mr-2" />
                 View Profile
               </a>
-              <a href="#" className="btn btn-outline text-sm h-9">
-                <FileText className="h-3 w-3 mr-2" />
+              <a
+                href={applicant?.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline text-sm h-9"
+              >
+                <FileText className="h-4 w-4 mr-2" />
                 Resume
               </a>
-              <button className="btn btn-primary text-sm h-9">
+
+              <button
+                onClick={() =>
+                  handleActionsApplicanStatus(applicant.id, "Shortlisted")
+                }
+                disabled={isLoading}
+                className="btn btn-primary text-sm h-9"
+              >
                 <UserCheck className="h-3 w-3 mr-2" />
-                Shortlist
+                {isLoading && actionType === "Shortlisted" ? (
+                  <LoadingSpinner />
+                ) : (
+                  "Shortlist"
+                )}
               </button>
-              <button className="btn btn-outline text-sm h-9 text-red-600 hover:text-red-600">
+              <button
+                onClick={() =>
+                  handleActionsApplicanStatus(applicant.id, "Rejected")
+                }
+                disabled={isLoading}
+                className="btn btn-outline text-sm h-9 text-red-600 hover:text-red-600"
+              >
                 <XCircle className="h-3 w-3 mr-2" />
-                Reject
+                {isLoading && actionType === "Rejected" ? (
+                  <LoadingSpinner />
+                ) : (
+                  "Reject"
+                )}
               </button>
             </div>
           </div>
