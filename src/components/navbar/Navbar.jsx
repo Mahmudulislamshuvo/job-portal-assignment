@@ -78,7 +78,7 @@ const Navbar = () => {
 
               {/* Nav Links */}
               <nav className="hidden md:flex items-center gap-6">
-                <Link to="/company/dashboard" className={activeNavLinkStyle}>
+                <Link to="/company-dashboard" className={activeNavLinkStyle}>
                   Dashboard
                 </Link>
                 <Link to="/manage-jobs" className={navLinkStyle}>

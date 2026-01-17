@@ -14,9 +14,6 @@ const AllApplicants = () => {
   });
   const { data, isLoading, error } = useGetApplicanstQuery(query);
 
-  const { data: allApplicantsData, isLoading: isallApplicantsDataLoading } =
-    useGetApplicanstQuery();
-
   if (isLoading) return <p>Loading......</p>;
 
   if (error) return <p>Something Error......</p>;
@@ -52,11 +49,7 @@ const AllApplicants = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* <!-- Filters Sidebar --> */}
-          <CompanyFilterSidebar
-            query={query}
-            setQuery={setQuery}
-            allApplicantsData={allApplicantsData}
-          />
+          <CompanyFilterSidebar query={query} setQuery={setQuery} />
 
           {/* <!-- Applicants List --> */}
           <div className="lg:col-span-3">
