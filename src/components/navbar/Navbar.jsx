@@ -9,7 +9,9 @@ const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
-    useGetLoggedInCompanyInfoQuery();
+    useGetLoggedInCompanyInfoQuery(undefined, {
+      skip: user?.role !== "COMPANY",
+    });
 
   // Helper styles for cleaner JSX (Tailwind classes)
   const iconStyle = "h-8 w-8 text-[hsl(var(--color-primary))]"; // আপনার কাস্টম কালার
@@ -82,7 +84,7 @@ const Navbar = () => {
                 <Link to="/manage-jobs" className={navLinkStyle}>
                   Manage Jobs
                 </Link>
-                <Link to="/applicants" className={navLinkStyle}>
+                <Link to="/company/applicants" className={navLinkStyle}>
                   Applicants
                 </Link>
               </nav>
@@ -97,17 +99,18 @@ const Navbar = () => {
                 <BiPlus className="h-4 w-4 mr-2" />
                 Post Job
               </Link>
-
-              <Link to={`/company/profile/${loggedInCompanyData.data.slug}`}>
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-[hsl(var(--color-secondary))] flex items-center justify-center">
-                    <BsBuildingGear className="h-4 w-4 text-[hsl(var(--color-primary))]" />
+              {loggedInCompanyData?.data?.slug && (
+                <Link to={`/company/profile/${loggedInCompanyData.data.slug}`}>
+                  <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-full bg-[hsl(var(--color-secondary))] flex items-center justify-center">
+                      <BsBuildingGear className="h-4 w-4 text-[hsl(var(--color-primary))]" />
+                    </div>
+                    <span className="text-sm font-medium hidden md:inline">
+                      {user?.name || "Company"}
+                    </span>
                   </div>
-                  <span className="text-sm font-medium hidden md:inline">
-                    {user?.name || "Company"}
-                  </span>
-                </div>
-              </Link>
+                </Link>
+              )}
             </div>
           </>
         ) : (

@@ -40,7 +40,7 @@ const LoginCard = () => {
           userLoggedIn({
             token: userResponse?.token,
             data: userResponse?.data,
-          })
+          }),
         );
         if (from) {
           return navigate(from, { replace: true });
@@ -67,7 +67,7 @@ const LoginCard = () => {
             userLoggedIn({
               token: companyResponse?.token,
               data: companyResponse?.data,
-            })
+            }),
           );
           if (from) {
             return navigate(from, { replace: true });
