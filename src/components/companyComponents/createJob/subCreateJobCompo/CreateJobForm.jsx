@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Plus, X, Send } from "lucide-react";
 
-const CreateJobForm = () => {
+const CreateJobForm = ({ onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -43,10 +43,6 @@ const CreateJobForm = () => {
       e.preventDefault();
       handleAddSkill();
     }
-  };
-
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
   };
 
   return (
