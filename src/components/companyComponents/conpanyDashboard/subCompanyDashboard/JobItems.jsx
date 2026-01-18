@@ -2,8 +2,6 @@ import { Briefcase, Clock, Edit, Eye, MapPin } from "lucide-react";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 
 const JobItems = ({ jobData }) => {
-  console.log(jobData);
-
   return (
     <>
       <div className="p-6 hover:bg-[hsl(var(--color-accent))] transition-colors">

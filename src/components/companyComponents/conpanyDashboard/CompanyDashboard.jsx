@@ -38,9 +38,9 @@ const CompanyDashboard = () => {
     <p>Loading......</p>;
   }
 
-  const recentApplicantsData = applicantsData?.data?.slice(0, 3);
+  const recentJobsData = openJobsData?.data?.slice(0, 3);
 
-  console.log(recentApplicantsData);
+  const recentApplicantsData = applicantsData?.data?.slice(0, 3);
 
   return (
     <div>
@@ -89,30 +89,34 @@ const CompanyDashboard = () => {
               </div>
               <div className="divide-y divide-[hsl(var(--color-border))]">
                 {/* <!-- Job Item 1 --> */}
-                {openJobsData?.data?.map((job) => (
+                {recentJobsData?.map((job) => (
                   <JobItems key={job.id} jobData={job} />
                 ))}
               </div>
             </div>
 
             {/* <!-- Recent Applicants --> */}
-            <div className="card">
-              <div className="p-6 border-b border-[hsl(var(--color-border))]">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold">Recent Applicants</h2>
-                  <a
-                    href="#"
-                    className="text-sm text-[hsl(var(--color-primary))] hover:underline"
-                  >
-                    View All
-                  </a>
+            {recentApplicantsData?.length > 0 && (
+              <div className="card">
+                {/* Header Section */}
+                <div className="p-6 border-b border-[hsl(var(--color-border))]">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">Recent Applicants</h2>
+                    <a
+                      href="#"
+                      className="text-sm text-[hsl(var(--color-primary))] hover:underline"
+                    >
+                      View All
+                    </a>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="divide-y divide-[hsl(var(--color-border))]">
+                  <RecentApplication applicantsData={recentApplicantsData} />
                 </div>
               </div>
-              <div className="divide-y divide-[hsl(var(--color-border))]">
-                {/* <!-- Applicant 1 --> */}
-                <RecentApplication applicantsData={recentApplicantsData} />
-              </div>
-            </div>
+            )}
           </div>
 
           {/* <!-- Sidebar Column --> */}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useGetApplicanstQuery } from "../../../features/api/apiSlice";
 import ApplicantCard from "./subApplicants/ApplicantCard";
 import CompanyFilterSidebar from "./subApplicants/CompanyFilterSidebar";
+import { ChevronRight, SearchX, Loader2 } from "lucide-react"; // Imported Lucide icons
 
 const AllApplicants = () => {
   const [query, setQuery] = useState({
@@ -12,18 +13,34 @@ const AllApplicants = () => {
     search: "",
     experienceLevel: "",
   });
+
   const { data, isLoading, error } = useGetApplicanstQuery(query);
 
-  if (isLoading) return <p>Loading......</p>;
+  const handleClearFilters = () => {
+    setQuery((prev) => ({
+      ...prev,
+      status: "",
+      search: "",
+      experienceLevel: "",
+      page: 1,
+    }));
+  };
 
-  if (error) return <p>Something Error......</p>;
+  if (isLoading)
+    return (
+      <div className="flex h-[50vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[hsl(var(--color-primary))]" />
+      </div>
+    );
 
-  // console.log(data);
+  if (error) return <p className="text-red-500">Something went wrong...</p>;
+
+  const hasApplicants = data?.data?.length > 0;
 
   return (
     <>
       <main className="container mx-auto px-4 py-8">
-        {/* <!-- Page Header --> */}
+        {/* */}
         <div className="mb-8">
           <div className="flex items-center gap-2 text-sm text-[hsl(var(--color-muted-foreground))] mb-2">
             <a
@@ -32,7 +49,7 @@ const AllApplicants = () => {
             >
               Dashboard
             </a>
-            <i data-lucide="chevron-right" className="h-4 w-4"></i>
+            <ChevronRight className="h-4 w-4" />
             <span className="text-[hsl(var(--color-foreground))]">
               Applicants
             </span>
@@ -48,26 +65,50 @@ const AllApplicants = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* <!-- Filters Sidebar --> */}
+          {/* */}
           <CompanyFilterSidebar query={query} setQuery={setQuery} />
 
-          {/* <!-- Applicants List --> */}
+          {/* */}
           <div className="lg:col-span-3">
-            {/* <!-- Applicant Cards --> */}
-            <div className="space-y-4">
-              {/* <!-- Applicant 1 --> */}
-              {data?.data?.map((applicant) => (
-                <ApplicantCard key={applicant.id} applicant={applicant} />
-              ))}
-            </div>
+            {hasApplicants ? (
+              <>
+                {/* */}
+                <div className="space-y-4">
+                  {data.data.map((applicant) => (
+                    <ApplicantCard key={applicant.id} applicant={applicant} />
+                  ))}
+                </div>
 
-            {/* <!-- Load More --> */}
-            <div className="mt-6 text-center">
-              <button className="btn btn-outline">
-                <i data-lucide="loader" className="h-4 w-4 mr-2"></i>
-                Load More Applicants
-              </button>
-            </div>
+                {/* */}
+                <div className="mt-6 text-center">
+                  <button className="btn btn-outline">
+                    <Loader2 className="h-4 w-4 mr-2" />
+                    Load More Applicants
+                  </button>
+                </div>
+              </>
+            ) : (
+              /* */
+              <div className="card p-12 flex flex-col items-center justify-center text-center h-full min-h-100">
+                <div className="bg-[hsl(var(--color-muted))] p-4 rounded-full mb-4">
+                  <SearchX className="h-10 w-10 text-[hsl(var(--color-muted-foreground))]" />
+                </div>
+                <h3 className="text-xl font-semibold text-[hsl(var(--color-foreground))] mb-2">
+                  No applicants found
+                </h3>
+                <p className="text-[hsl(var(--color-muted-foreground))] max-w-sm mb-6">
+                  We couldn't find any applicants matching your current
+                  criteria. Try adjusting your filters or search for something
+                  else.
+                </p>
+                <button
+                  onClick={handleClearFilters}
+                  className="btn btn-primary"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </main>

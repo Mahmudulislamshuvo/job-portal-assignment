@@ -15,14 +15,20 @@ const CompanyQuickActions = () => {
             <Plus className="h-4 w-4 mr-2" />
             Post New Job
           </Link>
-          <a href="#" className="btn btn-outline w-full justify-start">
+          <Link
+            to={"/company/job/manage"}
+            className="btn btn-outline w-full justify-start"
+          >
             <List className="h-4 w-4 mr-2" />
             Manage Jobs
-          </a>
-          <a href="#" className="btn btn-outline w-full justify-start">
+          </Link>
+          <Link
+            to={"/company/applicants"}
+            className="btn btn-outline w-full justify-start"
+          >
             <Users className="h-4 w-4 mr-2" />
             View Applicants
-          </a>
+          </Link>
           <a href="#" className="btn btn-outline w-full justify-start">
             <Settings className="h-4 w-4 mr-2" />
             Company Settings

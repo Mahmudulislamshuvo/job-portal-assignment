@@ -25,6 +25,10 @@ const JobManage = () => {
     return <p>Loading......</p>;
   }
 
+  if (error) {
+    return <p>Something went wrong!</p>;
+  }
+
   const handleDeleteJob = async (id = null) => {
     const targetIds = id ? [id] : deleteJobIds;
 
