@@ -6,6 +6,8 @@ import {
   CheckCircle,
   PlayCircle,
 } from "lucide-react";
+import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
+import { getFormatDateMonthYear } from "../../../../utils/getFormatDateMonthYear";
 
 const JobRow = ({ job }) => {
   const getStatusBadge = (status) => {
@@ -22,6 +24,8 @@ const JobRow = ({ job }) => {
         return "";
     }
   };
+
+  console.log(job);
 
   return (
     <tr
@@ -66,7 +70,7 @@ const JobRow = ({ job }) => {
         </div>
       </td>
       <td className="py-4 px-6 text-sm text-[hsl(var(--color-muted-foreground))]">
-        {job.postedDate}
+        {getTimeFromNow(job.createdAt)}
       </td>
       <td
         className={`py-4 px-6 text-sm ${
@@ -75,7 +79,7 @@ const JobRow = ({ job }) => {
             : "text-[hsl(var(--color-muted-foreground))]"
         }`}
       >
-        {job.expires}
+        {getFormatDateMonthYear(job.deadline)}
       </td>
       <td className="py-4 px-6">
         <div className="flex items-center justify-end gap-2">
