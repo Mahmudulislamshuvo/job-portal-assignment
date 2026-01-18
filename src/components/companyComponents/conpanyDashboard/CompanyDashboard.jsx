@@ -4,6 +4,7 @@ import {
   useGetDashboardStateQuery,
   useGetLoggedInCompanyInfoQuery,
 } from "../../../features/api/apiSlice";
+import CompanyDashboardSkeliton from "../../skelitons/CompanyDashboardSkeliton";
 import CompanyDashboardHeafer from "./subCompanyDashboard/CompanyDashboardHeafer";
 import CompanyQuickActions from "./subCompanyDashboard/CompanyQuickActions";
 import DashboardStatCard from "./subCompanyDashboard/CompanyState";
@@ -28,14 +29,8 @@ const CompanyDashboard = () => {
   const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
     useGetLoggedInCompanyInfoQuery();
 
-  if (
-    isStateLoading ||
-    IsJobsDataLoading ||
-    isAplicantsLoading ||
-    isLoadingLoggedCompanyData ||
-    loggedInCompanyData
-  ) {
-    <p>Loading......</p>;
+  if (IsJobsDataLoading || isAplicantsLoading) {
+    return <CompanyDashboardSkeliton />;
   }
 
   const recentJobsData = openJobsData?.data?.slice(0, 3);

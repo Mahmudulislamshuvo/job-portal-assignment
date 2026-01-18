@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useGetApplicanstQuery } from "../../../features/api/apiSlice";
 import ApplicantCard from "./subApplicants/ApplicantCard";
 import CompanyFilterSidebar from "./subApplicants/CompanyFilterSidebar";
-import { ChevronRight, SearchX, Loader2 } from "lucide-react"; // Imported Lucide icons
+import AllApplicantsSkeliton from "../../skelitons/AllApplicantsSkeliton";
+import { ChevronRight, SearchX } from "lucide-react"; // Imported Lucide icons
 
 const AllApplicants = () => {
   const [query, setQuery] = useState({
@@ -26,12 +27,7 @@ const AllApplicants = () => {
     }));
   };
 
-  if (isLoading)
-    return (
-      <div className="flex h-[50vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-[hsl(var(--color-primary))]" />
-      </div>
-    );
+  if (isLoading) return <AllApplicantsSkeliton />;
 
   if (error) return <p className="text-red-500">Something went wrong...</p>;
 
@@ -82,7 +78,6 @@ const AllApplicants = () => {
                 {/* */}
                 <div className="mt-6 text-center">
                   <button className="btn btn-outline">
-                    <Loader2 className="h-4 w-4 mr-2" />
                     Load More Applicants
                   </button>
                 </div>
