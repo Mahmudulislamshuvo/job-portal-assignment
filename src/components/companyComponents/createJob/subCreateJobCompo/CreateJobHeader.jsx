@@ -1,4 +1,5 @@
 import { ChevronRight, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CreateJobHeader = () => {
   return (
@@ -24,10 +25,10 @@ const CreateJobHeader = () => {
               Fill in the details to create a new job posting
             </p>
           </div>
-          <a href="company-dashboard.html" className="btn btn-outline">
+          <Link to={"/company-dashboard"} className="btn btn-outline">
             <X className="h-4 w-4 mr-2" />
             Cancel
-          </a>
+          </Link>
         </div>
       </div>
     </>

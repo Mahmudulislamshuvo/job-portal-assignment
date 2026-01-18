@@ -1,11 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import { useCreateJobAsAdminMutation } from "../../../features/api/apiSlice";
 import CreateJobForm from "./subCreateJobCompo/CreateJobForm";
 import CreateJobHeader from "./subCreateJobCompo/CreateJobHeader";
 
 const CreateJob = () => {
-  const onSubmit = (data) => {
+  const navigate = useNavigate();
+  const [createJob, { isLoading }] = useCreateJobAsAdminMutation();
+
+  const onSubmit = async (data) => {
     console.log("Form Data:", data);
     try {
-      console.log("oewuriweur");
+      const response = await createJob(data);
+      if (response?.data?.success === true) {
+        console.log("Posted a new job");
+        navigate("/company-dashboard");
+      }
     } catch (error) {
       console.log("Create Job from Company", error);
     }
@@ -18,7 +27,7 @@ const CreateJob = () => {
         <CreateJobHeader />
 
         {/* <!-- Create Job Form --> */}
-        <CreateJobForm onSubmit={onSubmit} />
+        <CreateJobForm onSubmit={onSubmit} isLoading={isLoading} />
       </main>
     </>
   );

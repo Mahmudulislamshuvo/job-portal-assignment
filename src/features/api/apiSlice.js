@@ -225,6 +225,15 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["applicants"],
     }),
+
+    CreateJobAsAdmin: builder.mutation({
+      query: (data) => ({
+        url: "/jobs",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["application"],
+    }),
   }),
 });
 
@@ -251,4 +260,5 @@ export const {
   useGetApplicanstQuery,
   useGetLoggedInCompanyInfoQuery,
   useUpdateJobStatusMutation,
+  useCreateJobAsAdminMutation,
 } = apiSlice;

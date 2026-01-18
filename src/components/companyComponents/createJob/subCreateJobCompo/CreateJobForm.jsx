@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Plus, X, Send } from "lucide-react";
+import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
+import { Link } from "react-router-dom";
 
-const CreateJobForm = ({ onSubmit }) => {
+const CreateJobForm = ({ onSubmit, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -192,7 +194,7 @@ const CreateJobForm = ({ onSubmit }) => {
                   id="salaryMin"
                   className="input"
                   placeholder="e.g. 100000"
-                  {...register("salaryMin")}
+                  {...register("salaryMin", { valueAsNumber: true })}
                 />
               </div>
 
@@ -205,7 +207,7 @@ const CreateJobForm = ({ onSubmit }) => {
                   id="salaryMax"
                   className="input"
                   placeholder="e.g. 150000"
-                  {...register("salaryMax")}
+                  {...register("salaryMax", { valueAsNumber: true })}
                 />
               </div>
 
@@ -393,12 +395,12 @@ const CreateJobForm = ({ onSubmit }) => {
         <div className="card p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1"></div>
-            <a href="company-dashboard.html" className="btn btn-outline">
+            <Link to={"/company-dashboard"} className="btn btn-outline">
               Cancel
-            </a>
+            </Link>
             <button type="submit" className="btn btn-primary">
               <Send className="h-4 w-4 mr-2" />
-              Publish Job
+              {isLoading ? <LoadingSpinner /> : "Publish Job"}
             </button>
           </div>
         </div>
