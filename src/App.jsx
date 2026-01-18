@@ -19,6 +19,7 @@ import NotFound from "./components/commonComponents/NotFound";
 import AllApplicants from "./components/companyComponents/applicants/AllApplicants";
 import CompanyDashboard from "./components/companyComponents/conpanyDashboard/CompanyDashboard";
 import CreateJob from "./components/companyComponents/createJob/CreateJob";
+import JobManage from "./components/companyComponents/companyJobManage/JobManage";
 
 const App = () => {
   return (
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="/company-dashboard" element={<CompanyDashboard />} />
             <Route path="/company/applicants" element={<AllApplicants />} />
             <Route path="/company/create-job" element={<CreateJob />} />
+            <Route path="/company/job/manage" element={<JobManage />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />

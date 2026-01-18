@@ -81,7 +81,7 @@ const Navbar = () => {
                 <Link to="/company-dashboard" className={activeNavLinkStyle}>
                   Dashboard
                 </Link>
-                <Link to="/manage-jobs" className={navLinkStyle}>
+                <Link to="/company/job/manage" className={navLinkStyle}>
                   Manage Jobs
                 </Link>
                 <Link to="/company/applicants" className={navLinkStyle}>

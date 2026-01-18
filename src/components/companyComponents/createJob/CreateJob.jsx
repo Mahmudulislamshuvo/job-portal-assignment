@@ -8,7 +8,6 @@ const CreateJob = () => {
   const [createJob, { isLoading }] = useCreateJobAsAdminMutation();
 
   const onSubmit = async (data) => {
-    console.log("Form Data:", data);
     try {
       const response = await createJob(data);
       if (response?.data?.success === true) {
