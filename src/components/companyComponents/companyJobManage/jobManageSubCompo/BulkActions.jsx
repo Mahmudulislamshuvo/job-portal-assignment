@@ -1,11 +1,9 @@
 import { PauseCircle, PlayCircle, Trash2 } from "lucide-react";
+import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 
-const BulkActions = () => {
+const BulkActions = ({ handleDeleteJob, isJobDeleting }) => {
   return (
-    <div
-      className="hidden p-4 bg-accent border-t border-border"
-      id="bulkActionsBar"
-    >
+    <div className="p-4 bg-accent border-t border-border" id="bulkActionsBar">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">
           <span id="selectedCount">0</span> jobs selected
@@ -19,9 +17,12 @@ const BulkActions = () => {
             <PlayCircle className="h-3 w-3 mr-2" />
             Activate
           </button>
-          <button className="btn btn-outline text-sm h-9 text-red-600">
+          <button
+            onClick={() => handleDeleteJob()}
+            className="btn btn-outline text-sm h-9 text-red-600"
+          >
             <Trash2 className="h-3 w-3 mr-2" />
-            Delete
+            {isJobDeleting ? <LoadingSpinner /> : "Delete"}
           </button>
         </div>
       </div>

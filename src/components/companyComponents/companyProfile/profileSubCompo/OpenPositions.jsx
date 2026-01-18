@@ -1,11 +1,11 @@
 import { MapPin, Clock, Users, Bookmark, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useGetOpenJobsQuery } from "../../../../features/api/apiSlice";
+import { useGetCompanyJobQuery } from "../../../../features/api/apiSlice";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 import { getFormatSalary } from "../../../../utils/getFormatSalary";
 
 const OpenPositions = () => {
-  const { data, isLoading, error } = useGetOpenJobsQuery();
+  const { data, isLoading, error } = useGetCompanyJobQuery();
 
   const jobs = data?.data?.slice(0, 5) || [];
 

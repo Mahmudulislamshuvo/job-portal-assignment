@@ -1,6 +1,11 @@
 import JobRow from "./JobRow";
 
-const JobsTable = ({ data }) => {
+const JobsTable = ({
+  data,
+  setSeleteJobIds,
+  deleteJobIds,
+  handleDeleteJob,
+}) => {
   // const jobs = [
   //   {
   //     title: "Senior Full Stack Developer",
@@ -67,7 +72,7 @@ const JobsTable = ({ data }) => {
           <thead className="bg-muted border-b border-border">
             <tr>
               <th className="text-left py-4 px-6 text-sm font-medium">
-                <input type="checkbox" className="rounded border-input" />
+                {/* <input type="checkbox" className="rounded border-input" /> */}
               </th>
               <th className="text-left py-4 px-6 text-sm font-medium">
                 Job Title
@@ -91,7 +96,13 @@ const JobsTable = ({ data }) => {
           </thead>
           <tbody className="divide-y divide-border">
             {data?.data?.map((job, index) => (
-              <JobRow key={index} job={job} />
+              <JobRow
+                key={index}
+                job={job}
+                setSeleteJobIds={setSeleteJobIds}
+                deleteJobIds={deleteJobIds}
+                handleDeleteJob={handleDeleteJob}
+              />
             ))}
           </tbody>
         </table>

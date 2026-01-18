@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useGetCompanyJobQuery } from "../../../features/api/apiSlice";
+import {
+  useDeleteJobMutation,
+  useGetCompanyJobQuery,
+} from "../../../features/api/apiSlice";
 import BulkActions from "./jobManageSubCompo/BulkActions";
 import FilterAndSearch from "./jobManageSubCompo/FilterAndSearch";
 import JobsTable from "./jobManageSubCompo/JobsTable";
@@ -15,18 +18,60 @@ const JobManage = () => {
     sort: "",
   });
   const { data, isLoading, error } = useGetCompanyJobQuery(query);
+  const [deleteJob, { isLoading: isJobDeleting }] = useDeleteJobMutation();
+  const [deleteJobIds, setSeleteJobIds] = useState([]);
 
-  console.log(data);
+  if (isLoading) {
+    return <p>Loading......</p>;
+  }
 
+  const handleDeleteJob = async (id = null) => {
+    const targetIds = id ? [id] : deleteJobIds;
+
+    if (targetIds.length === 0) {
+      return;
+    }
+
+    if (!window.confirm("Are you sure you want to delete?")) return;
+
+    try {
+      const deletePromises = targetIds.map((jobId) =>
+        deleteJob(jobId).unwrap(),
+      );
+      await Promise.all(deletePromises);
+
+      console.log("Deleted successfully");
+
+      // Clearing checked ids
+      if (id) {
+        setSeleteJobIds((prev) => prev.filter((itemId) => itemId !== id));
+      } else {
+        setSeleteJobIds([]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       {/* <!-- Main Content --> */}
       <main className="container mx-auto px-4 py-8">
         <PageHeader />
-        <FilterAndSearch />
+        <FilterAndSearch query={query} setQuery={setQuery} />
         <div className="card overflow-hidden">
-          <JobsTable data={data} />
-          <BulkActions />
+          <JobsTable
+            data={data}
+            setSeleteJobIds={setSeleteJobIds}
+            deleteJobIds={deleteJobIds}
+            handleDeleteJob={handleDeleteJob}
+          />
+          {deleteJobIds.length > 0 && (
+            <BulkActions
+              handleDeleteJob={handleDeleteJob}
+              isJobDeleting={isJobDeleting}
+            />
+          )}
+
           <Pagination />
         </div>
       </main>

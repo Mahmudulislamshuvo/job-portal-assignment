@@ -9,7 +9,7 @@ import {
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 import { getFormatDateMonthYear } from "../../../../utils/getFormatDateMonthYear";
 
-const JobRow = ({ job }) => {
+const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
   const getStatusBadge = (status) => {
     switch (status) {
       case "Active":
@@ -25,7 +25,17 @@ const JobRow = ({ job }) => {
     }
   };
 
-  console.log(job);
+  const isChecked = deleteJobIds?.includes(job.id);
+
+  const handleCheck = (id) => {
+    setSeleteJobIds((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((item) => item !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
 
   return (
     <tr
@@ -36,7 +46,9 @@ const JobRow = ({ job }) => {
       <td className="py-4 px-6">
         <input
           type="checkbox"
+          checked={isChecked}
           className="rounded border-[hsl(var(--color-input))]"
+          onChange={() => handleCheck(job.id)}
         />
       </td>
       <td className="py-4 px-6">
@@ -103,7 +115,11 @@ const JobRow = ({ job }) => {
               >
                 <PlayCircle className="h-4 w-4" />
               </button>
-              <button className="btn-ghost p-2 text-red-600" title="Delete">
+              <button
+                onClick={() => handleDeleteJob(job.id)}
+                className="btn-ghost p-2 text-red-600"
+                title="Delete"
+              >
                 <Trash2 className="h-4 w-4" />
               </button>
             </>
@@ -112,7 +128,11 @@ const JobRow = ({ job }) => {
               <button className="btn-ghost p-2" title="Edit">
                 <Edit className="h-4 w-4" />
               </button>
-              <button className="btn-ghost p-2 text-red-600" title="Delete">
+              <button
+                onClick={() => handleDeleteJob(job.id)}
+                className="btn-ghost p-2 text-red-600"
+                title="Delete"
+              >
                 <Trash2 className="h-4 w-4" />
               </button>
             </>

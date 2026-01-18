@@ -23,7 +23,7 @@ const baseQueryWithLogout = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  tagTypes: ["User", "application", "applicants"],
+  tagTypes: ["User", "application", "applicants", "jobs"],
 
   baseQuery: baseQueryWithLogout,
 
@@ -56,6 +56,7 @@ export const apiSlice = createApi({
           params: cleanParams,
         };
       },
+      // providesTags: ["jobs"],
     }),
 
     GetJobRecomendation: builder.query({
@@ -155,21 +156,6 @@ export const apiSlice = createApi({
       }),
     }),
 
-    GetOpenJobs: builder.query({
-      query: (params = {}) => {
-        const cleanParams = Object.fromEntries(
-          // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
-        );
-
-        return {
-          url: "/companies/jobs",
-          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
-        };
-      },
-      // providesTags: ["application"],
-    }),
-
     GetCompanyBySlug: builder.query({
       query: (slug) => ({
         url: `/companies/${slug}`,
@@ -194,6 +180,7 @@ export const apiSlice = createApi({
           params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
         };
       },
+      providesTags: ["jobs"],
     }),
 
     GetApplicanst: builder.query({
@@ -232,7 +219,15 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["application"],
+      invalidatesTags: ["jobs"],
+    }),
+
+    DeleteJob: builder.mutation({
+      query: (id) => ({
+        url: `/jobs/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["jobs"],
     }),
   }),
 });
@@ -252,7 +247,6 @@ export const {
   useGetUserByIdQuery,
   useDeleteMyJobApplicationMutation,
   useGetComanyProfileQuery,
-  useGetOpenJobsQuery,
   useGetCompanyBySlugQuery,
   useGetJobBySlugQuery,
   useGetDashboardStateQuery,
@@ -261,4 +255,5 @@ export const {
   useGetLoggedInCompanyInfoQuery,
   useUpdateJobStatusMutation,
   useCreateJobAsAdminMutation,
+  useDeleteJobMutation,
 } = apiSlice;
