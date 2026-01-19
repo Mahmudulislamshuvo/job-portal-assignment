@@ -1,5 +1,6 @@
 import { Briefcase, Clock, Edit, Eye, MapPin } from "lucide-react";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
+import { Link } from "react-router-dom";
 
 const JobItems = ({ jobData }) => {
   return (
@@ -8,9 +9,9 @@ const JobItems = ({ jobData }) => {
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <h3 className="font-semibold mb-1">
-              <a href="#" className="hover:text-[hsl(var(--color-primary))]">
+              <span className="hover:text-[hsl(var(--color-primary))]">
                 {jobData?.title}
-              </a>
+              </span>
             </h3>
             <div className="flex flex-wrap items-center gap-3 text-sm text-[hsl(var(--color-muted-foreground))]">
               <span className="flex items-center gap-1">
@@ -38,14 +39,18 @@ const JobItems = ({ jobData }) => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="btn btn-outline text-xs h-8">
-              <Eye className="h-3 w-3 mr-1" />
-              View
-            </button>
-            <button className="btn btn-outline text-xs h-8">
-              <Edit className="h-3 w-3 mr-1" />
-              Edit
-            </button>
+            <Link to={`/job-details/${jobData?.slug}`}>
+              <button className="btn btn-outline text-xs h-8">
+                <Eye className="h-3 w-3 mr-1" />
+                View
+              </button>
+            </Link>
+            <Link to={`/company/job/edit/${jobData?.slug}`}>
+              <button className="btn btn-outline text-xs h-8">
+                <Edit className="h-3 w-3 mr-1" />
+                Edit
+              </button>
+            </Link>
           </div>
         </div>
       </div>

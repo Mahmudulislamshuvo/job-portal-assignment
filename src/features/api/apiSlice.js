@@ -229,6 +229,15 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["jobs"],
     }),
+
+    UpdateJobData: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/jobs/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["jobs"],
+    }),
   }),
 });
 
@@ -256,4 +265,5 @@ export const {
   useUpdateJobStatusMutation,
   useCreateJobAsAdminMutation,
   useDeleteJobMutation,
+  useUpdateJobDataMutation,
 } = apiSlice;

@@ -1,30 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Plus, X, Send } from "lucide-react";
 import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 import { Link } from "react-router-dom";
+import { getFormatDateForInput } from "../../../../utils/getFormatDateForInput";
 
-const CreateJobForm = ({ onSubmit, isLoading }) => {
+const CreateJobForm = ({ onSubmit, isLoading, initialData }) => {
   const {
     register,
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
       skills: [],
       vacancies: 1,
-      salaryPeriod: "yearly",
+      salaryPeriod: "Yearly",
+      ...initialData,
+      deadline: getFormatDateForInput(initialData?.deadline) || "",
     },
   });
 
-  // Local state for the skill input field before adding it to the form
-  const [skillInput, setSkillInput] = useState("");
+  useEffect(() => {
+    if (initialData) {
+      reset({
+        ...initialData,
+        deadline: getFormatDateForInput(initialData?.deadline) || "",
+      });
+    }
+  }, [initialData, reset]);
 
-  // Watch the skills array to render the tags
+  const [skillInput, setSkillInput] = useState("");
   // eslint-disable-next-line react-hooks/incompatible-library
-  const skills = watch("skills");
+  const skills = watch("skills") || [];
 
   const handleAddSkill = () => {
     if (skillInput.trim() && !skills.includes(skillInput.trim())) {
@@ -47,12 +57,16 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
     }
   };
 
+  const isEditMode = !!initialData;
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* */}
+        {/* --- 1. Basic Information --- */}
         <div className="card p-6">
-          <h2 className="text-xl font-semibold mb-6">Basic Information</h2>
+          <h2 className="text-xl font-semibold mb-6">
+            {isEditMode ? "Edit Job Information" : "Basic Information"}
+          </h2>
           <div className="space-y-6">
             <div>
               <label htmlFor="jobTitle" className="label block mb-2">
@@ -83,11 +97,11 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   {...register("type", { required: true })}
                 >
                   <option value="">Select job type</option>
-                  <option value="full-time">Full-time</option>
-                  <option value="part-time">Part-time</option>
-                  <option value="contract">Contract</option>
-                  <option value="freelance">Freelance</option>
-                  <option value="internship">Internship</option>
+                  <option value="Full-Time">Full-Time</option>
+                  <option value="Part-Time">Part-Time</option>
+                  <option value="Contract">Contract</option>
+                  <option value="Freelance">Freelance</option>
+                  <option value="Internship">Internship</option>
                 </select>
                 {errors.type && (
                   <p className="text-red-500 text-xs mt-1">Required</p>
@@ -104,7 +118,7 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   {...register("workMode", { required: true })}
                 >
                   <option value="">Select work mode</option>
-                  <option value="On-Site">On-site</option>
+                  <option value="On-Site">On-Site</option>
                   <option value="Remote">Remote</option>
                   <option value="Hybrid">Hybrid</option>
                 </select>
@@ -125,14 +139,14 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   {...register("category", { required: true })}
                 >
                   <option value="">Select category</option>
-                  <option value="engineering">Engineering</option>
-                  <option value="design">Design</option>
-                  <option value="product">Product</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="sales">Sales</option>
-                  <option value="hr">Human Resources</option>
-                  <option value="finance">Finance</option>
-                  <option value="other">Other</option>
+                  <option value="Engineering">Engineering</option>
+                  <option value="Design">Design</option>
+                  <option value="Product">Product</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Sales">Sales</option>
+                  <option value="HR">Human Resources</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Other">Other</option>
                 </select>
                 {errors.category && (
                   <p className="text-red-500 text-xs mt-1">Required</p>
@@ -149,10 +163,10 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   {...register("experienceLevel", { required: true })}
                 >
                   <option value="">Select experience level</option>
-                  <option value="entry">Entry Level (0-2 years)</option>
-                  <option value="mid">Mid Level (2-5 years)</option>
-                  <option value="senior">Senior Level (5-10 years)</option>
-                  <option value="lead">Lead (10+ years)</option>
+                  <option value="Entry">Entry Level (0-2 years)</option>
+                  <option value="Mid">Mid Level (2-5 years)</option>
+                  <option value="Senior">Senior Level (5-10 years)</option>
+                  <option value="Lead">Lead (10+ years)</option>
                 </select>
                 {errors.experienceLevel && (
                   <p className="text-red-500 text-xs mt-1">Required</p>
@@ -162,7 +176,7 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* */}
+        {/* --- 2. Location & Compensation --- */}
         <div className="card p-6">
           <h2 className="text-xl font-semibold mb-6">
             Location & Compensation
@@ -229,7 +243,7 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* */}
+        {/* --- 3. Job Description --- */}
         <div className="card p-6">
           <h2 className="text-xl font-semibold mb-6">Job Description</h2>
           <div className="space-y-6">
@@ -247,9 +261,6 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
               {errors.description && (
                 <p className="text-red-500 text-xs mt-1">Required</p>
               )}
-              <p className="text-xs text-[hsl(var(--color-muted-foreground))] mt-2">
-                Provide a detailed description of the role and responsibilities
-              </p>
             </div>
 
             <div>
@@ -280,7 +291,7 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* */}
+        {/* --- 4. Required Skills --- */}
         <div className="card p-6">
           <h2 className="text-xl font-semibold mb-6">Required Skills</h2>
           <div className="space-y-4">
@@ -307,9 +318,6 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   Add
                 </button>
               </div>
-              <p className="text-xs text-[hsl(var(--color-muted-foreground))] mt-2">
-                Add technical and soft skills required for this position
-              </p>
             </div>
 
             <div>
@@ -337,7 +345,6 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
                   </span>
                 )}
               </div>
-              {/* Hidden input to ensure validation works if needed, though 'watch' handles the logic */}
               <input
                 type="hidden"
                 {...register("skills", {
@@ -354,7 +361,7 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* */}
+        {/* --- 5. Application Settings --- */}
         <div className="card p-6">
           <h2 className="text-xl font-semibold mb-6">Application Settings</h2>
           <div className="space-y-6">
@@ -391,16 +398,26 @@ const CreateJobForm = ({ onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* */}
+        {/* --- Form Actions --- */}
         <div className="card p-6">
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1"></div>
             <Link to={"/company-dashboard"} className="btn btn-outline">
               Cancel
             </Link>
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoading}
+            >
               <Send className="h-4 w-4 mr-2" />
-              {isLoading ? <LoadingSpinner /> : "Publish Job"}
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : isEditMode ? (
+                "Update Job"
+              ) : (
+                "Publish Job"
+              )}
             </button>
           </div>
         </div>

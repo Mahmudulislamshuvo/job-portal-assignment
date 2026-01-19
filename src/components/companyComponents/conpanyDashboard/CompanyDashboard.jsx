@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import {
   useGetApplicanstQuery,
   useGetCompanyJobQuery,
   useGetDashboardStateQuery,
-  useGetLoggedInCompanyInfoQuery,
+  // useGetLoggedInCompanyInfoQuery,
 } from "../../../features/api/apiSlice";
 import CompanyDashboardSkeliton from "../../skelitons/CompanyDashboardSkeliton";
 import CompanyDashboardHeafer from "./subCompanyDashboard/CompanyDashboardHeafer";
@@ -16,7 +17,7 @@ import TipsCard from "./subCompanyDashboard/TipsCard";
 const CompanyDashboard = () => {
   const {
     data: stateData,
-    isLoading: isStateLoading,
+    // isLoading: isStateLoading,
     // error: stateError,
   } = useGetDashboardStateQuery();
 
@@ -26,8 +27,8 @@ const CompanyDashboard = () => {
   const { data: applicantsData, isLoading: isAplicantsLoading } =
     useGetApplicanstQuery();
 
-  const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
-    useGetLoggedInCompanyInfoQuery();
+  // const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
+  //   useGetLoggedInCompanyInfoQuery();
 
   if (IsJobsDataLoading || isAplicantsLoading) {
     return <CompanyDashboardSkeliton />;
@@ -74,12 +75,12 @@ const CompanyDashboard = () => {
               <div className="p-6 border-b border-[hsl(var(--color-border))]">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-semibold">Recent Job Posts</h2>
-                  <a
-                    href="#"
+                  <Link
+                    to={"/company/job/manage"}
                     className="text-sm text-[hsl(var(--color-primary))] hover:underline"
                   >
                     View All
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="divide-y divide-[hsl(var(--color-border))]">
@@ -97,12 +98,12 @@ const CompanyDashboard = () => {
                 <div className="p-6 border-b border-[hsl(var(--color-border))]">
                   <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">Recent Applicants</h2>
-                    <a
-                      href="#"
+                    <Link
+                      to={"/company/applicants"}
                       className="text-sm text-[hsl(var(--color-primary))] hover:underline"
                     >
                       View All
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
