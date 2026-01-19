@@ -21,6 +21,7 @@ import CompanyDashboard from "./components/companyComponents/conpanyDashboard/Co
 import CreateJob from "./components/companyComponents/createJob/CreateJob";
 import JobManage from "./components/companyComponents/companyJobManage/JobManage";
 import EditJob from "./components/companyComponents/editJob/EditJob";
+import Settings from "./components/companyComponents/Settings/Settings";
 
 const App = () => {
   return (
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="/company/create-job" element={<CreateJob />} />
             <Route path="/company/job/manage" element={<JobManage />} />
             <Route path="/company/job/edit/:slug" element={<EditJob />} />
+            <Route path="/company/settings" element={<Settings />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
