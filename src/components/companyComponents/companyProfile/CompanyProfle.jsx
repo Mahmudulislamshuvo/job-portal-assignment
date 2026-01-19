@@ -19,10 +19,10 @@ const CompanyProfle = () => {
 
   return (
     <>
-      <main class="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8">
         {/* <!-- Company Header --> */}
-        <div class="card p-8 mb-8">
-          <div class="flex flex-col md:flex-row gap-6 items-center">
+        <div className="card p-8 mb-8">
+          <div className="flex flex-col md:flex-row gap-6 items-center">
             {/* <!-- Company Logo --> */}
             <ComapnyLogo data={data?.data} />
             {/* <!-- Company Info --> */}
@@ -30,9 +30,9 @@ const CompanyProfle = () => {
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* <!-- Main Content Column --> */}
-          <div class="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             {/* <!-- About Company --> */}
             <AboutCompany data={data?.data} />
 
@@ -45,7 +45,7 @@ const CompanyProfle = () => {
           </div>
 
           {/* <!-- Sidebar Column --> */}
-          <div class="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-6">
             {/* <!-- Contact Information --> */}
             <ContactInfo />
 

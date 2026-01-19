@@ -1,9 +1,18 @@
 import { Building2 } from "lucide-react";
+import {
+  useGetApplicanstQuery,
+  useGetCompanyJobQuery,
+} from "../../../../features/api/apiSlice";
+import { getFormatMonthYear } from "../../../../utils/getFormatMonthYear";
 
 const QuickInfoCard = ({ companyData }) => {
+  const { data: alljobs } = useGetCompanyJobQuery();
+  const { data: applicantsData } = useGetApplicanstQuery();
   const companyInfo = companyData?.data;
 
-  console.log(companyInfo);
+  const allAppocants = applicantsData?.data || [];
+
+  const allActiveJobs = alljobs?.data?.filter((job) => job.status === "Active");
 
   return (
     <div className="card p-6 mt-6">
@@ -18,7 +27,7 @@ const QuickInfoCard = ({ companyData }) => {
             <Building2 className="h-12 w-12 text-white" />
           )}
         </div>
-        <h3 className="font-semibold mb-1">TechCorp Solutions</h3>
+        <h3 className="font-semibold mb-1">{companyInfo?.name}</h3>
         <p className="text-xs text-[hsl(var(--color-muted-foreground))] mb-4">
           Premium Member
         </p>
@@ -27,19 +36,21 @@ const QuickInfoCard = ({ companyData }) => {
             <span className="text-[hsl(var(--color-muted-foreground))]">
               Active Jobs
             </span>
-            <span className="font-medium">24</span>
+            <span className="font-medium">{allActiveJobs?.length || 0}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[hsl(var(--color-muted-foreground))]">
               Total Applicants
             </span>
-            <span className="font-medium">156</span>
+            <span className="font-medium">{allAppocants.length || 0}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-[hsl(var(--color-muted-foreground))]">
               Member Since
             </span>
-            <span className="font-medium">Jan 2024</span>
+            <span className="font-medium">
+              {getFormatMonthYear(companyInfo?.createdAt)}
+            </span>
           </div>
         </div>
       </div>
