@@ -56,6 +56,7 @@ const JobManage = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       {/* <!-- Main Content --> */}

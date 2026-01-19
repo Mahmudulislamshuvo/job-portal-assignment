@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 import { getFormatDateMonthYear } from "../../../../utils/getFormatDateMonthYear";
+import { Link } from "react-router-dom";
 
 const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
   const getStatusBadge = (status) => {
@@ -125,9 +126,11 @@ const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
             </>
           ) : (
             <>
-              <button className="btn-ghost p-2" title="Edit">
-                <Edit className="h-4 w-4" />
-              </button>
+              <Link to={`/company/job/edit/${job.slug}`}>
+                <button className="btn-ghost p-2" title="Edit">
+                  <Edit className="h-4 w-4" />
+                </button>
+              </Link>
               <button
                 onClick={() => handleDeleteJob(job.id)}
                 className="btn-ghost p-2 text-red-600"
