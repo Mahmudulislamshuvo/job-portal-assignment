@@ -67,8 +67,6 @@ const JobCardGrid = ({ data, isLoading, error }) => {
     }
   };
 
-  console.log(data?.data);
-
   return (
     <>
       <div className="grid gap-4 md:gap-6">
@@ -156,7 +154,7 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                     </Link>
                     <button
                       onClick={() => {
-                        onOpenModal(), setJobbId(job.id);
+                        (onOpenModal(), setJobbId(job.id));
                       }}
                       className="btn btn-primary text-sm"
                     >

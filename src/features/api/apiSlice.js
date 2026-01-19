@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// 401 (Unauthorized)
+// 401 (Unauthorized) Handling
 const baseQueryWithLogout = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
@@ -23,11 +23,13 @@ const baseQueryWithLogout = async (args, api, extraOptions) => {
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  tagTypes: ["User", "application", "applicants", "jobs"],
+
+  tagTypes: ["User", "Application", "Applicants", "Jobs", "Company"],
 
   baseQuery: baseQueryWithLogout,
 
   endpoints: (builder) => ({
+    //Auth
     login: builder.mutation({
       query: (data) => ({
         url: "/auth/login",
@@ -44,39 +46,24 @@ export const apiSlice = createApi({
       }),
     }),
 
+    // --- Jobs (Public) ---
     GetAllJobs: builder.query({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
           Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
-
         return {
           url: "/jobs",
           params: cleanParams,
         };
       },
-      // providesTags: ["jobs"],
+      providesTags: ["Jobs"],
     }),
 
     GetJobRecomendation: builder.query({
       query: () => ({
         url: "/jobs/recommendations",
-      }),
-    }),
-
-    JobApply: builder.mutation({
-      query: ({ id, data }) => ({
-        url: `/applications/jobs/${id}/apply`,
-        method: "POST",
-        body: data,
-      }),
-      invalidatesTags: ["application"],
-    }),
-
-    GetJobBySlug: builder.query({
-      query: (slug) => ({
-        url: `/jobs/${slug}`,
       }),
     }),
 
@@ -86,11 +73,66 @@ export const apiSlice = createApi({
       }),
     }),
 
+    GetJobBySlug: builder.query({
+      query: (slug) => ({
+        url: `/jobs/${slug}`,
+      }),
+
+      providesTags: (slug) => ["Jobs", { type: "Jobs", id: slug }],
+    }),
+
+    GetJobById: builder.query({
+      query: (id) => ({
+        url: `/jobs/id/${id}`, // আপনার ব্যাকএন্ডে যদি আইডি দিয়ে আনার রাউট থাকে (যেমন: /jobs/:id)
+      }),
+      providesTags: (result, error, id) => [{ type: "Jobs", id }],
+    }),
+
+    // --- Applications (User) ---
+    JobApply: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/applications/jobs/${id}/apply`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Application"],
+    }),
+
+    AppliedJobs: builder.query({
+      query: (params = {}) => {
+        const cleanParams = Object.fromEntries(
+          // eslint-disable-next-line no-unused-vars
+          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
+        );
+
+        return {
+          url: "/applications/my-applications",
+          params: cleanParams,
+        };
+      },
+      providesTags: ["Application"],
+    }),
+
+    DeleteMyJobApplication: builder.mutation({
+      query: (id) => ({
+        url: `/applications/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Application"],
+    }),
+
+    // --- User Profile ---
     GetProfileInfo: builder.query({
       query: () => ({
         url: "/users/profile",
       }),
       providesTags: ["User"],
+    }),
+
+    GetUserById: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
     }),
 
     UploadProfilePic: builder.mutation({
@@ -120,36 +162,7 @@ export const apiSlice = createApi({
       invalidatesTags: ["User"],
     }),
 
-    AppliedJobs: builder.query({
-      query: (params = {}) => {
-        const cleanParams = Object.fromEntries(
-          // eslint-disable-next-line no-unused-vars
-          Object.entries(params).filter(([_, v]) => v != null && v !== ""),
-        );
-
-        return {
-          url: "/applications/my-applications",
-          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
-        };
-      },
-      providesTags: ["application"],
-    }),
-
-    GetUserById: builder.query({
-      query: (id) => ({
-        url: `/users/${id}`,
-      }),
-    }),
-
-    DeleteMyJobApplication: builder.mutation({
-      query: (id) => ({
-        url: `/applications/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["application"],
-    }),
-
-    // Company
+    // --- Company Dashboard ---
     GetComanyProfile: builder.query({
       query: () => ({
         url: "/companies/profile",
@@ -168,19 +181,24 @@ export const apiSlice = createApi({
       }),
     }),
 
+    GetLoggedInCompanyInfo: builder.query({
+      query: () => ({
+        url: "/companies/profile",
+      }),
+    }),
+
     GetCompanyJob: builder.query({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
           // eslint-disable-next-line no-unused-vars
           Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
-
         return {
           url: `/companies/jobs`,
-          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+          params: cleanParams,
         };
       },
-      providesTags: ["jobs"],
+      providesTags: ["Jobs"],
     }),
 
     GetApplicanst: builder.query({
@@ -189,19 +207,12 @@ export const apiSlice = createApi({
           // eslint-disable-next-line no-unused-vars
           Object.entries(params).filter(([_, v]) => v != null && v !== ""),
         );
-
         return {
           url: "/companies/applicants",
-          params: cleanParams, // RTK Query অটোমেটিকালি এগুলোকে কুয়েরি স্ট্রিং এ কনভার্ট করবে (যেমন: ?page=1&search=css)
+          params: cleanParams,
         };
       },
-      providesTags: ["applicants"],
-    }),
-
-    GetLoggedInCompanyInfo: builder.query({
-      query: () => ({
-        url: "/companies/profile",
-      }),
+      providesTags: ["Applicants"],
     }),
 
     UpdateJobStatus: builder.mutation({
@@ -210,16 +221,17 @@ export const apiSlice = createApi({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["applicants"],
+      invalidatesTags: ["Applicants"],
     }),
 
+    // --- Job Management (Admin/Company) ---
     CreateJobAsAdmin: builder.mutation({
       query: (data) => ({
         url: "/jobs",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["jobs"],
+      invalidatesTags: ["Jobs"],
     }),
 
     DeleteJob: builder.mutation({
@@ -227,7 +239,7 @@ export const apiSlice = createApi({
         url: `/jobs/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["jobs"],
+      invalidatesTags: ["Jobs"],
     }),
 
     UpdateJobData: builder.mutation({
@@ -236,33 +248,44 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["jobs"],
+      invalidatesTags: ({ id }) => ["Jobs", { type: "Jobs", id }],
     }),
   }),
 });
 
 export const {
   useLoginMutation,
-  useGetAllJobsQuery,
-  useJobApplyMutation,
-  useGetJobRecomendationQuery,
   useRegisterMutation,
+
+  // Jobs
+  useGetAllJobsQuery,
+  useGetJobRecomendationQuery,
   useGetSimilerJobsQuery,
+  useGetJobBySlugQuery,
+  useGetJobByIdQuery, // New Export
+
+  // Applications
+  useJobApplyMutation,
+  useAppliedJobsQuery,
+  useDeleteMyJobApplicationMutation,
+
+  // User
   useGetProfileInfoQuery,
+  useGetUserByIdQuery,
   useUploadResumeMutation,
   useUploadProfilePicMutation,
   useUpdateProfileMutation,
-  useAppliedJobsQuery,
-  useGetUserByIdQuery,
-  useDeleteMyJobApplicationMutation,
+
+  // Company
   useGetComanyProfileQuery,
   useGetCompanyBySlugQuery,
-  useGetJobBySlugQuery,
   useGetDashboardStateQuery,
+  useGetLoggedInCompanyInfoQuery,
   useGetCompanyJobQuery,
   useGetApplicanstQuery,
-  useGetLoggedInCompanyInfoQuery,
   useUpdateJobStatusMutation,
+
+  // Job Management
   useCreateJobAsAdminMutation,
   useDeleteJobMutation,
   useUpdateJobDataMutation,
