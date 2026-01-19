@@ -1,4 +1,5 @@
-const ContactInfoForm = () => {
+const ContactInfoForm = ({ register, errors, companyData }) => {
+  const companyInfo = companyData?.data;
   return (
     <div id="contact" className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Contact Information</h2>
@@ -13,10 +14,13 @@ const ContactInfoForm = () => {
             type="tel"
             id="phone"
             className="input"
-            defaultValue="+1 (555) 123-4567"
+            defaultValue={companyInfo?.phone || ""}
             placeholder="+1 (555) 000-0000"
-            required
+            {...register("phone", { required: "Phone number is required" })}
           />
+          {errors.phone && (
+            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+          )}
         </div>
       </div>
 
@@ -29,20 +33,22 @@ const ContactInfoForm = () => {
             type="email"
             id="hrEmail"
             className="input"
-            defaultValue="hr@techcorp.com"
+            defaultValue={companyInfo?.hrEmail || ""}
             placeholder="hr@example.com"
+            {...register("hrEmail")}
           />
         </div>
         <div>
-          <label className="label mb-2" htmlFor="supportEmail">
+          <label className="label mb-2" htmlFor="infoEmail">
             Information Email
           </label>
           <input
             type="email"
-            id="supportEmail"
+            id="infoEmail"
             className="input"
-            defaultValue="support@techcorp.com"
+            defaultValue={companyInfo?.infoEmail || ""}
             placeholder="support@example.com"
+            {...register("infoEmail")}
           />
         </div>
       </div>

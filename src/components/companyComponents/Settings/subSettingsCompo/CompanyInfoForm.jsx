@@ -1,14 +1,10 @@
 import { Building2, Camera, Upload } from "lucide-react";
-import {
-  useGetCompanyProfileQuery,
-  useUploadCompanyProfilePicMutation,
-} from "../../../../features/api/apiSlice";
+import { useUploadCompanyProfilePicMutation } from "../../../../features/api/apiSlice";
 import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 
-const CompanyInfoForm = () => {
+const CompanyInfoForm = ({ register, errors, companyData }) => {
   //
-  const { data: companyData, isLoading: isCompanyLoading } =
-    useGetCompanyProfileQuery();
+
   const [uploadProfilePic, { isLoading: isUploading }] =
     useUploadCompanyProfilePicMutation();
 
@@ -28,12 +24,6 @@ const CompanyInfoForm = () => {
 
   const companyInfo = companyData?.data;
 
-  if (isCompanyLoading) {
-    return (
-      <div className="flex items-center justify-center h-48">Loading...</div>
-    );
-  }
-
   return (
     <div id="company-info" className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Company Information</h2>
@@ -46,7 +36,9 @@ const CompanyInfoForm = () => {
             <div className="h-24 w-24 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
               {companyInfo?.logoUrl ? (
                 <img
-                  src={`${import.meta.env.VITE_SERVER_URL}${companyInfo?.logoUrl}`}
+                  src={`${import.meta.env.VITE_SERVER_URL}${
+                    companyInfo?.logoUrl
+                  }`}
                   alt="Company Logo"
                 />
               ) : (
@@ -93,8 +85,11 @@ const CompanyInfoForm = () => {
             className="input"
             defaultValue={companyInfo?.name || ""}
             placeholder="Enter company name"
-            required
+            {...register("name", { required: "Company name is required" })}
           />
+          {errors.name && (
+            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+          )}
         </div>
         <div>
           <label className="label mb-2" htmlFor="industry">
@@ -107,8 +102,13 @@ const CompanyInfoForm = () => {
             className="input"
             defaultValue={companyInfo?.industry || ""}
             placeholder="e.g., Technology, Healthcare"
-            required
+            {...register("industry", { required: "Industry is required" })}
           />
+          {errors.industry && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.industry.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -122,6 +122,7 @@ const CompanyInfoForm = () => {
             id="companySize"
             className="input"
             defaultValue={companyInfo?.employeeCount}
+            {...register("employeeCount")}
           >
             <option value="">Select company size</option>
             <option value="1,10">1-10 employees</option>
@@ -129,14 +130,21 @@ const CompanyInfoForm = () => {
             <option value="51,200">51-200 employees</option>
             <option value="201,500">201-500 employees</option>
             <option value="501,1000">501-1000 employees</option>
-            <option value="1000+">1000+ employees</option>
+            <option value="1001,5000">1001-5000 employees</option>
+            <option value="5001,10000">5001-10000 employees</option>
+            <option value="10000+">10000+ employees</option>
           </select>
         </div>
         <div>
           <label className="label mb-2" htmlFor="companyType">
             Company Type
           </label>
-          <select id="companyType" className="input" defaultValue="private">
+          <select
+            id="companyType"
+            className="input"
+            defaultValue={companyInfo?.companyType || "private"}
+            {...register("companyType")}
+          >
             <option value="">Select company type</option>
             <option value="startup">Startup</option>
             <option value="private">Private Company</option>
@@ -159,12 +167,17 @@ const CompanyInfoForm = () => {
           </label>
           <input
             type="url"
-            id="website"
+            id="websiteUrl"
             className="input"
-            defaultValue="https://techcorp.example.com"
+            defaultValue={companyInfo?.websiteUrl || ""}
             placeholder="https://yourcompany.com"
-            required
+            {...register("websiteUrl", { required: "Website is required" })}
           />
+          {errors.websiteUrl && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.websiteUrl.message}
+            </p>
+          )}
         </div>
         <div>
           <label className="label mb-2" htmlFor="founded">
@@ -174,8 +187,9 @@ const CompanyInfoForm = () => {
             type="text"
             id="founded"
             className="input"
-            defaultValue="2015"
+            defaultValue={companyInfo?.foundedYear || ""}
             placeholder="e.g., 2020"
+            {...register("foundedYear")}
           />
         </div>
       </div>
@@ -190,10 +204,17 @@ const CompanyInfoForm = () => {
           id="about"
           className="textarea"
           rows="6"
-          required
           placeholder="Tell us about your company..."
-          defaultValue="TechCorp Solutions is a leading technology company specializing in innovative software solutions. We are committed to delivering cutting-edge products and services that help businesses transform digitally. Our team of experienced professionals works on challenging projects across various domains including cloud computing, AI/ML, and mobile applications. We pride ourselves on fostering a culture of innovation, collaboration, and continuous learning. Join us to be part of a dynamic team that's shaping the future of technology."
+          defaultValue={companyInfo?.description || ""}
+          {...register("description", {
+            required: "About company is required",
+          })}
         ></textarea>
+        {errors.description && (
+          <p className="text-red-500 text-xs mt-1">
+            {errors.description.message}
+          </p>
+        )}
       </div>
 
       {/* <!-- Headquarters Location --> */}
@@ -206,8 +227,9 @@ const CompanyInfoForm = () => {
             type="text"
             id="city"
             className="input"
-            defaultValue="San Francisco"
+            defaultValue={companyInfo?.city || ""}
             placeholder="City"
+            {...register("city")}
           />
         </div>
         <div>
@@ -218,8 +240,9 @@ const CompanyInfoForm = () => {
             type="text"
             id="state"
             className="input"
-            defaultValue="California"
+            defaultValue={companyInfo?.state || ""}
             placeholder="State"
+            {...register("state")}
           />
         </div>
         <div>
@@ -230,8 +253,9 @@ const CompanyInfoForm = () => {
             type="text"
             id="country"
             className="input"
-            defaultValue="United States"
+            defaultValue={companyInfo?.country || ""}
             placeholder="Country"
+            {...register("country")}
           />
         </div>
       </div>

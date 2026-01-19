@@ -265,6 +265,16 @@ export const apiSlice = createApi({
       query: () => ({
         url: "/companies/profile",
       }),
+      providesTags: ["Company"],
+    }),
+
+    UpdateCompanyProfile: builder.mutation({
+      query: (data) => ({
+        url: "/companies/profile",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Company"],
     }),
   }),
 });
@@ -302,6 +312,7 @@ export const {
   useUpdateJobStatusMutation,
   useUploadCompanyProfilePicMutation,
   useGetCompanyProfileQuery,
+  useUpdateCompanyProfileMutation,
 
   // Job Management
   useCreateJobAsAdminMutation,

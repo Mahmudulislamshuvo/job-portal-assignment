@@ -3,7 +3,6 @@ const ErrorMsg = ({ name, errors }) =>
     <p className="text-xs text-red-500 mt-1">{errors[name].message}</p>
   );
 
-import React from "react";
 import { Users, Calendar, MapPin } from "lucide-react";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
