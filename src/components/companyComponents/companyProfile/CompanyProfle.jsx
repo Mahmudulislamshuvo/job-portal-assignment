@@ -9,38 +9,13 @@ import ContactInfo from "./profileSubCompo/ContactInfo";
 import OpenPositions from "./profileSubCompo/OpenPositions";
 
 const CompanyProfle = () => {
-  const { data, isLoading, error } = useGetComanyProfileQuery();
+  const { data, isLoading } = useGetComanyProfileQuery();
 
   console.log(data);
 
   if (isLoading) {
     return <CompanyProfileSkeleton />;
   }
-
-  // data: {
-  //       id: '444cb47d-ddcf-487c-a869-4213afce9455',
-  //       name: 'Vaughan and Mckee Associates',
-  //       slug: 'vaughan-and-mckee-associates',
-  //       email: 'company@mailinator.com',
-  //       role: 'COMPANY',
-  //       industry: 'manufacturing',
-  //       description:
-  //         'Quis veritatis rerum Quis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerumQuis veritatis rerum',
-  //       location: 'Consectetur irure i',
-  //       city: null,
-  //       state: null,
-  //       country: null,
-  //       phone: null,
-  //       socialLinks: null,
-  //       websiteUrl: 'https://www.bynire.org',
-  //       hrEmail: null,
-  //       infoEmail: null,
-  //       logoUrl: null,
-  //       employeeCount: '51-200',
-  //       foundedYear: 1975,
-  //       createdAt: '2026-01-16T11:19:39.320Z',
-  //       updatedAt: '2026-01-16T11:19:39.320Z'
-  //     }
 
   return (
     <>
