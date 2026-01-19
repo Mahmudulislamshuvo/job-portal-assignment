@@ -1,6 +1,39 @@
 import { Building2, Camera, Upload } from "lucide-react";
+import {
+  useGetCompanyProfileQuery,
+  useUploadCompanyProfilePicMutation,
+} from "../../../../features/api/apiSlice";
+import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 
 const CompanyInfoForm = () => {
+  //
+  const { data: companyData, isLoading: isCompanyLoading } =
+    useGetCompanyProfileQuery();
+  const [uploadProfilePic, { isLoading: isUploading }] =
+    useUploadCompanyProfilePicMutation();
+
+  const uploadCompanyProfilePic = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("logo", file);
+    // Handle file upload logic here
+    const response = await uploadProfilePic(formData);
+
+    if (response?.data?.success === true) {
+      console.log("Logo uploaded successfully");
+    }
+  };
+
+  const companyInfo = companyData?.data;
+
+  if (isCompanyLoading) {
+    return (
+      <div className="flex items-center justify-center h-48">Loading...</div>
+    );
+  }
+
   return (
     <div id="company-info" className="card p-6">
       <h2 className="text-xl font-semibold mb-6">Company Information</h2>
@@ -11,7 +44,14 @@ const CompanyInfoForm = () => {
         <div className="flex items-start gap-6">
           <div className="relative">
             <div className="h-24 w-24 rounded-lg bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <Building2 className="h-12 w-12 text-white" />
+              {companyInfo?.logoUrl ? (
+                <img
+                  src={`${import.meta.env.VITE_SERVER_URL}${companyInfo?.logoUrl}`}
+                  alt="Company Logo"
+                />
+              ) : (
+                <Building2 className="h-12 w-12 text-white" />
+              )}
             </div>
             <button className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:bg-primary/90">
               <Camera className="h-4 w-4" />
@@ -23,13 +63,14 @@ const CompanyInfoForm = () => {
               id="logoUpload"
               className="hidden"
               accept="image/*"
+              onChange={uploadCompanyProfilePic}
             />
             <label
               htmlFor="logoUpload"
               className="btn btn-outline cursor-pointer"
             >
               <Upload className="h-4 w-4 mr-2" />
-              Upload Logo
+              {isUploading ? <LoadingSpinner /> : "Upload Logo"}
             </label>
             <p className="text-xs text-[hsl(var(--color-muted-foreground))] mt-2">
               Recommended size: 200x200px. Max file size: 2MB. Supported
@@ -50,7 +91,7 @@ const CompanyInfoForm = () => {
             type="text"
             id="companyName"
             className="input"
-            defaultValue="TechCorp Solutions"
+            defaultValue={companyInfo?.name || ""}
             placeholder="Enter company name"
             required
           />
@@ -64,7 +105,7 @@ const CompanyInfoForm = () => {
             type="text"
             id="industry"
             className="input"
-            defaultValue="Information Technology"
+            defaultValue={companyInfo?.industry || ""}
             placeholder="e.g., Technology, Healthcare"
             required
           />
@@ -77,16 +118,18 @@ const CompanyInfoForm = () => {
           <label className="label mb-2" htmlFor="companySize">
             Company Size
           </label>
-          <select id="companySize" className="input" defaultValue="500">
+          <select
+            id="companySize"
+            className="input"
+            defaultValue={companyInfo?.employeeCount}
+          >
             <option value="">Select company size</option>
-            <option value="1-10">1-10 employees</option>
-            <option value="50">11-50 employees</option>
-            <option value="200">51-200 employees</option>
-            <option value="500">201-500 employees</option>
-            <option value="1000">501-1000 employees</option>
-            <option value="5000">1001-5000 employees</option>
-            <option value="10000">5001-10000 employees</option>
-            <option value="10001+">10000+ employees</option>
+            <option value="1,10">1-10 employees</option>
+            <option value="11,50">11-50 employees</option>
+            <option value="51,200">51-200 employees</option>
+            <option value="201,500">201-500 employees</option>
+            <option value="501,1000">501-1000 employees</option>
+            <option value="1000+">1000+ employees</option>
           </select>
         </div>
         <div>

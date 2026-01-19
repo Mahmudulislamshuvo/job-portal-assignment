@@ -32,8 +32,6 @@ const FormCompany = () => {
 
     try {
       const response = await registerCompany(needToSubmitData).unwrap();
-      console.log(response);
-
       if (response?.success) {
         navigate("/login");
       }

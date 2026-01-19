@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { Upload } from "lucide-react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_API,
@@ -250,6 +251,21 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ({ id }) => ["Jobs", { type: "Jobs", id }],
     }),
+
+    UploadCompanyProfilePic: builder.mutation({
+      query: (data) => ({
+        url: "/companies/logo",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Company"],
+    }),
+
+    GetCompanyProfile: builder.query({
+      query: () => ({
+        url: "/companies/profile",
+      }),
+    }),
   }),
 });
 
@@ -284,6 +300,8 @@ export const {
   useGetCompanyJobQuery,
   useGetApplicanstQuery,
   useUpdateJobStatusMutation,
+  useUploadCompanyProfilePicMutation,
+  useGetCompanyProfileQuery,
 
   // Job Management
   useCreateJobAsAdminMutation,

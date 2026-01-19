@@ -1,6 +1,5 @@
 import {
   Building2,
-  ChevronRight,
   CreditCard,
   Phone,
   Settings,
