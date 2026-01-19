@@ -1,3 +1,4 @@
+import SettingsSkeliton from "../../skelitons/SettingsSkeliton";
 import { useForm } from "react-hook-form";
 import CompanyInfoForm from "./subSettingsCompo/CompanyInfoForm";
 import ContactInfoForm from "./subSettingsCompo/ContactInfoForm";
@@ -37,10 +38,10 @@ const Settings = () => {
   };
 
   if (isCompanyLoading) {
-    return (
-      <div className="flex items-center justify-center h-48">Loading...</div>
-    );
+    return <SettingsSkeliton />;
   }
+
+  console.log(companyData);
 
   return (
     <div>
@@ -51,7 +52,7 @@ const Settings = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
               <SettingsNav />
-              <QuickInfoCard />
+              <QuickInfoCard companyData={companyData} />
             </aside>
             <div className="lg:col-span-3 space-y-6">
               <CompanyInfoForm

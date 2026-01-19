@@ -29,10 +29,13 @@ const CompanyQuickActions = () => {
             <Users className="h-4 w-4 mr-2" />
             View Applicants
           </Link>
-          <a href="#" className="btn btn-outline w-full justify-start">
+          <Link
+            to={"/company/settings"}
+            className="btn btn-outline w-full justify-start"
+          >
             <Settings className="h-4 w-4 mr-2" />
             Company Settings
-          </a>
+          </Link>
         </div>
       </div>
     </>

@@ -3,7 +3,6 @@ import {
   useGetApplicanstQuery,
   useGetCompanyJobQuery,
   useGetDashboardStateQuery,
-  // useGetLoggedInCompanyInfoQuery,
 } from "../../../features/api/apiSlice";
 import CompanyDashboardSkeliton from "../../skelitons/CompanyDashboardSkeliton";
 import CompanyDashboardHeafer from "./subCompanyDashboard/CompanyDashboardHeafer";
@@ -26,9 +25,6 @@ const CompanyDashboard = () => {
 
   const { data: applicantsData, isLoading: isAplicantsLoading } =
     useGetApplicanstQuery();
-
-  // const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
-  //   useGetLoggedInCompanyInfoQuery();
 
   if (IsJobsDataLoading || isAplicantsLoading) {
     return <CompanyDashboardSkeliton />;

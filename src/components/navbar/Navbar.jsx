@@ -2,14 +2,14 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BiBriefcaseAlt, BiPlus, BiUser } from "react-icons/bi";
 import { BsBuildingGear } from "react-icons/bs";
-import { useGetLoggedInCompanyInfoQuery } from "../../features/api/apiSlice";
+import { useGetCompanyProfileQuery } from "../../features/api/apiSlice";
 import NavbarSkeliton from "../skelitons/NavbarSkeliton";
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
 
   const { data: loggedInCompanyData, isLoading: isLoadingLoggedCompanyData } =
-    useGetLoggedInCompanyInfoQuery(undefined, {
+    useGetCompanyProfileQuery(undefined, {
       skip: user?.role !== "COMPANY",
     });
 

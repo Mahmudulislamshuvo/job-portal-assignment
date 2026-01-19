@@ -1,11 +1,22 @@
 import { Building2 } from "lucide-react";
 
-const QuickInfoCard = () => {
+const QuickInfoCard = ({ companyData }) => {
+  const companyInfo = companyData?.data;
+
+  console.log(companyInfo);
+
   return (
     <div className="card p-6 mt-6">
       <div className="flex flex-col items-center text-center">
         <div className="h-20 w-20 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4">
-          <Building2 className="h-10 w-10 text-white" />
+          {companyInfo?.logoUrl ? (
+            <img
+              src={`${import.meta.env.VITE_SERVER_URL}${companyInfo?.logoUrl}`}
+              alt="Company Logo"
+            />
+          ) : (
+            <Building2 className="h-12 w-12 text-white" />
+          )}
         </div>
         <h3 className="font-semibold mb-1">TechCorp Solutions</h3>
         <p className="text-xs text-[hsl(var(--color-muted-foreground))] mb-4">

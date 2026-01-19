@@ -182,12 +182,6 @@ export const apiSlice = createApi({
       }),
     }),
 
-    GetLoggedInCompanyInfo: builder.query({
-      query: () => ({
-        url: "/companies/profile",
-      }),
-    }),
-
     GetCompanyJob: builder.query({
       query: (params = {}) => {
         const cleanParams = Object.fromEntries(
