@@ -1,5 +1,6 @@
 import { FiSend } from "react-icons/fi";
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
+import { getFormatSalary } from "../../../../utils/getFormatSalary";
 
 const ApplyNow = ({ job, handleApply }) => {
   return (
@@ -8,7 +9,7 @@ const ApplyNow = ({ job, handleApply }) => {
         <div className="space-y-4">
           <div className="text-center pb-4 border-b border-[hsl(var(--color-border))]">
             <p className="text-2xl font-bold text-[hsl(var(--color-primary))] mb-1">
-              ${job?.salaryMin} - ${job?.salaryMax}
+              {getFormatSalary(job?.salaryMin, job?.salaryMax)}
             </p>
             <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
               Per {job?.salaryPeriod}

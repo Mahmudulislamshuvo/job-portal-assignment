@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDeleteMyJobApplicationMutation } from "../../../../../features/api/apiSlice";
 import { getFormatMonthYear } from "../../../../../utils/getFormatMonthYear";
+import { getFormatSalary } from "../../../../../utils/getFormatSalary";
 
 const ApplicationCard = ({ job }) => {
   const [deleteMyJobApplication, { isLoading }] =
@@ -26,6 +27,8 @@ const ApplicationCard = ({ job }) => {
       }
     }
   };
+
+  // console.log(job?.job?.slug);
 
   return (
     <div className="card p-6 hover:shadow-md transition-shadow">
@@ -69,16 +72,16 @@ const ApplicationCard = ({ job }) => {
                 job?.status === "under_review"
                   ? "badge badge-warning"
                   : job?.status === "Shortlisted"
-                  ? "badge badge-info"
-                  : job?.status === "Interviewed"
-                  ? "badge badge-purple"
-                  : job?.status === "Hired"
-                  ? "badge badge-success"
-                  : job?.status === "Rejected"
-                  ? "badge badge-danger"
-                  : job?.status === "Withdrawn"
-                  ? "badge badge-outline"
-                  : ""
+                    ? "badge badge-info"
+                    : job?.status === "Interviewed"
+                      ? "badge badge-purple"
+                      : job?.status === "Hired"
+                        ? "badge badge-success"
+                        : job?.status === "Rejected"
+                          ? "badge badge-danger"
+                          : job?.status === "Withdrawn"
+                            ? "badge badge-outline"
+                            : "badge badge-warning"
               }`}
             >
               {job?.status}
@@ -97,7 +100,7 @@ const ApplicationCard = ({ job }) => {
             </span>
             <span className="flex items-center gap-1">
               <DollarSign className="h-4 w-4" />
-              `${job?.job?.salaryMin} - ${job?.job?.salaryMax}`
+              {getFormatSalary(job?.job?.salaryMin, job?.job?.salaryMax)}
             </span>
           </div>
 
@@ -113,7 +116,7 @@ const ApplicationCard = ({ job }) => {
             {/* Actions */}
             <div className="flex items-center gap-2">
               <Link
-                to={`/job-details/${job?.jobId}`}
+                to={`/job-details/${job?.job?.slug}`}
                 className="btn btn-outline text-sm h-9"
               >
                 <Eye className="h-4 w-4 mr-2" />

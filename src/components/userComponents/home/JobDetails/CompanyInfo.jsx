@@ -39,7 +39,7 @@ const CompanyInfo = ({ company, category }) => {
         </div>
 
         <button
-          onClick={() => navigate(`/company/${company?.id}`)}
+          onClick={() => navigate(`/company/profile/${company?.slug}`)}
           className="btn btn-outline w-full mt-4"
         >
           View Company Profile
