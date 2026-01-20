@@ -36,6 +36,8 @@ const JobHeader = ({ job }) => {
     setIsBookmarked(!isBookmarked);
   };
 
+  const companySlug = job?.company?.slug;
+
   return (
     <div className="card p-6">
       <div className="flex items-start gap-4">
@@ -58,7 +60,7 @@ const JobHeader = ({ job }) => {
               <h1 className="text-3xl font-bold mb-2">{job?.title}</h1>
               <div className="flex flex-wrap items-center gap-3 text-[hsl(var(--color-muted-foreground))]">
                 <Link
-                  // to={""}
+                  to={`/company/profile/${companySlug}`}
                   className="text-lg font-medium hover:text-[hsl(var(--color-primary))] cursor-pointer"
                 >
                   {job?.company?.name}

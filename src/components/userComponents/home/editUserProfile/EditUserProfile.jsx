@@ -18,6 +18,8 @@ import {
 } from "../../../../features/api/apiSlice";
 import { useNavigate } from "react-router-dom";
 
+import EditUserProfileSkeliton from "../../../skelitons/EditUserProfileSkeliton";
+
 const EditUserProfile = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileInfoQuery();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation();
@@ -39,28 +41,22 @@ const EditUserProfile = () => {
   }, [data, reset]);
 
   const handleEditSubmit = async (formData) => {
-    console.log(formData, "Need to navigate or show notification");
-
     try {
       const result = await updateProfile(formData).unwrap();
       console.log("Profile updated successfully:", result);
-      console.log(result?.success);
-
       if (result?.success === true) {
-        navigate("/user-profile");
+        navigate(`/user-profile/${data?.data?.id}`);
       }
-      // Optionally, show a success toast notification
     } catch (error) {
       console.error("Failed to update profile:", error);
-      // Optionally, show an error toast notification
     }
   };
 
-  if (isProfileLoading) return <p>Loading...</p>;
+  if (isProfileLoading) return <EditUserProfileSkeliton />;
 
   return (
     <main className="container mx-auto px-4 py-8 max-w-4xl">
-      <PageHeader />
+      <PageHeader id={data?.data?.id} />
       <form className="space-y-6" onSubmit={handleSubmit(handleEditSubmit)}>
         <ProfilePhotoSection />
         <BasicInformationSection

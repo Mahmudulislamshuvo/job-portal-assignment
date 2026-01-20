@@ -49,7 +49,7 @@ const App = () => {
           </Route>
           {/* Company and user both can access start */}
           <Route path="/company/profile/:slug" element={<CompanyProfle />} />
-          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/user-profile/:id" element={<UserProfile />} />
           {/* Company and user both can access End */}
           <Route element={<CompanyPrivateLayout />}>
             {/* only for company */}

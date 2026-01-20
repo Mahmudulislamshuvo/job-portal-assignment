@@ -1,4 +1,5 @@
-import { useGetProfileInfoQuery } from "../../../../features/api/apiSlice";
+import { useParams } from "react-router-dom";
+import { useGetUserByIdQuery } from "../../../../features/api/apiSlice";
 import UserProfileSkeliton from "../../../skelitons/UserProfileSkeliton";
 import About from "./profile/About";
 import ContactInfo from "./profile/ContactInfo";
@@ -9,9 +10,12 @@ import QuickActions from "./profile/QuickActions";
 import Resume from "./profile/Resume";
 import Skills from "./profile/Skills";
 import SocialLinks from "./profile/SocialLinks";
+import { useSelector } from "react-redux";
 
 const UserProfile = () => {
-  const { data, isLoading, error } = useGetProfileInfoQuery();
+  const { user } = useSelector((state) => state.auth);
+  const { id } = useParams();
+  const { data, isLoading, error } = useGetUserByIdQuery(id);
 
   if (isLoading) {
     return <UserProfileSkeliton />;
@@ -45,7 +49,7 @@ const UserProfile = () => {
         <div className="lg:col-span-1 space-y-6">
           <Resume userData={data?.data} />
           <SocialLinks data={data?.data} title={"Social Profiles"} />
-          <QuickActions />
+          {user?.role === "USER" && <QuickActions />}
         </div>
       </div>
     </main>

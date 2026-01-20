@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppliedJobsQuery } from "../../../../features/api/apiSlice";
 import { getSavedJobsFromLocalStorage } from "../../../../utils/getLocalStorage";
 import { getFormatMonthYear } from "../../../../utils/getFormatMonthYear";
+import { useSelector } from "react-redux";
 
 const ProfileInfo = ({ userData }) => {
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const { data, isLoading } = useAppliedJobsQuery();
 
@@ -55,13 +57,15 @@ const ProfileInfo = ({ userData }) => {
               </span>
             </div>
           </div>
-          <button
-            onClick={() => navigate("/edit-user-profile")}
-            className="btn btn-primary"
-          >
-            <Edit className="h-4 w-4 mr-2" />
-            Edit Profile
-          </button>
+          {user?.role === "USER" && (
+            <button
+              onClick={() => navigate("/edit-user-profile")}
+              className="btn btn-primary"
+            >
+              <Edit className="h-4 w-4 mr-2" />
+              Edit Profile
+            </button>
+          )}
         </div>
         {/* nned to make them  */}
         {/* <!-- Quick Stats --> */}

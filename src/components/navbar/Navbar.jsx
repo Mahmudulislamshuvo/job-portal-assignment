@@ -10,7 +10,7 @@ import {
 } from "react-icons/bi";
 import { BsBuildingGear } from "react-icons/bs";
 import { useGetCompanyProfileQuery } from "../../features/api/apiSlice";
-import { userLoggedOut } from "../../features/auth/authSlice"; // আপনার authSlice থেকে import করুন
+import { userLoggedOut } from "../../features/auth/authSlice";
 import NavbarSkeliton from "../skelitons/NavbarSkeliton";
 
 const Navbar = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(userLoggedOut());
     setShowLogOutMenu(false);
-    navigate("/login"); // লগ আউটের পর লগইন পেজে রিডাইরেক্ট
+    navigate("/login");
   };
 
   // Helper styles
@@ -118,7 +118,7 @@ const Navbar = () => {
                   </div>
 
                   <Link
-                    to="/user-profile"
+                    to={`/user-profile/${user?.id}`}
                     className={dropdownItemStyle}
                     onClick={() => setShowLogOutMenu(false)}
                   >

@@ -1,7 +1,7 @@
 import { ChevronRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const PageHeader = () => {
+const PageHeader = ({ id }) => {
   return (
     <div className="mb-8">
       {/* Breadcrumbs */}
@@ -32,7 +32,7 @@ const PageHeader = () => {
             Update your personal information and preferences
           </p>
         </div>
-        <Link to={"/user-profile"} className="btn btn-outline">
+        <Link to={`/user-profile/${id}`} className="btn btn-outline">
           <X className="h-4 w-4 mr-2" />
           Cancel
         </Link>

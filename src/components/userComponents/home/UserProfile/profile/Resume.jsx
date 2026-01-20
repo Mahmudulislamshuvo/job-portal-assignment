@@ -3,8 +3,10 @@ import { useRef } from "react";
 import { useUploadResumeMutation } from "../../../../../features/api/apiSlice";
 import { getFormatMonthYear } from "../../../../../utils/getFormatMonthYear";
 import LoadingSpinner from "../../../../commonComponents/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const Resume = ({ userData }) => {
+  const { user } = useSelector((state) => state.auth);
   const fileref = useRef(null);
   const [uploadResume, { isLoading }] = useUploadResumeMutation();
 
@@ -81,14 +83,16 @@ const Resume = ({ userData }) => {
           onChange={handleFileChange}
           accept=".pdf,.doc,.docx"
         />
-        <button
-          disabled={isLoading}
-          onClick={handleUploadResume}
-          className="btn btn-outline w-full"
-        >
-          <Upload className="h-4 w-4 mr-2" />
-          {isLoading ? <LoadingSpinner /> : "Update Resume"}
-        </button>
+        {user?.role === "USER" && (
+          <button
+            disabled={isLoading}
+            onClick={handleUploadResume}
+            className="btn btn-outline w-full"
+          >
+            <Upload className="h-4 w-4 mr-2" />
+            {isLoading ? <LoadingSpinner /> : "Update Resume"}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -45,8 +45,6 @@ const JobDetails = () => {
     return <JobDetailsSkeleton />;
   }
 
-  console.log(data);
-
   if (error) {
     return (
       <div className="text-red-500 text-center">Something went wrong!</div>
