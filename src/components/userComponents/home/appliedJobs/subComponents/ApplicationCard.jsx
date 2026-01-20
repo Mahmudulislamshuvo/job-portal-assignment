@@ -17,8 +17,6 @@ const ApplicationCard = ({ job }) => {
     useDeleteMyJobApplicationMutation();
 
   const handleDeleteApplication = async (id) => {
-    console.log(id);
-
     if (window.confirm("Are you sure you want to withdraw your application?")) {
       try {
         await deleteMyJobApplication(id).unwrap();

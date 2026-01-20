@@ -96,7 +96,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Application"],
+      invalidatesTags: ["Application", "Applicants"],
     }),
 
     AppliedJobs: builder.query({
@@ -119,7 +119,7 @@ export const apiSlice = createApi({
         url: `/applications/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Application"],
+      invalidatesTags: ["Application", "Applicants"],
     }),
 
     // --- User Profile ---
