@@ -11,8 +11,6 @@ import OpenPositions from "./profileSubCompo/OpenPositions";
 const CompanyProfle = () => {
   const { data, isLoading } = useGetComanyProfileQuery();
 
-  console.log(data);
-
   if (isLoading) {
     return <CompanyProfileSkeleton />;
   }

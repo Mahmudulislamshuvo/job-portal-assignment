@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Upload } from "lucide-react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BASE_API,
@@ -300,7 +299,6 @@ export const {
   useGetComanyProfileQuery,
   useGetCompanyBySlugQuery,
   useGetDashboardStateQuery,
-  useGetLoggedInCompanyInfoQuery,
   useGetCompanyJobQuery,
   useGetApplicanstQuery,
   useUpdateJobStatusMutation,

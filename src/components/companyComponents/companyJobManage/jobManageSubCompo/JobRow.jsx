@@ -9,6 +9,7 @@ import {
 import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 import { getFormatDateMonthYear } from "../../../../utils/getFormatDateMonthYear";
 import { Link } from "react-router-dom";
+import { getDeadlineClass } from "../../../../utils/getDeadlineClass";
 
 const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
   const getStatusBadge = (status) => {
@@ -37,6 +38,8 @@ const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
       }
     });
   };
+
+  console.log(job);
 
   return (
     <tr
@@ -85,13 +88,7 @@ const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
       <td className="py-4 px-6 text-sm text-[hsl(var(--color-muted-foreground))]">
         {getTimeFromNow(job.createdAt)}
       </td>
-      <td
-        className={`py-4 px-6 text-sm ${
-          job.expiring
-            ? "text-yellow-600 font-medium"
-            : "text-[hsl(var(--color-muted-foreground))]"
-        }`}
-      >
+      <td className={`py-4 px-6 text-sm ${getDeadlineClass(job.deadline)}`}>
         {getFormatDateMonthYear(job.deadline)}
       </td>
       <td className="py-4 px-6">

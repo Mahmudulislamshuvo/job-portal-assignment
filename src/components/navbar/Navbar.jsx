@@ -161,8 +161,8 @@ const Navbar = () => {
 
             <div className="flex items-center gap-4">
               <Link
-                to="/post-job"
-                className="btn btn-primary flex items-center px-4 py-2 bg-[hsl(var(--color-primary))] text-white rounded-md hover:opacity-90 transition"
+                to="/company/create-job"
+                className="btn btn-primary flex items-center px-4 py-2 bg-primary text-white rounded-md hover:opacity-90 transition"
               >
                 <BiPlus className="h-4 w-4 mr-2" /> Post Job
               </Link>
