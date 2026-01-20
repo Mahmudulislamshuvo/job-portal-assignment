@@ -4,8 +4,6 @@ import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 const RecentApplication = ({ applicantsData }) => {
   if (!applicantsData?.length) return <p>No apllicants available yet</p>;
 
-  console.log(applicantsData);
-
   return (
     <>
       {applicantsData.map((applicant) => (

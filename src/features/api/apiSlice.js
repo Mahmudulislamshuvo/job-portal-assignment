@@ -84,7 +84,7 @@ export const apiSlice = createApi({
 
     GetJobById: builder.query({
       query: (id) => ({
-        url: `/jobs/id/${id}`, // আপনার ব্যাকএন্ডে যদি আইডি দিয়ে আনার রাউট থাকে (যেমন: /jobs/:id)
+        url: `/jobs/id/${id}`,
       }),
       providesTags: (result, error, id) => [{ type: "Jobs", id }],
     }),

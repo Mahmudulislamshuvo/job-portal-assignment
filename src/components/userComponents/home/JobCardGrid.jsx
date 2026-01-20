@@ -22,12 +22,17 @@ const JobCardGrid = ({ data, isLoading, error }) => {
     data: loggedInUserData,
     isLoading: isUserDataLoading,
     refetch,
-  } = useGetUserByIdQuery(user?.id);
+  } = useGetUserByIdQuery(user?.id, {
+    skip: !user?.id || user?.role === "COMPANY",
+  });
   const [jobId, setJobbId] = useState("");
 
-  const { data: appliedJobsData } = useAppliedJobsQuery();
+  const { data: appliedJobsData, isLoading: isAppliedJobsLoading } =
+    useAppliedJobsQuery(undefined, {
+      skip: !user || user?.role === "COMPANY",
+    });
 
-  if (isLoading) {
+  if (isLoading || isAppliedJobsLoading || isUserDataLoading) {
     return (
       <div className="grid gap-4 md:gap-6">
         {/* Render 5 or 6 skeletons to fill the screen */}
@@ -58,7 +63,6 @@ const JobCardGrid = ({ data, isLoading, error }) => {
         },
       });
 
-      console.log(response);
       if (response.data?.success) {
         onCloseModal();
         setCoverLetter("");
@@ -160,21 +164,27 @@ const JobCardGrid = ({ data, isLoading, error }) => {
                       >
                         View Details
                       </Link>
-                      {isAppliedAlready ? (
-                        <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-2 rounded-md border border-green-200 cursor-not-allowed">
-                          <CheckCircle className="h-4 w-4" />
-                          <span className="text-sm font-medium">Applied</span>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => {
-                            onOpenModal();
-                            setJobbId(job.id);
-                          }}
-                          className="btn btn-primary text-sm"
-                        >
-                          Apply Now
-                        </button>
+                      {user?.role !== "COMPANY" && (
+                        <>
+                          {isAppliedAlready ? (
+                            <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-2 rounded-md border border-green-200 cursor-not-allowed">
+                              <CheckCircle className="h-4 w-4" />
+                              <span className="text-sm font-medium">
+                                Applied
+                              </span>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                onOpenModal();
+                                setJobbId(job.id);
+                              }}
+                              className="btn btn-primary text-sm"
+                            >
+                              Apply Now
+                            </button>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
