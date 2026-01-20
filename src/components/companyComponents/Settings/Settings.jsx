@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import SettingsSkeliton from "../../skelitons/SettingsSkeliton";
 import { useForm } from "react-hook-form";
 import CompanyInfoForm from "./subSettingsCompo/CompanyInfoForm";
@@ -18,6 +19,10 @@ const Settings = () => {
 
   const [updateCompanyProfile, { isLoading: isUpdating }] =
     useUpdateCompanyProfileMutation();
+
+  const companyInfoRef = useRef(null);
+  const contactInfoRef = useRef(null);
+  const socialMediaRef = useRef(null);
 
   const {
     register,
@@ -49,21 +54,34 @@ const Settings = () => {
         <form onSubmit={handleSubmit(handleonSubmit)}>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
-              <SettingsNav />
+              <SettingsNav
+                companyInfoRef={companyInfoRef}
+                contactInfoRef={contactInfoRef}
+                socialMediaRef={socialMediaRef}
+              />
               <QuickInfoCard companyData={companyData} />
             </aside>
             <div className="lg:col-span-3 space-y-6">
-              <CompanyInfoForm
-                register={register}
-                errors={errors}
-                companyData={companyData}
-              />
-              <ContactInfoForm
-                register={register}
-                errors={errors}
-                companyData={companyData}
-              />
-              <SocialMediaForm register={register} companyData={companyData} />
+              <div ref={companyInfoRef}>
+                <CompanyInfoForm
+                  register={register}
+                  errors={errors}
+                  companyData={companyData}
+                />
+              </div>
+              <div ref={contactInfoRef}>
+                <ContactInfoForm
+                  register={register}
+                  errors={errors}
+                  companyData={companyData}
+                />
+              </div>
+              <div ref={socialMediaRef}>
+                <SocialMediaForm
+                  register={register}
+                  companyData={companyData}
+                />
+              </div>
               <SettingsActions isUpdating={isUpdating} isDirty={isDirty} />
             </div>
           </div>

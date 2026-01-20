@@ -7,12 +7,26 @@ import {
   Shield,
 } from "lucide-react";
 
-const SettingsNav = () => {
+const SettingsNav = ({ companyInfoRef, contactInfoRef, socialMediaRef }) => {
+  const scrollToSection = (ref) => (event) => {
+    event.preventDefault();
+    const NAVBAR_OFFSET = 80;
+    if (!ref.current) return;
+    const elementTop = ref.current.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementTop - NAVBAR_OFFSET;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="card p-4">
       <nav className="space-y-1">
         <a
           href="#company-info"
+          onClick={scrollToSection(companyInfoRef)}
           className="flex items-center gap-3 px-3 py-2 text-sm font-medium bg-[hsl(var(--color-accent))] rounded-md"
         >
           <Building2 className="h-4 w-4" />
@@ -20,6 +34,7 @@ const SettingsNav = () => {
         </a>
         <a
           href="#contact"
+          onClick={scrollToSection(contactInfoRef)}
           className="flex items-center gap-3 px-3 py-2 text-sm text-[hsl(var(--color-muted-foreground))] hover:bg-[hsl(var(--color-accent))] hover:text-[hsl(var(--color-foreground))] rounded-md transition-colors"
         >
           <Phone className="h-4 w-4" />
@@ -27,6 +42,7 @@ const SettingsNav = () => {
         </a>
         <a
           href="#social"
+          onClick={scrollToSection(socialMediaRef)}
           className="flex items-center gap-3 px-3 py-2 text-sm text-[hsl(var(--color-muted-foreground))] hover:bg-[hsl(var(--color-accent))] hover:text-[hsl(var(--color-foreground))] rounded-md transition-colors"
         >
           <Share2 className="h-4 w-4" />
