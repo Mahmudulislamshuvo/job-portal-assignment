@@ -13,6 +13,7 @@ import { getTimeFromNow } from "../../../../utils/getTimeFromNow";
 import { useUpdateJobStatusMutation } from "../../../../features/api/apiSlice";
 import { useState } from "react";
 import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
+import { Link } from "react-router-dom";
 
 const ApplicantCard = ({ applicant }) => {
   const [upadateJobStatus, { isLoading }] = useUpdateJobStatusMutation();
@@ -36,8 +37,6 @@ const ApplicantCard = ({ applicant }) => {
       setActionType(null);
     }
   };
-
-  // console.log(applicant);
 
   return (
     <>
@@ -94,11 +93,14 @@ const ApplicantCard = ({ applicant }) => {
               <span className="badge badge-secondary">AWS</span>
             </div>
             <div className="flex flex-wrap gap-2">
-              <a href="#" className="btn btn-outline text-sm h-9">
+              <Link
+                to={`/user-profile/${applicant?.userId}`}
+                className="btn btn-outline text-sm h-9"
+              >
                 {/* Got User ID userId here */}
                 <Eye className="h-3 w-3 mr-2" />
                 View Profile
-              </a>
+              </Link>
               <a
                 href={applicant?.resumeUrl}
                 target="_blank"

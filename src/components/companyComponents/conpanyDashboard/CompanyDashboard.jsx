@@ -34,8 +34,6 @@ const CompanyDashboard = () => {
 
   const recentApplicantsData = applicantsData?.data?.slice(0, 3);
 
-  console.log(openJobsData);
-
   return (
     <div>
       <main className="container mx-auto px-4 py-8">

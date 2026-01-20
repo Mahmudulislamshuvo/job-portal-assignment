@@ -15,6 +15,8 @@ const OpenPositions = () => {
       <div className="text-center p-4 text-red-500">Something went wrong!</div>
     );
 
+  console.log(jobs);
+
   return (
     <>
       <div className="card p-6" id="jobs">
@@ -36,7 +38,7 @@ const OpenPositions = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-1">
                       <Link
-                        to={`/job-details/${job.id}`}
+                        to={`/job-details/${job.slug}`}
                         className="hover:underline"
                       >
                         {job.title}
@@ -87,12 +89,15 @@ const OpenPositions = () => {
                   </span>
                   <div className="flex gap-2">
                     <Link
-                      to={`/job-details/${job.id}`}
+                      to={`/job-details/${job.slug}`}
                       className="btn btn-outline text-sm"
                     >
                       View Details
                     </Link>
-                    <button className="btn btn-primary text-sm">
+                    <button
+                      onClick={() => alert("Company can't apply for job")}
+                      className="btn btn-primary text-sm"
+                    >
                       Apply Now
                     </button>
                   </div>
