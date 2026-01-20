@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useCreateJobAsAdminMutation } from "../../../features/api/apiSlice";
 import CreateJobForm from "./subCreateJobCompo/CreateJobForm";
 import CreateJobHeader from "./subCreateJobCompo/CreateJobHeader";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 
 const CreateJob = () => {
   const navigate = useNavigate();
@@ -11,11 +12,13 @@ const CreateJob = () => {
     try {
       const response = await createJob(data);
       if (response?.data?.success === true) {
-        console.log("Posted a new job");
+        SuccessToast("Job Created Successfully");
         navigate("/company-dashboard");
       }
     } catch (error) {
-      console.log("Create Job from Company", error);
+      ErrorToast(
+        error?.data?.message || "Failed to create job. Please try again.",
+      );
     }
   };
 

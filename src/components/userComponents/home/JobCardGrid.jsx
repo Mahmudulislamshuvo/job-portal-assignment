@@ -12,6 +12,7 @@ import {
 } from "../../../features/api/apiSlice";
 import { getTimeFromNow } from "../../../utils/getTimeFromNow";
 import JobCardSkeleton from "../../skelitons/JobGridSkeliton";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 
 const JobCardGrid = ({ data, isLoading, error }) => {
   const { user } = useSelector((state) => state.auth);
@@ -67,10 +68,13 @@ const JobCardGrid = ({ data, isLoading, error }) => {
         onCloseModal();
         setCoverLetter("");
         setJobbId("");
-        console.log("Application successsfull");
+        SuccessToast("Application submitted successfully!");
       }
     } catch (error) {
-      console.log(error);
+      ErrorToast(
+        error?.data?.message ||
+          "Failed to submit application. Please try again.",
+      );
     }
   };
 

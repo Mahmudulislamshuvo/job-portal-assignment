@@ -12,6 +12,7 @@ import { BsBuildingGear } from "react-icons/bs";
 import { useGetCompanyProfileQuery } from "../../features/api/apiSlice";
 import { userLoggedOut } from "../../features/auth/authSlice";
 import NavbarSkeliton from "../skelitons/NavbarSkeliton";
+import { InfoToast } from "../../hooks/toastify";
 
 const Navbar = () => {
   const [showLogOutMenu, setShowLogOutMenu] = useState(false);
@@ -41,6 +42,7 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(userLoggedOut());
     setShowLogOutMenu(false);
+    InfoToast("Logged out successfully");
     navigate("/login");
   };
 

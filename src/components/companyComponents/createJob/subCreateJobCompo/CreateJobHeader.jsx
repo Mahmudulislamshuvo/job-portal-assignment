@@ -6,12 +6,12 @@ const CreateJobHeader = () => {
     <>
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-[hsl(var(--color-muted-foreground))] mb-2">
-          <a
-            href="company-dashboard.html"
+          <Link
+            to={"/company-dashboard"}
             className="hover:text-[hsl(var(--color-primary))]"
           >
             Dashboard
-          </a>
+          </Link>
 
           <ChevronRight className="h-4 w-4" />
           <span className="text-[hsl(var(--color-foreground))]">

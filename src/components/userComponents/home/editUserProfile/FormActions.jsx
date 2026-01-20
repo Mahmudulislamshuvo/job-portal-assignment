@@ -1,19 +1,23 @@
 import { Save, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
+import { useSelector } from "react-redux";
 
-const FormActions = ({ isSubmitting }) => {
+const FormActions = ({ isSubmitting, isDirty }) => {
+  const { user } = useSelector((state) => state.auth);
+  const id = user?.id;
+
   return (
     <div className="card p-6">
       <div className="flex flex-col sm:flex-row gap-3 justify-end">
-        <Link to={"/user-profile"} className="btn btn-outline">
+        <Link to={`/user-profile/${id}`} className="btn btn-outline">
           <X className="h-4 w-4 mr-2" />
           Cancel
         </Link>
         <button
           type="submit"
-          className="btn btn-primary"
-          disabled={isSubmitting}
+          className="btn btn-primary flex items-center gap-2"
+          disabled={!isDirty || isSubmitting}
         >
           {isSubmitting ? (
             <>
@@ -22,7 +26,7 @@ const FormActions = ({ isSubmitting }) => {
             </>
           ) : (
             <>
-              <Save className="h-4 w-4 mr-2" />
+              <Save className="h-4 w-4" />
               Save Changes
             </>
           )}

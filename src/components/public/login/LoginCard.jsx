@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLoggedIn } from "../../../features/auth/authSlice";
 import LoadingSpinner from "../../commonComponents/LoadingSpinner";
+import { SuccessToast } from "../../../hooks/toastify";
 
 const LoginCard = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,6 +42,9 @@ const LoginCard = () => {
             token: userResponse?.token,
             data: userResponse?.data,
           }),
+          SuccessToast(
+            `Login Successful! Welcome back, ${userResponse?.data?.name}`,
+          ),
         );
         if (from) {
           return navigate(from, { replace: true });
@@ -68,6 +72,9 @@ const LoginCard = () => {
               token: companyResponse?.token,
               data: companyResponse?.data,
             }),
+            SuccessToast(
+              `Login Successful! Welcome back, ${companyResponse?.data?.name}`,
+            ),
           );
           if (from) {
             return navigate(from, { replace: true });

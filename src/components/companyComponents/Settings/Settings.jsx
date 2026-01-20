@@ -12,6 +12,7 @@ import {
   useGetCompanyProfileQuery,
   useUpdateCompanyProfileMutation,
 } from "../../../features/api/apiSlice";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 
 const Settings = () => {
   const { data: companyData, isLoading: isCompanyLoading } =
@@ -35,10 +36,13 @@ const Settings = () => {
       const response = await updateCompanyProfile(data);
 
       if (response?.data?.success) {
-        console.log("Company profile updated successfully");
+        SuccessToast("Company Profile Updated Successfully");
       }
     } catch (error) {
-      console.log(error);
+      ErrorToast(
+        error?.data?.message ||
+          "Failed to update company profile. Please try again.",
+      );
     }
   };
 

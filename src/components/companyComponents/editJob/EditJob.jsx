@@ -5,6 +5,7 @@ import {
 } from "../../../features/api/apiSlice";
 import CreateJobForm from "../createJob/subCreateJobCompo/CreateJobForm";
 import LoadingSpinner from "../../commonComponents/LoadingSpinner";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 // import LoadingSpinner from "../../../commonComponents/LoadingSpinner";
 
 const EditJob = () => {
@@ -23,12 +24,13 @@ const EditJob = () => {
         data: formData,
       }).unwrap();
       if (response.success) {
-        console.log("Job Updated Successfully");
+        SuccessToast("Job Updated Successfully");
         navigate("/company-dashboard");
       }
     } catch (error) {
-      ``;
-      console.error("Update failed", error);
+      ErrorToast(
+        error?.data?.message || "Failed to update job. Please try again.",
+      );
     }
   };
 

@@ -5,9 +5,9 @@ const PageHeader = () => {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 text-sm text-foreground mb-2">
-        <a href="company-dashboard.html" className="hover:text-primary">
+        <Link to={"/company-dashboard"} className="hover:text-primary">
           Dashboard
-        </a>
+        </Link>
         <ChevronRight className="h-4 w-4" />
         <span className="text-[hsl(var(--color-foreground))]">Manage Jobs</span>
       </div>

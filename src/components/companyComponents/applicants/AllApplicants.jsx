@@ -4,6 +4,7 @@ import ApplicantCard from "./subApplicants/ApplicantCard";
 import CompanyFilterSidebar from "./subApplicants/CompanyFilterSidebar";
 import AllApplicantsSkeliton from "../../skelitons/AllApplicantsSkeliton";
 import { ChevronRight, SearchX } from "lucide-react"; // Imported Lucide icons
+import { Link } from "react-router-dom";
 
 const AllApplicants = () => {
   const [query, setQuery] = useState({
@@ -39,12 +40,12 @@ const AllApplicants = () => {
         {/* */}
         <div className="mb-8">
           <div className="flex items-center gap-2 text-sm text-[hsl(var(--color-muted-foreground))] mb-2">
-            <a
-              href="company-dashboard.html"
+            <Link
+              to={"/company-dashboard"}
               className="hover:text-[hsl(var(--color-primary))]"
             >
               Dashboard
-            </a>
+            </Link>
             <ChevronRight className="h-4 w-4" />
             <span className="text-[hsl(var(--color-foreground))]">
               Applicants

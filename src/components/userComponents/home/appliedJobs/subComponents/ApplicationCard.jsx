@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useDeleteMyJobApplicationMutation } from "../../../../../features/api/apiSlice";
 import { getFormatMonthYear } from "../../../../../utils/getFormatMonthYear";
 import { getFormatSalary } from "../../../../../utils/getFormatSalary";
+import { ErrorToast, InfoToast } from "../../../../../hooks/toastify";
 
 const ApplicationCard = ({ job }) => {
   const [deleteMyJobApplication, { isLoading }] =
@@ -19,14 +20,19 @@ const ApplicationCard = ({ job }) => {
   const handleDeleteApplication = async (id) => {
     if (window.confirm("Are you sure you want to withdraw your application?")) {
       try {
-        await deleteMyJobApplication(id).unwrap();
+        const response = await deleteMyJobApplication(id).unwrap();
+        console.log(response);
+
+        if (response?.success === true) {
+          InfoToast("Application withdrawn successfully.");
+        }
       } catch (error) {
-        console.error("Failed to withdraw application: ", error);
+        ErrorToast(
+          error?.message || "Failed to withdraw application. Please try again.",
+        );
       }
     }
   };
-
-  // console.log(job?.job?.slug);
 
   return (
     <div className="card p-6 hover:shadow-md transition-shadow">

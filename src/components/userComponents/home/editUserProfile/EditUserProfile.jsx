@@ -19,6 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import EditUserProfileSkeliton from "../../../skelitons/EditUserProfileSkeliton";
+import { ErrorToast, SuccessToast } from "../../../../hooks/toastify";
 
 const EditUserProfile = () => {
   const { data, isLoading: isProfileLoading } = useGetProfileInfoQuery();
@@ -31,7 +32,7 @@ const EditUserProfile = () => {
     setValue,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm();
 
   useEffect(() => {
@@ -45,10 +46,13 @@ const EditUserProfile = () => {
       const result = await updateProfile(formData).unwrap();
       console.log("Profile updated successfully:", result);
       if (result?.success === true) {
+        SuccessToast("Profile updated successfully!");
         navigate(`/user-profile/${data?.data?.id}`);
       }
     } catch (error) {
-      console.error("Failed to update profile:", error);
+      ErrorToast(
+        error?.data?.message || "Failed to update profile. Please try again.",
+      );
     }
   };
 
@@ -93,7 +97,7 @@ const EditUserProfile = () => {
           errors={errors}
           data={data?.data}
         />
-        <FormActions isSubmitting={isUpdating} />
+        <FormActions isSubmitting={isUpdating} isDirty={isDirty} />
       </form>
     </main>
   );

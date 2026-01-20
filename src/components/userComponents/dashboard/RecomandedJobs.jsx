@@ -1,4 +1,4 @@
-import { Cpu, MapPin, CheckCircle } from "lucide-react"; // CheckCircle ইমপোর্ট করা হয়েছে
+import { Cpu, MapPin, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import {
   useAppliedJobsQuery,
 } from "../../../features/api/apiSlice";
 import { getFormatSalary } from "../../../utils/getFormatSalary";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 
 const RecomandedJobs = ({ recomandedJobs }) => {
   const { user } = useSelector((state) => state.auth);
@@ -41,15 +42,17 @@ const RecomandedJobs = ({ recomandedJobs }) => {
         },
       });
 
-      console.log(response);
       if (response.data?.success) {
         onCloseModal();
         setCoverLetter("");
         setJobbId("");
-        console.log("Application successful");
+        SuccessToast("Application submitted successfully!");
       }
     } catch (error) {
-      console.log(error);
+      ErrorToast(
+        error?.data?.message ||
+          "Failed to submit application. Please try again.",
+      );
     }
   };
 

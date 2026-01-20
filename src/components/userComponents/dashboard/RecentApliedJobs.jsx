@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDeleteMyJobApplicationMutation } from "../../../features/api/apiSlice";
 import { getFormatMonthYear } from "../../../utils/getFormatMonthYear";
 import { getFormatSalary } from "../../../utils/getFormatSalary";
+import { ErrorToast, InfoToast } from "../../../hooks/toastify";
 
 const RecentApliedJobs = ({ appliedJobs }) => {
   const [deleteApplication, { isLoading: isDeleting }] =
@@ -29,9 +30,16 @@ const RecentApliedJobs = ({ appliedJobs }) => {
   };
 
   const handleWithdrewApplication = async (applicationId) => {
-    const response = await deleteApplication(applicationId);
-    if (response?.data?.success === true) {
-      console.log("Application withdrawn successfully.");
+    try {
+      const response = await deleteApplication(applicationId);
+      if (response?.data?.success === true) {
+        InfoToast("Application withdrawn successfully.");
+      }
+    } catch (error) {
+      ErrorToast(
+        error?.data?.message ||
+          "Failed to withdraw application. Please try again.",
+      );
     }
   };
 

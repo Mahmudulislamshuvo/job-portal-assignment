@@ -8,6 +8,7 @@ import FilterAndSearch from "./jobManageSubCompo/FilterAndSearch";
 import JobsTable from "./jobManageSubCompo/JobsTable";
 import PageHeader from "./jobManageSubCompo/PageHeader";
 import Pagination from "./jobManageSubCompo/Pagination";
+import { ErrorToast, SuccessToast } from "../../../hooks/toastify";
 
 const JobManage = () => {
   const [query, setQuery] = useState({
@@ -44,7 +45,7 @@ const JobManage = () => {
       );
       await Promise.all(deletePromises);
 
-      console.log("Deleted successfully");
+      SuccessToast("Job Deleted Successfully");
 
       // Clearing checked ids
       if (id) {
@@ -53,7 +54,9 @@ const JobManage = () => {
         setSeleteJobIds([]);
       }
     } catch (error) {
-      console.log(error);
+      ErrorToast(
+        error?.data?.message || "Failed to delete job(s). Please try again.",
+      );
     }
   };
 

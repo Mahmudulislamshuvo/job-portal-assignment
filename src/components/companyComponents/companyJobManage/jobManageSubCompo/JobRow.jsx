@@ -39,8 +39,6 @@ const JobRow = ({ job, setSeleteJobIds, deleteJobIds, handleDeleteJob }) => {
     });
   };
 
-  console.log(job);
-
   return (
     <tr
       className={`hover:bg-accent transition-colors ${
