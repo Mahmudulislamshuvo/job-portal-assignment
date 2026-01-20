@@ -1,7 +1,9 @@
 import { Bookmark, Edit, FileText, Settings, User } from "lucide-react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <>
       <div className="lg:col-span-1 space-y-6">
@@ -10,7 +12,7 @@ const Sidebar = () => {
           <h3 className="text-lg font-semibold mb-4">Quick Actions</h3>
           <div className="space-y-2">
             <Link
-              to={"/user-profile"}
+              to={`/user-profile/${user?.id}`}
               className="flex items-center gap-3 p-3 rounded-md hover:bg-[hsl(var(--color-accent))] transition-colors"
             >
               <User className="h-5 w-5 text-[hsl(var(--color-muted-foreground))]" />

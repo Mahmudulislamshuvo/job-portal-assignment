@@ -1,9 +1,7 @@
-import { Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { LiaLinkedin } from "react-icons/lia";
 
 const ContactInfo = ({ userData }) => {
-  // console.log(userData);
-
   return (
     <div className="card p-6">
       <h2 className="text-xl font-semibold mb-4">Contact Information</h2>

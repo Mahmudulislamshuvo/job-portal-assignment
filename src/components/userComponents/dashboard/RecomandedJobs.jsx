@@ -138,7 +138,7 @@ const RecomandedJobs = ({ recomandedJobs }) => {
 
                       <div className="flex gap-2">
                         <Link
-                          to={`/job-details/${job.id}`}
+                          to={`/job-details/${job.slug}`}
                           className="btn btn-outline text-xs h-8"
                         >
                           View Details
@@ -146,7 +146,7 @@ const RecomandedJobs = ({ recomandedJobs }) => {
 
                         <button
                           onClick={() => {
-                            setJobbId(job.id), onOpenModal();
+                            (setJobbId(job.id), onOpenModal());
                           }}
                           className="btn btn-primary text-xs h-8"
                         >

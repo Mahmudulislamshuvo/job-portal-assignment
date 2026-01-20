@@ -117,7 +117,7 @@ const RecentApliedJobs = ({ appliedJobs }) => {
                   {/* Actions */}
                   <div className="flex items-center gap-2">
                     <Link
-                      to={`/job-details/${app.job.id}`}
+                      to={`/job-details/${app.job.slug}`}
                       className="btn btn-outline text-xs h-8"
                     >
                       View Job
