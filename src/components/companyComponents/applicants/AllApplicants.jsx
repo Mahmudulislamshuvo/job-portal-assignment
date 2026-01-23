@@ -3,7 +3,7 @@ import { useGetApplicanstQuery } from "../../../features/api/apiSlice";
 import ApplicantCard from "./subApplicants/ApplicantCard";
 import CompanyFilterSidebar from "./subApplicants/CompanyFilterSidebar";
 import AllApplicantsSkeliton from "../../skelitons/AllApplicantsSkeliton";
-import { ChevronRight, SearchX, Loader2 } from "lucide-react"; // Added Loader2 for spinner
+import { ChevronRight, SearchX, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const AllApplicants = () => {
