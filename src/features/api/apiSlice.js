@@ -133,6 +133,7 @@ export const apiSlice = createApi({
       query: (id) => ({
         url: `/users/${id}`,
       }),
+      providesTags: (result, error, id) => [{ type: "User", id }],
     }),
 
     UploadProfilePic: builder.mutation({
